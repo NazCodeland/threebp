@@ -1,0 +1,6 @@
+.env
+/env
+/.vscode
+src/prices
+data.html
+./client_secret.json
