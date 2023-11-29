@@ -1,7 +1,6 @@
 # from schedule_tasks import schedule_tasks
 from data.yahoo_finance import download_from_yahoo
 from data.database import upload_to_db, download_from_db
-from lib.utilities import save_df_as_csv
 from lib.threebp import threebp_main
 from config import symbols, timeframes
 from data.google_sheets import upload_to_gsheets  
@@ -24,12 +23,12 @@ if __name__ == '__main__':
             data = download_from_yahoo(symbol, 'mo')
             for timeframe in timeframes:
                 upload_to_db(data, symbol, timeframe)
-                # save_df_as_csv(data, symbol)
+                # save_df(data, symbol, "csv")
     # download_from_yahoo_and_upload_to_db()
 
     # df = download_from_db()
     # save the DataFrame locally in a file called "TSX"
-    # save_df_as_csv(df, "TSX")
+    # save_df(df, "TSX", "csv")
 
     # df = pd.read_csv("src/prices/TSX.csv")
     # df = threebp_main(df)

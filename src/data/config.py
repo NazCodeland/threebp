@@ -40,26 +40,27 @@ sector_and_industry_names = {
     'Communication Services': ['TSX Publishing', 'TSX Advertising Agencies', 'TSX Internet Content & Info', 'TSX Indices Telecom Services', 'TSX Telecom Services', 'TSX Broadcasting', 'TSX Communication Equipment'],
     'Real Estate': ['TSX Indices Real Estate', 'TSX Real Estate - Diversified', 'TSX REIT - Office', 'TSX REIT - Industrial', 'TSX REIT - Diversified', 'TSX REIT - Retail', 'TSX REIT - Residential', 'TSX Real Estate Services', 'TSX REIT - Healthcare Faciltes', 'TSX REIT - Specialty', 'TSX Real Estate - Development'],
     'Information Tech': ['TSX Semiconductor Equipment', 'TSX Electronic Components', 'TSX Semiconductors', 'TSX Indices Information Tech', 'TSX Software - Infrastructure', 'TSX Computer Systems', 'TSX Software - Application', 'TSX Information Technology Srvs'],
-    'Industrials': ['TSX Waste Management', 'TSX Business Services', 'TSX Conglomerates', 'TSX Indices Industrials', 'TSX Airports & Air Services', 'TSX Building Products & Equipment', 'TSX Airlines', 'TSX Security & Protection Srvs', 'TSX Pollution Treatment Controls', 'TSX Scientific & Technical Instr', 'TSX Steel', 'TSX Electrical Equipment & Parts', 'TSX Aerospace & Defense', 'TSX Auto Parts', 'TSX Specialty Industrial Machine', 'TSX Shipping & Ports', 'TSX Industrial Distribution', 'TSX Railroads', 'TSX Engineering & Construction', 'TSX Integrated Shipping & Logis', 'TSX Rental & Leasing Services', 'TSX Metal Fabrication', 'TSX Trucking'],
-    'Utilities': ['TSX Solar', 'TSX Indices Utilities', 'TSX Farm & Construction Equipment', 'TSX Utilities Regulated Water', 'TSX Utilities Regulated Electric', 'TSX Utilities Diversified', 'TSX Utilities Independent Power', 'TSX Utilities - Renewable', 'TSX Utilities Regulated Gas'],
+    'Industrials': ['TSX Waste Management', 'TSX Business Services', 'TSX Conglomerates', 'TSX Indices Industrials', 'TSX Airports & Air Services', 'TSX Airlines', 'TSX Security & Protection Srvs', 'TSX Pollution Treatment Controls', 'TSX Scientific & Technical Instr', 'TSX Steel', 'TSX Electrical Equipment & Parts', 'TSX Aerospace & Defense', 'TSX Auto Parts', 'TSX Specialty Industrial Machine', 'TSX Shipping & Ports', 'TSX Industrial Distribution', 'TSX Railroads', 'TSX Engineering & Construction', 'TSX Integrated Shipping & Logis', 'TSX Rental & Leasing Services', 'TSX Metal Fabrication', 'TSX Trucking', 'TSX Building Products & Equipment',  'TSX Farm & Construction Equipt'],
+    'Utilities': ['TSX Solar', 'TSX Indices Utilities', 'TSX Utilities Regulated Water', 'TSX Utilities Regulated Electric', 'TSX Utilities Diversified', 'TSX Utilities Independent Power', 'TSX Utilities - Renewable', 'TSX Utilities Regulated Gas'],
     'Consumer Staples': ['TSX Indices Consumer Staples', 'TSX Beverages - Soft Drinks', 'TSX Farm Products', 'TSX Packaged Foods', 'TSX Beverages - Wine & Distiller', 'TSX Confectioners', 'TSX Tobacco', 'TSX Grocery Stores', 'TSX Household & Personal Product', 'TSX Food Distribution'],
     'Materials': ['TSX Building Materials', 'TSX Indices Materials', 'TSX Specialty Chemicals', 'TSX Lumber & Wood Production', 'TSX Packaging & Containers', 'TSX Chemicals', 'TSX Coking Coal', 'TSX Agricultural Inputs', 'TSX Other Precious Metals & Mine', 'TSX Paper & Paper Products', 'TSX Industrial Metals Minerals', 'TSX Gold', 'TSX Silver', 'TSX Copper', 'TSX Thermal Coal'],
 }
 
 # barchart.com/ca industry symbols
-sector_and_industry_symbols = {
+sector_industries = {
     'TTEN': ['VURA', 'VOGI', 'VTEN', 'VOGS', 'VOGD', 'VOGR', 'VOGE', 'VOGM'],
     'TTHC': ['VPHR', 'VMIS', 'VDMS', 'VHIS', 'VDRE', 'VMDD', 'VBIO', 'VDMM', 'VHCP', 'VMDC'],
-    'TTCD': ['VLUG', 'VTRS', 'VAPM', 'VATD', 'VDCS', 'VAMN', 'VRVE', 'VGAM', 'VFOA', 'VBVB', 'VITR', 'VPSS', 'VEGM', 'VTCD', 'VLOD', 'VSRE', 'VAPS', 'VHIM', 'VCOE', 'VRST', 'VRCA', 'VENT', 'VLEI'],
+    'TTCD': ['VLUG', 'VHFF', 'VTRS', 'VAPM', 'VATD', 'VDCS', 'VAMN', 'VRVE', 'VGAM', 'VFOA', 'VBVB', 'VITR', 'VPSS', 'VEGM', 'VTCD', 'VLOD', 'VSRE', 'VAPS', 'VHIM', 'VCOE', 'VRST', 'VRCA', 'VENT', 'VLEI'],
     'TTFS': ['VINF', 'VISS', 'VTFS', 'VCPM', 'VIPC', 'VMRF', 'VBRE', 'VBAG', 'VASM', 'VCSV', 'VIND', 'VINR', 'VFIE'],
     'TTTS': ['VPUB', 'VAAA', 'VICI', 'VTTS', 'VTSE', 'VBRO', 'VCEQ'],
     'TTRE': ['VTRE', 'VRED', 'VROF', 'VRIN', 'VRDV', 'VRRT', 'VRRE', 'VRES', 'VRHF', 'VRIS', 'VREV'],
     'TTTK': ['VSEQ', 'VECO', 'VSEM', 'VTTK', 'VSIN', 'VCSY', 'VSAP', 'VITS'],
-    'TTIN': ['VWMA', 'VMBS', 'VCOG', 'VTIN', 'VAAS', 'VAIR', 'VSPS', 'VPTC', 'VSTI', 'VSTL', 'VEEP', 'VAAD', 'VAUP', 'VSIM', 'VSPO', 'VIDD', 'VRAI', 'VEGC', 'VISL', 'VRLS', 'VMTF', 'VTRU'],
+    'TTIN': ['VWMA', 'VMBS', 'VCOG', 'VTIN', 'VAAS', 'VAIR', 'VSPS', 'VPTC', 'VSTI', 'VSTL', 'VEEP', 'VAAD', 'VAUP', 'VSIM', 'VSPO', 'VIDD', 'VRAI', 'VEGC', 'VISL', 'VRLS', 'VMTF', 'VTRU', 'VBPE', 'VFCE'],
     'TTUT': ['VSOL', 'VTUT', 'VURW', 'VURE', 'VUDI', 'VUIP', 'VUTR', 'VURG'],
     'TTCS': ['VTCS', 'VBSD', 'VFMP', 'VPKF', 'VBWD', 'VCOF', 'VTOB', 'VGST', 'VHPP', 'VFDD'],
     'TTMT': ['VBMT', 'VTMT', 'VSCH', 'VLWP', 'VPKC', 'VCHE', 'VCOC', 'VAGI', 'VOPM', 'VPPP', 'VIMM', 'VGOL', 'VSIL', 'VCOP', 'VTCO']
 }
+
 
 # barchart.com/ca industry symbols
 industry_symbols = [

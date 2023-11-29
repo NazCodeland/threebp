@@ -1,47 +1,43 @@
-from barchart import extract_industry_equities
-from dataclasses import dataclass
-import pandas as pd 
-import asyncio
 from yahoo_finance import download_from_yahoo
+from barchart import setup_context, extract_sectors, extract_industries, extract_industry_equities
+from database import download_from_db, upload_to_db
 
-@dataclass
 class Data:
-    symbol: str
-    timeframe: str = '1mo'
-    df: pd.DataFrame = None
-    _following: bool = 2
+    # barchart data
+    @staticmethod
+    async def setup_context():
+        return await setup_context()
+    
+    # barchart data
+    @staticmethod
+    def extract_sectors(context):
+        # extracts sector and sector name for TSX
+        return extract_sectors(context)
+    
+    # barchart data
+    @staticmethod
+    def extract_industries(context):
+        # extracts industry and industry name for TSX
+        return extract_industries(context)
 
-    @property
-    def following(self):
-        return self._following
+    # barchart data
+    @staticmethod
+    def extract_industry_equities(industries, context):
+        # extracts equities for a given industries list or a single industry
+        return extract_industry_equities(industries, context)
 
-    @following.setter
-    def following(self, value):
-        self._following = value
+    # yahoo finance
+    @staticmethod
+    def download_equity_OHLCV_data(symbol, timeframe):
+        return download_from_yahoo(symbol, timeframe)
 
-    @classmethod
-    def update_all(cls, instances):
-        for instance in instances:
-            instance.extract_industry_equities()
+    # neon.tech postgressql database
+    @staticmethod
+    def download_from_db(tablename):
+        return download_from_db(tablename)
 
-    # barchart
-    def download_industry_equity_list(self):
-        # This function would contain the code to download data from Barchart
-        # For this example, let's just return a dummy DataFrame
-        self.df = asyncio.run(extract_industry_equities(self.symbol))
-
-    def download_equity_OHLCV_data(self):
-        if self.following:
-            # This function would contain the code to download data from Yahoo
-            # For this example, let's just return a dummy DataFrame
-            self.df = download_from_yahoo(self.symbol, self.timeframe)
-
-    def upload_to_db(self):
+    # neon.tech postgressql database
+    @staticmethod
+    def upload_to_db(df, symbol, timeframe):
         # This function would contain the code to upload data to a database
-        upload_to_db(self.df, self.symbol, self.timeframe)
-
-    def download_from_db(self):
-        # This function would contain the code to download data from a database
-        self.df = download_from_db(self.symbol, self.timeframe)
-
-        # Create an instance of the Data class
+        return upload_to_db(df, symbol, timeframe)

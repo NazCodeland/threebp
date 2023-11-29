@@ -1,10 +1,10 @@
 from data import Data
-from barchart import extract_industry_equities
+from barchart import extract_industry_equities, extract_sectors
 from database import download_from_db, upload_to_db
-from config import sectors, industries, sector_and_industry_symbols
+from config import sectors, industries, sector_industries, sector_and_industry_names
 import pandas as pd
 import asyncio
-from utilities import save_df_as_csv
+from utilities import save_df
 
 # -----------------------------------------------------------------
 # Upload Sectors
@@ -26,10 +26,10 @@ from utilities import save_df_as_csv
 # print(industries_df)
 
 # -----------------------------------------------------------------
-# # Upload sector_industries
-# sector_and_industry_symbols_df = pd.DataFrame(list(sector_and_industry_symbols.items()), columns=['sector', 'industries'])
-# print('df', sector_and_industry_symbols_df)
-# upload_to_db(sector_and_industry_symbols_df, "sector_industries")
+# Upload sector_industries
+# sector_industries = pd.DataFrame(list(sector_industries.items()), columns=['sector', 'industries'])
+# print('df', sector_industries)
+# upload_to_db(sector_industries, "sector_industries")
 
 # Download sector_industries
 # sector_industries_df = download_from_db("sector_industries")
@@ -43,20 +43,29 @@ from utilities import save_df_as_csv
 # upload industry_equities
 # industries = ['VURA', 'VOGI']
 # industry_equities = asyncio.run(extract_industry_equities(industries))
-
-# rows = []
-# for industry, info in industry_equities.items():
-#     for equity in info['equities']:
-#         row = equity.copy()  # create a copy of the equity dict
-#         row['industry'] = industry  # add the industry to the dict
-#         rows.append(row)
-
-# industry_equities = pd.DataFrame(rows)
-# upload_to_db(industry_equities, "industry_equities")
-# -----------------------------------------------------------------
-
-# download industry_equities
-# industry_equities = download_from_db("industry_equities")
-# save_df_as_csv(industry_equities, "industry_equities")
 # print(industry_equities)
-# -----------------------------------------------------------------
+# df_industry_equities = pd.DataFrame.from_dict(industry_equities)
+
+# save_df(df_industry_equities, "industry_equities", "json")
+# upload_to_db(df_industry_equities, "industry_equities")
+
+# asyncio.run(extract_sectors())
+industries = ['VURA', 'VOGI']
+print(asyncio.run(extract_industry_equities(industries)))
+
+# ------------------------------------------------------------------------------------------------------
+# upload sector_industries to database
+# Initialize an empty list to store the data
+# data = []
+
+# # Iterate over your dictionary
+# for (sector_symbol, industries), industry_name_list in zip(sector_industries.items(), sector_and_industry_names.values()):
+#     for i in range(len(industries)):
+#         # Append each entry as a dictionary to the data list
+#         data.append({'symbol': industries[i], 'symbolName': industry_name_list[i], 'industrySymbol': sector_symbol })
+
+# # Convert the list of dictionaries to a DataFrame
+# upload_to_db(df, "sector_industries")
+# ------------------------------------------------------------------------------------------------------
+
+
