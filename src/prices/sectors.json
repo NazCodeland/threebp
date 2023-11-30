@@ -1,0 +1,14 @@
+{
+	"TTGD": "TSX Global Gold Index",
+	"TTFS": "TSX Financials Capped Index",
+	"TTEN": "TSX Energy Capped Index",
+	"TTMT": "TSX Materials Capped Index",
+	"TTIN": "TSX Industrials Capped Index",
+	"TTTK": "TSX Information Tech Capped Index",
+	"TTCS": "TSX Consumer Staples Capped Index",
+	"TTUT": "TSX Utilities Capped Index",
+	"TTRE": "TSX Real Estate Capped Index",
+	"TTTS": "TSX Communication Services Capped Index",
+	"TTCD": "TSX Consumer Discretionary Capped Index",
+	"TTHC": "TSX Health Care Capped Index"
+}
