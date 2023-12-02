@@ -1,8 +1,18 @@
-from yahoo_finance import download_from_yahoo
-from barchart import extract_sectors, extract_industries, extract_industry_equities
-from database import download_from_db, upload_to_db
+from extract.yahoo_finance import download_from_yahoo
+from extract.barchart import start_context, stop_context, extract_sectors, extract_industries, extract_industry_equities
+from load.database import download_from_db, upload_to_db
 
 class Data:
+    # barchart data
+    @staticmethod
+    async def start_context():
+        await start_context()
+    
+    # barchart data
+    @staticmethod
+    async def stop_context():
+        await stop_context()
+    
     # barchart data
     @staticmethod
     async def download_sectors():
@@ -23,7 +33,7 @@ class Data:
 
     # yahoo finance
     @staticmethod
-    def download_OHLCV_from_yahoo(symbol, timeframe):
+    def download_from_yahoo(symbol, timeframe):
         return download_from_yahoo(symbol, timeframe)
 
     # neon.tech postgressql database

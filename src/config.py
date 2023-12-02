@@ -4,7 +4,10 @@
 
 # Valid intervals: [1m, 2m, 5m, 15m, 30m, 60m, 90m, 1h, 1d, 5d, 1wk, 1mo, 3mo] ??
 # timeframes you want to track for each symbol in the symbols list above
-timeframes = ['d', 'wk', 'mo']
+dataframe_timeframes = ['d', 'wk', 'mo']
+
+# tradingview timeframes
+chart_timeframes = []
 
 # Unix Timestamp date values, used for the range of historical data retrieval 
 start_date = 1509744000  # corresponds to November 16, 2018
@@ -60,7 +63,6 @@ sector_industry_symbols = {
     'TTCS': ['VTCS', 'VBSD', 'VFMP', 'VPKF', 'VBWD', 'VCOF', 'VTOB', 'VGST', 'VHPP', 'VFDD'],
     'TTMT': ['VBMT', 'VTMT', 'VSCH', 'VLWP', 'VPKC', 'VCHE', 'VCOC', 'VAGI', 'VOPM', 'VPPP', 'VIMM', 'VGOL', 'VSIL', 'VCOP', 'VTCO']
 }
-
 
 # barchart.com/ca industry symbols
 industry_symbols = [

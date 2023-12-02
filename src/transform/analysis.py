@@ -4,7 +4,6 @@ import pandas as pd
 import numpy as np
 
 
-
 def check_for_buy_conditions(df):
     # all these variables return either a DataFrame or a Series for the whole df or column(s)
 
@@ -45,39 +44,13 @@ def check_for_buy_conditions(df):
 
     return df
 
-
-def convert_to_yearly(df):
-    # Convert 'Date' column to datetime and set it as index
-    df['Date'] = pd.to_datetime(df['Date'])
-    df.set_index('Date', inplace=True)
-
-    # Separate the symbol and timeframe
-    df[['symbol', 'timeframe']] = df['symbol'].str.split('_', expand=True)
-
-    # Resample to yearly data
-    df_yearly = df.groupby('symbol').resample('Y').agg(
-        {
-            'Open': 'first', 
-            'High': 'max', 
-            'Low': 'min', 
-            'Close': 'last',
-            'Volume': 'sum'
-        }
-    )
-
-    return df_yearly
-
-# df_yearly = convert_to_yearly(df)
-
-
 def save_to_html_and_open(df):
     with open("data.html", "w") as f:
         f.write(df.to_html())
     webbrowser.open('file://' + os.path.realpath("data.html"))
 
-
 def threebp_main(df):
-    df = check_for_buy_conditions(df)
-    save_to_html_and_open(df)
-    return df
+df = check_for_buy_conditions(df)
+save_to_html_and_open(df)
+return df
 # 
