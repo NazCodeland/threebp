@@ -1,13 +1,12 @@
 from transform.market import Exchange, Sector, Industry, Equity
 from extract.yahoo_finance import download_from_yahoo
-from config import dataframe_timeframes, sector_industry_symbols
+from config import dataframe_timeframes, sector_industry_symbol_mapping
 import pandas as pd
 from utilities import dict_to_dataframe
 from transform.transform_functions import filter_rows
 
-def create_sector(exchange, sector_symbol, sector_name):
+def create_sector(sector_symbol, sector_name):
     sector = Sector(sector_symbol, sector_name)
-    exchange.add_sector(sector)
     return sector
 
 def create_industry(sector, industry):
@@ -25,30 +24,40 @@ def create_equity(industry_instance, equity_data, dataframe_timeframes):
     industry_instance.add_equity(equity)
     return equity
 
-def transform(sectors, industries, industry_equities):
-    sectors = filter_rows(sectors)
-    industries = filter_rows(industries)
-    industry_equities = filter_rows(industry_equities)    
-    print(sectors)
-    print(industries)
-    print(industry_equities)
 
-    # print(sectors)
-    # print(industries)
-    # print(industry_equities)
-    # exchange = Exchange('TSX', 'Toronto Stock Exchange')
-    # for sector_symbol, sector_name in sectors.items():
-    #     sector = create_sector(exchange, sector_symbol, sector_name)
+def transform(sectors, industries, industry_equities, sector_industry_symbol_mapping):
+    filtered_sectors = filter_rows(sectors)
+    filtered_industries = filter_rows(industries)
+    filtered_equities = filter_rows(industry_equities)
+
+    exchange = Exchange('TSX', 'Toronto Stock Exchange')
+
+    # Create Sector instances and add them to the Exchange
+    for sector_data in filtered_sectors:
+        sector = Sector(sector_data['symbol'], sector_data['name'])
+        exchange.add_sector(sector)
+
+        # Find the industries for this sector using the mapping
+        industry_symbols = sector_industry_symbol_mapping.get(sector.symbol, [])
+        for industry_symbol in industry_symbols:
+            # Find the industry data by its symbol
+            industry_data = next((ind for ind in filtered_industries if ind['symbol'] == industry_symbol), None)
+            if industry_data:
+                industry = Industry(industry_data['symbol'], industry_data['name'])
+                sector.add_industry(industry)
+
+                # Add equities to the industry
+                equities_for_industry = [eq for eq in filtered_equities if eq['industry'] == industry_symbol]
+                for equity_data in equities_for_industry:
+                    try:
+                        equity = Equity(equity_data['symbol'], equity_data['name'], industry_data['symbol'], sector_data['symbol'])
+                        industry.add_equity(equity)
+                    except Exception as e:
+                        print(f"Error creating Equity for symbol {equity_data['symbol']}: {e}")
+
+    return exchange
 
 
-    #     sector.industries.append(sector_industry_symbols[sector_symbol])
-    #     for industry_symbol, industry_name in sector_industry_symbols:
-    #         industry_instance = create_industry(industry_symbol, industry_name)
-
-    #         for equity_data in industry_equities.get(industry['symbol'], []):
-    #             create_equity(industry_instance, equity_data, dataframe_timeframes)
-
-    # return exchange
 
 
 

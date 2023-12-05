@@ -19,23 +19,9 @@ def download_from_yahoo(symbol, timeframe):
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
     }
 
-    url = f'https://query1.finance.yahoo.com/v7/finance/download/{symbol}?period1={start_date}&period2={end_date}&interval={timeframe}&events=history&includeAdjustedClose=true'
+    url = f'https://query1.finance.yahoo.com/v7/finance/download/{symbol}?period1={start_date}&period2={end_date}&interval={timeframe}&events=history'
     print("url", url)
     response = requests.get(url, headers=headers)
-    print(response.text)
-    return sanitize_data(response.text)
+    return response
 
-def sanitize_data(data):
-    # Read the string 'data' as a CSV file into a pandas DataFrame
-    df = pd.read_csv(io.StringIO(data))
-    # Reverse the order of the DataFrame rows
-    # df = df.iloc[::-1]
-    # delete the "Adj Close" column from the DataFrame
-    sanitized_df = df.drop(columns=["Adj Close"])
-    # Round all cells in the DataFrame to 2 decimal places
-    sanitized_df = sanitized_df.round(2)
-    # Reverse the DataFrame
-    sanitized_df = sanitized_df.iloc[::-1]
-    
-    return sanitized_df
 

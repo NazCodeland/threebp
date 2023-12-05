@@ -1,6 +1,5 @@
 from sqlalchemy import create_engine
 import pandas as pd
-from config import symbols, dataframe_timeframes, sectors
 
 engine = create_engine("postgresql://investingclarity:nd8FR6gDZvsN@ep-twilight-lake-06412150.us-east-1.aws.neon.tech/neondb?sslmode=require")
 

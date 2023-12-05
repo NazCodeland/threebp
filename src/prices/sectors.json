@@ -1,14 +1,13 @@
-{
-	"TTGD": "TSX Global Gold Index",
-	"TTFS": "TSX Financials Capped Index",
-	"TTEN": "TSX Energy Capped Index",
-	"TTMT": "TSX Materials Capped Index",
-	"TTTK": "TSX Information Tech Capped Index",
-	"TTIN": "TSX Industrials Capped Index",
-	"TTCS": "TSX Consumer Staples Capped Index",
-	"TTUT": "TSX Utilities Capped Index",
-	"TTRE": "TSX Real Estate Capped Index",
-	"TTTS": "TSX Communication Services Capped Index",
-	"TTCD": "TSX Consumer Discretionary Capped Index",
-	"TTHC": "TSX Health Care Capped Index"
-}
+[
+	{ "symbol": "TTFS", "name": "TSX Financials Capped Index" },
+	{ "symbol": "TTEN", "name": "TSX Energy Capped Index" },
+	{ "symbol": "TTMT", "name": "TSX Materials Capped Index" },
+	{ "symbol": "TTTK", "name": "TSX Information Tech Capped Index" },
+	{ "symbol": "TTIN", "name": "TSX Industrials Capped Index" },
+	{ "symbol": "TTCS", "name": "TSX Consumer Staples Capped Index" },
+	{ "symbol": "TTUT", "name": "TSX Utilities Capped Index" },
+	{ "symbol": "TTRE", "name": "TSX Real Estate Capped Index" },
+	{ "symbol": "TTTS", "name": "TSX Communication Services Capped Index" },
+	{ "symbol": "TTCD", "name": "TSX Consumer Discretionary Capped Index" },
+	{ "symbol": "TTHC", "name": "TSX Health Care Capped Index" }
+]
