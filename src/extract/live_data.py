@@ -1,185 +1,32 @@
-# tsxsectors@gmail.com
-# psql 'postgresql://tsxsectors:Fl0i5WKCQmZg@ep-shiny-pond-80219216.us-east-2.aws.neon.tech/neondb?sslmode=require'
+import aiohttp
+import asyncio
+import time
 
-
-# Valid intervals: [1m, 2m, 5m, 15m, 30m, 60m, 90m, 1h, 1d, 5d, 1wk, 1mo, 3mo] ??
-# timeframes you want to track for each symbol in the symbols list above
-timeframes = ['d', 'wk', 'mo']
-
-# tradingview timeframes
-chart_timeframes = []
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+}
 
 # Unix Timestamp date values, used for the range of historical data retrieval 
 start_date = 1509744000  # corresponds to November 16, 2018
 end_date = 1668748800  # corresponds to November 16, 2023
 
-# email to receive google sheets 
-email = "investingclarity@gmail.com"
+async def fetch(session, symbol, start_date, end_date, timeframe="1mo", interval="1d"):
+    url = f"https://query2.finance.yahoo.com/v8/finance/chart/{symbol}?{start_date}&{end_date}&interval={interval}&range={timeframe}&includePrePost=False"
+    async with session.get(url, headers=headers) as response:
+        data = await response.json()
+        return symbol, data['chart']['result'][0]['meta']['regularMarketPrice']
 
+async def get_data_asynchronously(symbols, start_date, end_date):
+    start_time = time.time()
+    async with aiohttp.ClientSession() as session:
+        tasks = []
+        for symbol in set(symbols):
+            tasks.append(fetch(session, symbol, start_date, end_date))
+        results = await asyncio.gather(*tasks)
+    end_time = time.time()
+    print(f"Total execution time: {end_time - start_time} seconds")
+    return results
 
-exchanges = ["TSX"]
-
-# barchart.com/ca sectors
-sectors = [
-	{ "symbol": "TTFS", "name": "TSX Financials Capped Index" },
-	{ "symbol": "TTEN", "name": "TSX Energy Capped Index" },
-	{ "symbol": "TTMT", "name": "TSX Materials Capped Index" },
-	{ "symbol": "TTTK", "name": "TSX Information Tech Capped Index" },
-	{ "symbol": "TTIN", "name": "TSX Industrials Capped Index" },
-	{ "symbol": "TTCS", "name": "TSX Consumer Staples Capped Index" },
-	{ "symbol": "TTUT", "name": "TSX Utilities Capped Index" },
-	{ "symbol": "TTRE", "name": "TSX Real Estate Capped Index" },
-	{ "symbol": "TTTS", "name": "TSX Communication Services Capped Index" },
-	{ "symbol": "TTCD", "name": "TSX Consumer Discretionary Capped Index" },
-	{ "symbol": "TTHC", "name": "TSX Health Care Capped Index" }
-]
-
-industries = [
-	{ "symbol": "VBMT", "name": "TSX Building Materials" },
-	{ "symbol": "VAGI", "name": "TSX Agricultural Inputs" },
-	{ "symbol": "VECO", "name": "TSX Electronic Components" },
-	{ "symbol": "VPTC", "name": "TSX Pollution Treatment Controls" },
-	{ "symbol": "VCOC", "name": "TSX Coking Coal" },
-	{ "symbol": "VEGM", "name": "TSX Electronic Gaming & Media" },
-	{ "symbol": "VRED", "name": "TSX Real Estate - Diversified" },
-	{ "symbol": "VCPM", "name": "TSX Capital Markets" },
-	{ "symbol": "VAMN", "name": "TSX Auto Manufacturers" },
-	{ "symbol": "VFCE", "name": "TSX Farm & Construction Equipt" },
-	{ "symbol": "VATD", "name": "TSX Auto & Truck Dealerships" },
-	{ "symbol": "VIDD", "name": "TSX Industrial Distribution" },
-	{ "symbol": "VBRO", "name": "TSX Broadcasting" },
-	{ "symbol": "VSAP", "name": "TSX Software - Application" },
-	{ "symbol": "VRHF", "name": "TSX REIT - Healthcare Faciltes" },
-	{ "symbol": "VRRE", "name": "TSX REIT - Residential" },
-	{ "symbol": "VITS", "name": "TSX Information Technology Srvs" },
-	{ "symbol": "VSTL", "name": "TSX Steel" },
-	{ "symbol": "VTHC", "name": "TSX Indices Health Care" },
-	{ "symbol": "VTOP", "name": "TSX Top 100 Stocks" },
-	{ "symbol": "VINR", "name": "TSX Insurance - Reinsurance" },
-	{ "symbol": "VTTS", "name": "TSX Indices Telecom Services" },
-	{ "symbol": "VRIS", "name": "TSX REIT - Specialty" },
-	{ "symbol": "VRAI", "name": "TSX Railroads" },
-	{ "symbol": "VHIM", "name": "TSX Home Improvement Stores" },
-	{ "symbol": "VROF", "name": "TSX REIT - Office" },
-	{ "symbol": "VTRU", "name": "TSX Trucking" },
-	{ "symbol": "VRIN", "name": "TSX REIT - Industrial" },
-	{ "symbol": "VTMT", "name": "TSX Indices Materials" },
-	{ "symbol": "VTRE", "name": "TSX Indices Real Estate" },
-	{ "symbol": "VAAS", "name": "TSX Airports & Air Services" },
-	{ "symbol": "VSIL", "name": "TSX Silver" },
-	{ "symbol": "VMTF", "name": "TSX Metal Fabrication" },
-	{ "symbol": "VAIR", "name": "TSX Airlines" },
-	{ "symbol": "VCOP", "name": "TSX Copper" },
-	{ "symbol": "VTTK", "name": "TSX Indices Information Tech" },
-	{ "symbol": "VMDC", "name": "TSX Medical Care" },
-	{ "symbol": "VTIN", "name": "TSX Indices Industrials" },
-	{ "symbol": "VRRT", "name": "TSX REIT - Retail" },
-	{ "symbol": "VLEI", "name": "TSX Leisure" },
-	{ "symbol": "VSRE", "name": "TSX Specialty Retail" },
-	{ "symbol": "VFIE", "name": "TSX Financial Exchanges" },
-	{ "symbol": "VAUP", "name": "TSX Auto Parts" },
-	{ "symbol": "VTFS", "name": "TSX Indices Financials" },
-	{ "symbol": "VTCD", "name": "TSX Indices Consumer Discret" },
-	{ "symbol": "VURG", "name": "TSX Utilities Regulated Gas" },
-	{ "symbol": "VMRF", "name": "TSX Mortgage Finance" },
-	{ "symbol": "VCHE", "name": "TSX Chemicals" },
-	{ "symbol": "VSIN", "name": "TSX Software - Infrastructure" },
-	{ "symbol": "VCOG", "name": "TSX Conglomerates" },
-	{ "symbol": "VBSD", "name": "TSX Beverages - Soft Drinks" },
-	{ "symbol": "VLWP", "name": "TSX Lumber & Wood Production" },
-	{ "symbol": "VTUT", "name": "TSX Indices Utilities" },
-	{ "symbol": "VCMP", "name": "TSX Indices Composite" },
-	{ "symbol": "VEGC", "name": "TSX Engineering & Construction" },
-	{ "symbol": "VIMM", "name": "TSX Industrial Metals Minerals" },
-	{ "symbol": "VPKC", "name": "TSX Packaging & Containers" },
-	{ "symbol": "VOGR", "name": "TSX Oil & Gas Refining & Mrkt" },
-	{ "symbol": "VSCH", "name": "TSX Specialty Chemicals" },
-	{ "symbol": "VOGE", "name": "TSX Oil & Gas E&P" },
-	{ "symbol": "VTXS", "name": "TSX Indices 60 Index" },
-	{ "symbol": "VCOF", "name": "TSX Confectioners" },
-	{ "symbol": "VAAD", "name": "TSX Aerospace & Defense" },
-	{ "symbol": "VRST", "name": "TSX Restaurants" },
-	{ "symbol": "VOPM", "name": "TSX Other Precious Metals & Mine" },
-	{ "symbol": "VISL", "name": "TSX Integrated Shipping & Logis" },
-	{ "symbol": "VTSE", "name": "TSX Telecom Services" },
-	{ "symbol": "VDMS", "name": "TSX Drug Specialty & Generic" },
-	{ "symbol": "VBRE", "name": "TSX Banks - Regional" },
-	{ "symbol": "VCSV", "name": "TSX Credit Services" },
-	{ "symbol": "VOGD", "name": "TSX Oil & Gas Drilling" },
-	{ "symbol": "VRDV", "name": "TSX REIT - Diversified" },
-	{ "symbol": "VGOL", "name": "TSX Gold" },
-	{ "symbol": "VHIS", "name": "TSX Health Information Services" },
-	{ "symbol": "VRVE", "name": "TSX Recreational Vehicles" },
-	{ "symbol": "VLUG", "name": "TSX Luxury Goods" },
-	{ "symbol": "VPSS", "name": "TSX Personal Services" },
-	{ "symbol": "VEEP", "name": "TSX Electrical Equipment & Parts" },
-	{ "symbol": "VICI", "name": "TSX Internet Content & Info" },
-	{ "symbol": "VPKF", "name": "TSX Packaged Foods" },
-	{ "symbol": "VCOE", "name": "TSX Consumer Electronics" },
-	{ "symbol": "VASM", "name": "TSX Asset Management" },
-	{ "symbol": "VTRS", "name": "TSX Travel Services" },
-	{ "symbol": "VGST", "name": "TSX Grocery Stores" },
-	{ "symbol": "VTOB", "name": "TSX Tobacco" },
-	{ "symbol": "VFDD", "name": "TSX Food Distribution" },
-	{ "symbol": "VTCS", "name": "TSX Indices Consumer Staples" },
-	{ "symbol": "VITR", "name": "TSX Internet Retail" },
-	{ "symbol": "VBWD", "name": "TSX Beverages - Wine & Distiller" },
-	{ "symbol": "VRES", "name": "TSX Real Estate Services" },
-	{ "symbol": "VBOT", "name": "TSX Bottom 100 Stocks" },
-	{ "symbol": "VRLS", "name": "TSX Rental & Leasing Services" },
-	{ "symbol": "VSIM", "name": "TSX Specialty Industrial Machine" },
-	{ "symbol": "VMIS", "name": "TSX Medical Instruments & Suppls" },
-	{ "symbol": "VOGM", "name": "TSX Oil & Gas Midstream" },
-	{ "symbol": "VSPO", "name": "TSX Shipping & Ports" },
-	{ "symbol": "VRCA", "name": "TSX Resorts & Casinos" },
-	{ "symbol": "VMBS", "name": "TSX Business Services" },
-	{ "symbol": "VUIP", "name": "TSX Utilities Independent Power" },
-	{ "symbol": "VIPC", "name": "TSX Insurance - Property & Casu" },
-	{ "symbol": "VOGI", "name": "TSX Oil & Gas Integrated" },
-	{ "symbol": "VDCS", "name": "TSX Discount Stores" },
-	{ "symbol": "VIND", "name": "TSX Insurance - Diversified" },
-	{ "symbol": "VREV", "name": "TSX Real Estate - Development" },
-	{ "symbol": "VWMA", "name": "TSX Waste Management" },
-	{ "symbol": "VUDI", "name": "TSX Utilities Diversified" },
-	{ "symbol": "VBAG", "name": "TSX Banks - Global" },
-	{ "symbol": "VINF", "name": "TSX Insurance - Life" },
-	{ "symbol": "VOGS", "name": "TSX Oil & Gas Equipment & Srvs" },
-	{ "symbol": "VAAA", "name": "TSX Advertising Agencies" },
-	{ "symbol": "VUTR", "name": "TSX Utilities - Renewable" },
-	{ "symbol": "VURE", "name": "TSX Utilities Regulated Electric" },
-	{ "symbol": "VPPP", "name": "TSX Paper & Paper Products" },
-	{ "symbol": "VTMA", "name": "TSX Textile Manufacturing" },
-	{ "symbol": "VBPE", "name": "TSX Building Products & Equpment" },
-	{ "symbol": "VTEN", "name": "TSX Indices Energy" },
-	{ "symbol": "VISS", "name": "TSX Insurance - Specialty" },
-	{ "symbol": "VFMP", "name": "TSX Farm Products" },
-	{ "symbol": "VSTI", "name": "TSX Scientific & Technical Instr" },
-	{ "symbol": "VHCP", "name": "TSX Health Care Plans" },
-	{ "symbol": "VSOL", "name": "TSX Solar" },
-	{ "symbol": "VMDD", "name": "TSX Medical Devices" },
-	{ "symbol": "VENT", "name": "TSX Entertainment" },
-	{ "symbol": "VHFF", "name": "TSX Home Furnishings & Fixture" },
-	{ "symbol": "VCSY", "name": "TSX Computer Systems" },
-	{ "symbol": "VCEQ", "name": "TSX Communication Equipment" },
-	{ "symbol": "VGAM", "name": "TSX Gambling" },
-	{ "symbol": "VURA", "name": "TSX Uranium" },
-	{ "symbol": "VSEM", "name": "TSX Semiconductors" },
-	{ "symbol": "VBIO", "name": "TSX Biotechnology" },
-	{ "symbol": "VDMM", "name": "TSX Drug Manufacturers - Major" },
-	{ "symbol": "VSEQ", "name": "TSX Semiconductor Equipment" },
-	{ "symbol": "VURW", "name": "TSX Utilities Regulated Water" },
-	{ "symbol": "VFOA", "name": "TSX Footwear & Accessories" },
-	{ "symbol": "VBVB", "name": "TSX Beverages - Brewers" },
-	{ "symbol": "VAPS", "name": "TSX Apparel Stores" },
-	{ "symbol": "VHPP", "name": "TSX Household & Personal Product" },
-	{ "symbol": "VLOD", "name": "TSX Lodging" },
-	{ "symbol": "VPHR", "name": "TSX Pharmaceutical Retailers" },
-	{ "symbol": "VTCO", "name": "TSX Thermal Coal" },
-	{ "symbol": "VDRE", "name": "TSX Diagnostics & Research" },
-	{ "symbol": "VPUB", "name": "TSX Publishing" },
-	{ "symbol": "VAPM", "name": "TSX Apparel Manufacturing" },
-	{ "symbol": "VSPS", "name": "TSX Security & Protection Srvs" }
-]
 
 industry_equities = [
 	{ "symbol": "CVX.V", "name": "Cematrix Corp", "industry": "VBMT" },
@@ -352,7 +199,7 @@ industry_equities = [
 	},
 	{ "symbol": "FRNT.V", "name": "Frnt Financial Inc", "industry": "VCPM" },
 	{ "symbol": "CBIT.V", "name": "Cathedra Bitcoin Inc", "industry": "VCPM" },
-	{ "symbol": "COIN.NE", "name": "Tokens.com Corp", "industry": "VCPM" },
+	{ "symbol": "COIN.NE", "name": "Tokens.CNom Corp", "industry": "VCPM" },
 	{ "symbol": "SPTZ.CN", "name": "Spetz Inc", "industry": "VCPM" },
 	{ "symbol": "NFI.TO", "name": "Nfi Group Inc.", "industry": "VAMN" },
 	{
@@ -401,7 +248,7 @@ industry_equities = [
 	{ "symbol": "UBER.NE", "name": "Uber Cdr [Cad Hedged]", "industry": "VSAP" },
 	{
 		"symbol": "CRM.NE",
-		"name": "Salesforce.com Cdr [Cad Hedged]",
+		"name": "Salesforce.CNom Cdr [Cad Hedged]",
 		"industry": "VSAP"
 	},
 	{ "symbol": "IQ.V", "name": "Airiq Inc", "industry": "VSAP" },
@@ -787,7 +634,7 @@ industry_equities = [
 	{ "symbol": "GBU.V", "name": "Gabriel Res J", "industry": "VTOP" },
 	{
 		"symbol": "CRM.NE",
-		"name": "Salesforce.com Cdr [Cad Hedged]",
+		"name": "Salesforce.CNom Cdr [Cad Hedged]",
 		"industry": "VTOP"
 	},
 	{ "symbol": "IQ.V", "name": "Airiq Inc", "industry": "VTOP" },
@@ -796,7 +643,7 @@ industry_equities = [
 		"name": "Hammerhead Energy Inc.",
 		"industry": "VTOP"
 	},
-	{ "symbol": "TRUE.CN", "name": "Treatment.com Ai Inc", "industry": "VTOP" },
+	{ "symbol": "TRUE.CN", "name": "Treatment.CNom Ai Inc", "industry": "VTOP" },
 	{
 		"symbol": "CMG.TO",
 		"name": "Computer Modelling Group Ltd",
@@ -859,7 +706,7 @@ industry_equities = [
 	{ "symbol": "PKI.TO", "name": "Parkland Fuel Corp", "industry": "VTOP" },
 	{
 		"symbol": "AMZN.NE",
-		"name": "Amazon.com Cdr [Cad Hedged]",
+		"name": "Amazon.CNom Cdr [Cad Hedged]",
 		"industry": "VTOP"
 	},
 	{
@@ -1590,7 +1437,7 @@ industry_equities = [
 		"name": "Copperleaf Technologies Inc",
 		"industry": "VSIN"
 	},
-	{ "symbol": "TOI.V", "name": "Topicus.com Inc", "industry": "VSIN" },
+	{ "symbol": "TOI.V", "name": "Topicus.CNom Inc", "industry": "VSIN" },
 	{ "symbol": "SCPE.CN", "name": "Scope Carbon Corp.", "industry": "VSIN" },
 	{ "symbol": "NVEI.TO", "name": "Nuvei Corp", "industry": "VSIN" },
 	{ "symbol": "PAY.TO", "name": "Payfare Inc", "industry": "VSIN" },
@@ -3475,11 +3322,6 @@ industry_equities = [
 	{ "symbol": "EPIC.CN", "name": "1Cm Inc", "industry": "VDMS" },
 	{ "symbol": "MPH.V", "name": "Medicure Inc", "industry": "VDMS" },
 	{
-		"symbol": "GLAS-A-U.NE",
-		"name": "Glass House Brands Inc Subordinate Shares",
-		"industry": "VDMS"
-	},
-	{
 		"symbol": "DB.V",
 		"name": "Decibel Cannabis Company Inc",
 		"industry": "VDMS"
@@ -3594,11 +3436,6 @@ industry_equities = [
 	{ "symbol": "LOWL.CN", "name": "Lowell Farms Inc", "industry": "VDMS" },
 	{ "symbol": "FFNT.CN", "name": "4Front Ventures Corp", "industry": "VDMS" },
 	{ "symbol": "IMCC.CN", "name": "IM Cannabis Corp", "industry": "VDMS" },
-	{
-		"symbol": "ACRG-A-U.CN",
-		"name": "Acreage Holdings Inc Fixed S.V.",
-		"industry": "VDMS"
-	},
 	{ "symbol": "EQB.TO", "name": "EQB Inc", "industry": "VBRE" },
 	{ "symbol": "CWB.TO", "name": "CDN Western Bank", "industry": "VBRE" },
 	{ "symbol": "VBNK.TO", "name": "Versabank", "industry": "VBRE" },
@@ -4030,9 +3867,9 @@ industry_equities = [
 	{ "symbol": "RAGE.V", "name": "Renegade Gold Inc", "industry": "VGOL" },
 	{ "symbol": "ELEM.CN", "name": "Element79 Gold Corp", "industry": "VGOL" },
 	{ "symbol": "VHI.TO", "name": "Vitalhub Corp", "industry": "VHIS" },
-	{ "symbol": "TRUE.CN", "name": "Treatment.com Ai Inc", "industry": "VHIS" },
+	{ "symbol": "TRUE.CN", "name": "Treatment.CNom Ai Inc", "industry": "VHIS" },
 	{ "symbol": "ADK.V", "name": "Diagnos Inc", "industry": "VHIS" },
-	{ "symbol": "KSI.TO", "name": "Kneat.com Inc", "industry": "VHIS" },
+	{ "symbol": "KSI.TO", "name": "Kneat.CNom Inc", "industry": "VHIS" },
 	{
 		"symbol": "AIAI.CN",
 		"name": "Netramark Holdings Inc",
@@ -4101,7 +3938,7 @@ industry_equities = [
 	{ "symbol": "META.NE", "name": "Meta Cdr [Cad Hedged]", "industry": "VICI" },
 	{
 		"symbol": "BILD.V",
-		"name": "Builddirect.com Technologies Inc",
+		"name": "Builddirect.CNom Technologies Inc",
 		"industry": "VICI"
 	},
 	{
@@ -4137,7 +3974,7 @@ industry_equities = [
 	{ "symbol": "HLF.TO", "name": "High Liner", "industry": "VPKF" },
 	{
 		"symbol": "FRSH.V",
-		"name": "The Fresh Factory B.C Ltd.",
+		"name": "The Fresh Factory B.CN Ltd.",
 		"industry": "VPKF"
 	},
 	{
@@ -4459,7 +4296,7 @@ industry_equities = [
 	{ "symbol": "SAP.TO", "name": "Saputo Inc", "industry": "VTCS" },
 	{
 		"symbol": "AMZN.NE",
-		"name": "Amazon.com Cdr [Cad Hedged]",
+		"name": "Amazon.CNom Cdr [Cad Hedged]",
 		"industry": "VITR"
 	},
 	{ "symbol": "NTAR.CN", "name": "Nextech3D.Ai Corp", "industry": "VITR" },
@@ -4761,11 +4598,6 @@ industry_equities = [
 	},
 	{ "symbol": "IWIN.CN", "name": "Irwin Naturals Inc", "industry": "VBOT" },
 	{ "symbol": "ELEM.CN", "name": "Element79 Gold Corp", "industry": "VBOT" },
-	{
-		"symbol": "ACRG-A-U.CN",
-		"name": "Acreage Holdings Inc Fixed S.V.",
-		"industry": "VBOT"
-	},
 	{
 		"symbol": "TAAT.CN",
 		"name": "Taat Global Alternatives Inc",
@@ -5546,51 +5378,9 @@ industry_equities = [
 	}
 ]
 
+symbols = [equity['symbol'] for equity in industry_equities]
+results = asyncio.run(get_data_asynchronously(symbols, start_date, end_date))
+print('results length', len(results))
+for symbol, market_time in results:
+    print(f"{symbol}: {market_time}")
 
-sector_industry_name_mapping = {
-    'Energy': ['TSX Uranium', 'TSX Oil & Gas Integrated', 'TSX Indices Energy', 'TSX Oil & Gas Equipment & Srvs', 'TSX Oil & Gas Drilling', 'TSX Oil & Gas Refining & Mrkt', 'TSX Oil & Gas E&P', 'TSX Oil & Gas Midstream'],
-    'HealthCare': ['TSX Pharmaceutical Retailers', 'TSX Medical Instruments & Suppls', 'TSX Drug Specialty & Generic', 'TSX Health Information Services', 'TSX Diagnostics & Research', 'TSX Medical Devices', 'TSX Biotechnology', 'TSX Drug Manufacturers - Major', 'TSX Health Care Plans', 'TSX Medical Care'],
-    'Consumer Discretionary': ['TSX Luxury Goods', 'TSX Home Furnishings & Fixtures', 'TSX Travel Services', 'TSX Apparel Manufacturing', 'TSX Auto & Truck Dealerships', 'TSX Discount Stores', 'TSX Auto Manufacturers', 'TSX Recreational Vehicles', 'TSX Gambling', 'TSX Footwear & Accessories', 'TSX Beverages - Brewers', 'TSX Internet Retail', 'TSX Personal Services', 'TSX Electronic Gaming & Media', 'TSX Indices Consumer Discret', 'TSX Lodging', 'TSX Specialty Retail', 'TSX Apparel Stores', 'TSX Home Improvement Stores', 'TSX Consumer Electronics', 'TSX Restaurants', 'TSX Resorts & Casinos', 'TSX Entertainment', 'TSX Leisure'],
-    'Financials': ['TSX Insurance - Life', 'TSX Insurance - Specialty', 'TSX Indices Financials', 'TSX Capital Markets', 'TSX Insurance - Property & Casu', 'TSX Mortgage Finance', 'TSX Banks - Regional', 'TSX Banks - Global', 'TSX Asset Management', 'TSX Credit Services', 'TSX Insurance - Diversified', 'TSX Insurance - Reinsurance', 'TSX Financial Exchanges'],
-    'Communication Services': ['TSX Publishing', 'TSX Advertising Agencies', 'TSX Internet Content & Info', 'TSX Indices Telecom Services', 'TSX Telecom Services', 'TSX Broadcasting', 'TSX Communication Equipment'],
-    'Real Estate': ['TSX Indices Real Estate', 'TSX Real Estate - Diversified', 'TSX REIT - Office', 'TSX REIT - Industrial', 'TSX REIT - Diversified', 'TSX REIT - Retail', 'TSX REIT - Residential', 'TSX Real Estate Services', 'TSX REIT - Healthcare Faciltes', 'TSX REIT - Specialty', 'TSX Real Estate - Development'],
-    'Information Tech': ['TSX Semiconductor Equipment', 'TSX Electronic Components', 'TSX Semiconductors', 'TSX Indices Information Tech', 'TSX Software - Infrastructure', 'TSX Computer Systems', 'TSX Software - Application', 'TSX Information Technology Srvs'],
-    'Industrials': ['TSX Waste Management', 'TSX Business Services', 'TSX Conglomerates', 'TSX Indices Industrials', 'TSX Airports & Air Services', 'TSX Airlines', 'TSX Security & Protection Srvs', 'TSX Pollution Treatment Controls', 'TSX Scientific & Technical Instr', 'TSX Steel', 'TSX Electrical Equipment & Parts', 'TSX Aerospace & Defense', 'TSX Auto Parts', 'TSX Specialty Industrial Machine', 'TSX Shipping & Ports', 'TSX Industrial Distribution', 'TSX Railroads', 'TSX Engineering & Construction', 'TSX Integrated Shipping & Logis', 'TSX Rental & Leasing Services', 'TSX Metal Fabrication', 'TSX Trucking', 'TSX Building Products & Equipment',  'TSX Farm & Construction Equipt'],
-    'Utilities': ['TSX Solar', 'TSX Indices Utilities', 'TSX Utilities Regulated Water', 'TSX Utilities Regulated Electric', 'TSX Utilities Diversified', 'TSX Utilities Independent Power', 'TSX Utilities - Renewable', 'TSX Utilities Regulated Gas'],
-    'Consumer Staples': ['TSX Indices Consumer Staples', 'TSX Beverages - Soft Drinks', 'TSX Farm Products', 'TSX Packaged Foods', 'TSX Beverages - Wine & Distiller', 'TSX Confectioners', 'TSX Tobacco', 'TSX Grocery Stores', 'TSX Household & Personal Product', 'TSX Food Distribution'],
-    'Materials': ['TSX Building Materials', 'TSX Indices Materials', 'TSX Specialty Chemicals', 'TSX Lumber & Wood Production', 'TSX Packaging & Containers', 'TSX Chemicals', 'TSX Coking Coal', 'TSX Agricultural Inputs', 'TSX Other Precious Metals & Mine', 'TSX Paper & Paper Products', 'TSX Industrial Metals Minerals', 'TSX Gold', 'TSX Silver', 'TSX Copper', 'TSX Thermal Coal'],
-}
-
-# barchart.com/ca industry symbols
-sector_industry_symbol_mapping = {
-    'TTFS': ['VINF', 'VISS', 'VTFS', 'VCPM', 'VIPC', 'VMRF', 'VBRE', 'VBAG', 'VASM', 'VCSV', 'VIND', 'VINR', 'VFIE'],
-    'TTEN': ['VURA', 'VOGI', 'VTEN', 'VOGS', 'VOGD', 'VOGR', 'VOGE', 'VOGM'],
-    'TTMT': ['VBMT', 'VTMT', 'VSCH', 'VLWP', 'VPKC', 'VCHE', 'VCOC', 'VAGI', 'VOPM', 'VPPP', 'VIMM', 'VGOL', 'VSIL', 'VCOP', 'VTCO'],
-    'TTTK': ['VSEQ', 'VECO', 'VSEM', 'VTTK', 'VSIN', 'VCSY', 'VSAP', 'VITS'],
-    'TTIN': ['VWMA', 'VMBS', 'VCOG', 'VTIN', 'VAAS', 'VAIR', 'VSPS', 'VPTC', 'VSTI', 'VSTL', 'VEEP', 'VAAD', 'VAUP', 'VSIM', 'VSPO', 'VIDD', 'VRAI', 'VEGC', 'VISL', 'VRLS', 'VMTF', 'VTRU', 'VBPE', 'VFCE'],
-    'TTCS': ['VTCS', 'VBSD', 'VFMP', 'VPKF', 'VBWD', 'VCOF', 'VTOB', 'VGST', 'VHPP', 'VFDD'],
-    'TTUT': ['VSOL', 'VTUT', 'VURW', 'VURE', 'VUDI', 'VUIP', 'VUTR', 'VURG'],
-    'TTRE': ['VTRE', 'VRED', 'VROF', 'VRIN', 'VRDV', 'VRRT', 'VRRE', 'VRES', 'VRHF', 'VRIS', 'VREV'],
-    'TTTS': ['VPUB', 'VAAA', 'VICI', 'VTTS', 'VTSE', 'VBRO', 'VCEQ'],
-    'TTCD': ['VLUG', 'VHFF', 'VTRS', 'VAPM', 'VATD', 'VDCS', 'VAMN', 'VRVE', 'VGAM', 'VFOA', 'VBVB', 'VITR', 'VPSS', 'VEGM', 'VTCD', 'VLOD', 'VSRE', 'VAPS', 'VHIM', 'VCOE', 'VRST', 'VRCA', 'VENT', 'VLEI'],
-    'TTHC': ['VPHR', 'VMIS', 'VDMS', 'VHIS', 'VDRE', 'VMDD', 'VBIO', 'VDMM', 'VHCP', 'VMDC'],
-}
-
-# barchart.com/ca industry symbols
-industry_symbols = [
-    "VURA", "VPTC", "VCOC", "VBVB", "VSTI", "VSTL", "VEEP", "VOGI", "VAGI", "VTEN",
-    "VOGS", "VDMS", "VHIS", "VAAD", "VITR", "VPSS", "VECO", "VEGM", "VTOP", "VDRE",
-    "VRED", "VURW", "VMDD", "VROF", "VTCD", "VOGD", "VAAA", "VSEM", "VOGR", "VRIN",
-    "VOGE", "VICI", "VSPS", "VTTK", "VLOD", "VAUP", "VOPM", "VBIO", "VAIR", "VCPM",
-    "VSIN", "VPKF", "VURE", "VBWD", "VTXS", "VTTS", "VIPC", "VMIS", "VFMP", "VSRE",
-    "VBRE", "VMRF", "VPHR", "VSIM", "VRDV", "VCOF", "VAPS", "VTSE", "VCMP", "VOGM",
-    "VBAG", "VPPP", "VRRT", "VSPO", "VUDI", "VASM", "VDMM", "VFCE", "VTFS", "VCHE",
-    "VRRE", "VIMM", "VTRE", "VUIP", "VHIM", "VCOE", "VRAI", "VRHF", "VBOT", "VTOB",
-    "VISS", "VRES", "VTUT", "VIDD", "VPKC", "VLWP", "VHCP", "VINF", "VBSD", "VBPE",
-    "VAAS", "VPUB", "VGAM", "VBRO", "VCSV", "VEGC", "VRVE", "VGST", "VTCS", "VGOL",
-    "VUTR", "VTIN", "VCOG", "VRST", "VIND", "VRIS", "VRLS", "VSIL", "VCOP", "VSCH",
-    "VAMN", "VDCS", "VCSY", "VTMT", "VSOL", "VISL", "VMDC", "VHPP", "VRCA", "VATD",
-    "VSAP", "VURG", "VINR", "VAPM", "VFIE", "VENT", "VLEI", "VITS", "VREV", "VMTF",
-    "VTRS", "VTCO", "VTRU", "VFDD", "VMBS", "VWMA", "VBMT", "VHFF", "VLUG", "VCEQ",
-    "VSEQ", "VFOA"
-]

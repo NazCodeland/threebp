@@ -112,3 +112,18 @@ def flatten_nested_dict(df):
 
     return nested_data
 
+import pandas as pd
+from io import StringIO
+
+def csv_string_to_dataframe(csv_string):
+    """
+    Converts a CSV string to a pandas DataFrame.
+
+    :param csv_string: The CSV string.
+    :type csv_string: str
+
+    This function takes a CSV string as a parameter. It reads the CSV string and returns a pandas DataFrame.
+    """
+    data = StringIO(csv_string)
+    df = pd.read_csv(data)
+    return df

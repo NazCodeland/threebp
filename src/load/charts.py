@@ -1,9 +1,12 @@
 import pandas as pd
 from lightweight_charts import Chart
 import io
-    
 
-async def plot_chart(data):
+
+async def plot_chart(data, exchange):
+    # print("data", data)
+    # print('-----------------------------------------')
+    # print("exchange", exchange)
     light_gray = '#353843'
     dark_gray = '#16161E'
     up = light_gray
@@ -110,13 +113,17 @@ async def plot_chart(data):
     # If render_drawings is True, any drawings made using the toolbox will be redrawn with the new data.
     #  This is designed to be used when switching to a different timeframe of the same symbol.
 
-    def on_search(chart, string):
+    async def on_search(chart, string):
         print(f'Search Text: "{string}" | Chart/SubChart ID: "{chart.id}"')
-        data = get_equity_by_symbol(string)
-        plot_chart(data.df)
-        # Subscribe the function above to search event
-    chart.events.search += on_search  
+        # Assuming 'exchange' is an instance of your Exchange class
+        equity = exchange.get_equity_by_symbol(string)
+        print("equity", equity)
+        if equity is not None:
+            await plot_chart(equity, exchange)
+        else:
+            print(f"No equity found with symbol {string}")
 
+    chart.events.search += on_search
     chart.set(data.df, render_drawings=True)
     await chart.show_async(block=True)
 
