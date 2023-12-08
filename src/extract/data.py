@@ -1,4 +1,4 @@
-from extract.yahoo_finance import download_from_yahoo
+from extract.yfin import download_ohlcv
 from extract.barchart import start_context, stop_context, extract_sectors, extract_industries, extract_industry_equities
 from load.database import download_from_db, upload_to_db
 
@@ -33,8 +33,8 @@ class Data:
 
     # yahoo finance
     @staticmethod
-    def download_from_yahoo(symbol, timeframe):
-        return download_from_yahoo(symbol, timeframe)
+    def download_ohlcv(symbol):
+        return download_ohlcv(symbol)
 
     # neon.tech postgressql database
     @staticmethod

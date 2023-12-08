@@ -1,32 +1,22 @@
 
 from config import timeframes, sector_industry_symbol_mapping
 import pandas as pd
-from extract.yahoo_finance import download_from_yahoo
-from utilities import csv_string_to_dataframe
+from extract.data import Data
+from extract.yfin import download_ohlcv
+from utilities import csv_string_to_dataframe, save_dataframe
+import yfinance as yf
+import os
+
 
 class Base:
-    def __init__(self, symbol, name, df=None):
+
+    def __init__(self, symbol, name, dfs=[None]):
         self.symbol = symbol
         self.name = name
-        self.df = pd.DataFrame(df) if df is not None else pd.DataFrame(columns=timeframes)
+        self.dfs = dfs if dfs is not None else []
 
     def __str__(self):
         return f'{self.__class__.__name__}(symbol={self.symbol}, name={self.name})'
-
-    def download_ohlcv(self, timeframe):
-        # List of possible attribute names for assets
-        asset_attributes = ['sectors', 'industries', 'equities']
-
-        # Check each attribute name to see if it exists and is a list
-        for attr in asset_attributes:
-            if hasattr(self, attr) and isinstance(getattr(self, attr), list):
-                # If the attribute exists and is a list, call download_ohlcv on each asset
-                for asset in getattr(self, attr):
-                    asset.download_from_yahoo(self.symbol, timeframe)
-                break  # Break after finding the first matching attribute
-        else:
-            # If none of the attributes exist, assume it's a single asset and download data
-            return csv_string_to_dataframe(download_from_yahoo(self.symbol, timeframe).text)
 
     def get_equity_by_symbol(self, symbol):
         for sector in self.sectors:
@@ -35,6 +25,7 @@ class Base:
                     if equity.symbol == symbol:
                         print("equity", equity)
                         return equity
+
 
 class Exchange(Base):
     def __init__(self, symbol, name, sectors, industries, industry_equities):
@@ -87,6 +78,15 @@ class Exchange(Base):
                     except Exception as e:
                         print(f"Error creating Equity for symbol {equity_data['symbol']}: {e}")
 
+
+    def download_ohlcv(self):
+        for sector in self.sectors:
+            for industry in sector.industries:
+                for equity in industry.equities:
+                    self.dfs = equity.download_ohlcv()
+
+
+
 class Sector(Base):
     def __init__(self, symbol, name):
         super().__init__(symbol, name)
@@ -97,6 +97,11 @@ class Sector(Base):
 
     def add_industry(self, industry):
         self.industries.append(industry)
+
+    def download_ohlcv(self):
+        for industry in self.industries:
+            for equity in industry.equities:
+                self.dfs = equity.download_ohlcv()
 
 class Industry(Base):
     def __init__(self, symbol, name):
@@ -109,11 +114,17 @@ class Industry(Base):
     def add_equity(self, stock):
         self.equities.append(stock)
 
+    def download_ohlcv(self):
+        for equity in self.equities:
+            self.dfs = equity.download_ohlcv()
+
 class Equity(Base):
+
     def __init__(self, symbol, name, industry, sector, df=None):
         super().__init__(symbol, name, df)
         self.industry = industry
         self.sector = sector
-        self.df = df
-        
-    # other methods...
+        self.dfs = df
+
+    def download_ohlcv(self):
+        self.dfs = Data.download_ohlcv(self.symbol)

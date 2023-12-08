@@ -1,13 +1,9 @@
 # tsxsectors@gmail.com
 # psql 'postgresql://tsxsectors:Fl0i5WKCQmZg@ep-shiny-pond-80219216.us-east-2.aws.neon.tech/neondb?sslmode=require'
 
-
-# Valid intervals: [1m, 2m, 5m, 15m, 30m, 60m, 90m, 1h, 1d, 5d, 1wk, 1mo, 3mo] ??
-# timeframes you want to track for each symbol in the symbols list above
+# # timeframes: '1d', '5d', '1mo', '3mo', '6mo', '1y', '2y', '5y', '10y', 'ytd', 'max'
+# # intervals: '1m', '2m', '5m', '15m', '30m', '60m', '90m', '1h', '1d', '5d', '1wk', '1mo', '3mo'
 timeframes = ['d', 'wk', 'mo']
-
-# tradingview timeframes
-chart_timeframes = []
 
 # Unix Timestamp date values, used for the range of historical data retrieval 
 start_date = 1509744000  # corresponds to November 16, 2018
@@ -190,17 +186,9 @@ industry_equities = [
 		"industry": "VBMT"
 	},
 	{ "symbol": "IFOS.V", "name": "Itafos", "industry": "VAGI" },
-	{
-		"symbol": "ARGO.CN",
-		"name": "Argo Living Soils Corp",
-		"industry": "VAGI"
-	},
+	{ "symbol": "ARGO.CN", "name": "Argo Living Soils Corp", "industry": "VAGI" },
 	{ "symbol": "NTR.TO", "name": "Nutrien Ltd", "industry": "VAGI" },
-	{
-		"symbol": "MGRO.V",
-		"name": "Mustgrow Biologics Corp",
-		"industry": "VAGI"
-	},
+	{ "symbol": "MGRO.V", "name": "Mustgrow Biologics Corp", "industry": "VAGI" },
 	{ "symbol": "NPK.TO", "name": "Verde Agritech Plc", "industry": "VAGI" },
 	{ "symbol": "CLS.TO", "name": "Celestica Inc Sv", "industry": "VECO" },
 	{
@@ -247,11 +235,7 @@ industry_equities = [
 		"name": "Colonial Coal International Corp",
 		"industry": "VCOC"
 	},
-	{
-		"symbol": "BRAG.TO",
-		"name": "Bragg Gaming Group Inc",
-		"industry": "VEGM"
-	},
+	{ "symbol": "BRAG.TO", "name": "Bragg Gaming Group Inc", "industry": "VEGM" },
 	{
 		"symbol": "TIDL.CN",
 		"name": "Tiidal Gaming Group Corp",
@@ -262,18 +246,10 @@ industry_equities = [
 		"name": "Victory Square Technologies Inc",
 		"industry": "VEGM"
 	},
-	{
-		"symbol": "GAME.V",
-		"name": "Gamesquare Holdings Inc",
-		"industry": "VEGM"
-	},
+	{ "symbol": "GAME.V", "name": "Gamesquare Holdings Inc", "industry": "VEGM" },
 	{ "symbol": "UFC.V", "name": "Urbanfund Corp", "industry": "VRED" },
 	{ "symbol": "MRC.TO", "name": "Morguard Corp", "industry": "VRED" },
-	{
-		"symbol": "YEG.V",
-		"name": "Yorkton Equity Group Inc",
-		"industry": "VRED"
-	},
+	{ "symbol": "YEG.V", "name": "Yorkton Equity Group Inc", "industry": "VRED" },
 	{
 		"symbol": "GLXY.TO",
 		"name": "Galaxy Digital Holdings Ltd",
@@ -329,22 +305,14 @@ industry_equities = [
 		"industry": "VCPM"
 	},
 	{ "symbol": "XAU.TO", "name": "Goldmoney Inc", "industry": "VCPM" },
-	{
-		"symbol": "HODL.CN",
-		"name": "Cypherpunk Holdingsinc",
-		"industry": "VCPM"
-	},
+	{ "symbol": "HODL.CN", "name": "Cypherpunk Holdingsinc", "industry": "VCPM" },
 	{ "symbol": "BITK.V", "name": "Blockchaink2 Corp", "industry": "VCPM" },
 	{
 		"symbol": "CF.TO",
 		"name": "Canaccord Genuity Group Inc",
 		"industry": "VCPM"
 	},
-	{
-		"symbol": "HOLD.NE",
-		"name": "Immutable Holdings Inc",
-		"industry": "VCPM"
-	},
+	{ "symbol": "HOLD.NE", "name": "Immutable Holdings Inc", "industry": "VCPM" },
 	{
 		"symbol": "BIGG.CN",
 		"name": "Bigg Digital Assets Inc",
@@ -443,19 +411,11 @@ industry_equities = [
 		"name": "Ceridian Hcm Holdings Inc",
 		"industry": "VSAP"
 	},
-	{
-		"symbol": "ABXX.NE",
-		"name": "Abaxx Technologies Inc",
-		"industry": "VSAP"
-	},
+	{ "symbol": "ABXX.NE", "name": "Abaxx Technologies Inc", "industry": "VSAP" },
 	{ "symbol": "MAPS.V", "name": "Prostar Holdings Inc", "industry": "VSAP" },
 	{ "symbol": "KXS.TO", "name": "Kinaxis Inc", "industry": "VSAP" },
 	{ "symbol": "DND.TO", "name": "Dye & Durham Ltd", "industry": "VSAP" },
-	{
-		"symbol": "DGHI.V",
-		"name": "Digihost Technology Inc",
-		"industry": "VSAP"
-	},
+	{ "symbol": "DGHI.V", "name": "Digihost Technology Inc", "industry": "VSAP" },
 	{ "symbol": "INX.V", "name": "Intouch Insight Ltd", "industry": "VSAP" },
 	{ "symbol": "LQWD.V", "name": "Lqwd Fintech Corp", "industry": "VSAP" },
 	{
@@ -468,11 +428,7 @@ industry_equities = [
 		"name": "Quorum Information Technologies Inc",
 		"industry": "VSAP"
 	},
-	{
-		"symbol": "SKUR.CN",
-		"name": "Sekur Private Data Ltd",
-		"industry": "VSAP"
-	},
+	{ "symbol": "SKUR.CN", "name": "Sekur Private Data Ltd", "industry": "VSAP" },
 	{ "symbol": "METG.CN", "name": "Metaguest.Ai Inc", "industry": "VSAP" },
 	{
 		"symbol": "INXD.NE",
@@ -598,11 +554,7 @@ industry_equities = [
 		"industry": "VRRE"
 	},
 	{ "symbol": "IBM.NE", "name": "IBM Cdr [Cad Hedged]", "industry": "VITS" },
-	{
-		"symbol": "GIB-A.TO",
-		"name": "CGI Group Inc Cl A Sv",
-		"industry": "VITS"
-	},
+	{ "symbol": "GIB-A.TO", "name": "CGI Group Inc Cl A Sv", "industry": "VITS" },
 	{ "symbol": "SFTC.TO", "name": "Softchoice Corp", "industry": "VITS" },
 	{
 		"symbol": "CTS.TO",
@@ -629,11 +581,7 @@ industry_equities = [
 		"name": "Direct Communication Solutions Inc",
 		"industry": "VITS"
 	},
-	{
-		"symbol": "ASTL.TO",
-		"name": "Algoma Steel Group Inc",
-		"industry": "VSTL"
-	},
+	{ "symbol": "ASTL.TO", "name": "Algoma Steel Group Inc", "industry": "VSTL" },
 	{ "symbol": "CIA.TO", "name": "Champion Iron Ltd", "industry": "VSTL" },
 	{ "symbol": "STLC.TO", "name": "Stelco Holdings Inc", "industry": "VSTL" },
 	{
@@ -643,263 +591,9 @@ industry_equities = [
 	},
 	{ "symbol": "TSL.TO", "name": "Tree Island Steel Ltd", "industry": "VSTL" },
 	{
-		"symbol": "CSH-UN.TO",
-		"name": "Chartwell Retirement Residences",
-		"industry": "VTHC"
-	},
-	{
-		"symbol": "SIA.TO",
-		"name": "Sienna Senior Living Inc",
-		"industry": "VTHC"
-	},
-	{
-		"symbol": "BHC.TO",
-		"name": "Bausch Health Companies Inc",
-		"industry": "VTHC"
-	},
-	{ "symbol": "TLRY.TO", "name": "Tilray Inc", "industry": "VTHC" },
-	{ "symbol": "BIG.V", "name": "Hercules Silver Corp", "industry": "VTOP" },
-	{
-		"symbol": "TBK.V",
-		"name": "Trailbreaker Resources Ltd",
-		"industry": "VTOP"
-	},
-	{
-		"symbol": "HPS-A.TO",
-		"name": "Hammond Power Solutions Inc Cl A. Sv",
-		"industry": "VTOP"
-	},
-	{ "symbol": "RML.V", "name": "Rusoro Mining Ltd", "industry": "VTOP" },
-	{ "symbol": "WINS.V", "name": "Winshear Gold Corp", "industry": "VTOP" },
-	{ "symbol": "MSR.V", "name": "Minsud Resources Corp", "industry": "VTOP" },
-	{
-		"symbol": "SHLE.TO",
-		"name": "Source Energy Services Ltd",
-		"industry": "VTOP"
-	},
-	{ "symbol": "CDR.TO", "name": "Condor Energies Inc", "industry": "VTOP" },
-	{ "symbol": "DRX.TO", "name": "Adf Group Inc Sv", "industry": "VTOP" },
-	{ "symbol": "TTZ.V", "name": "Total Telcom Inc", "industry": "VTOP" },
-	{ "symbol": "TROY.CN", "name": "Troy Minerals Inc.", "industry": "VTOP" },
-	{ "symbol": "HMR.V", "name": "Homerun Resources Inc", "industry": "VTOP" },
-	{ "symbol": "VLE.TO", "name": "Valeura Energy Inc", "industry": "VTOP" },
-	{ "symbol": "THNC.TO", "name": "Thinkific Labs Inc", "industry": "VTOP" },
-	{ "symbol": "AMQ.CN", "name": "Abitibi Metals Corp", "industry": "VTOP" },
-	{
-		"symbol": "NVDA.NE",
-		"name": "Nvidia Cdr (Cad Hedged)",
-		"industry": "VTOP"
-	},
-	{ "symbol": "CN.V", "name": "Condor Resources Inc", "industry": "VTOP" },
-	{ "symbol": "IGO.V", "name": "Independence Gold Corp", "industry": "VTOP" },
-	{ "symbol": "CLS.TO", "name": "Celestica Inc Sv", "industry": "VTOP" },
-	{
-		"symbol": "FTG.TO",
-		"name": "Firan Technology Group Corp",
-		"industry": "VTOP"
-	},
-	{ "symbol": "META.NE", "name": "Meta Cdr [Cad Hedged]", "industry": "VTOP" },
-	{ "symbol": "SEI.V", "name": "Sintana Energy Inc", "industry": "VTOP" },
-	{ "symbol": "DMX.V", "name": "District Metals Corp", "industry": "VTOP" },
-	{ "symbol": "SOMA.V", "name": "Soma Gold Corp", "industry": "VTOP" },
-	{
-		"symbol": "GRIN.CN",
-		"name": "Grown Rogue International Inc",
-		"industry": "VTOP"
-	},
-	{ "symbol": "TNZ.TO", "name": "Tenaz Energy Corp", "industry": "VTOP" },
-	{
-		"symbol": "RSM.V",
-		"name": "Resouro Strategic Metals Inc",
-		"industry": "VTOP"
-	},
-	{
-		"symbol": "BNN.CN",
-		"name": "Benjamin Hill Mining Corp",
-		"industry": "VTOP"
-	},
-	{ "symbol": "VHI.TO", "name": "Vitalhub Corp", "industry": "VTOP" },
-	{
-		"symbol": "CPH.TO",
-		"name": "Cipher Pharmaceuticals Inc",
-		"industry": "VTOP"
-	},
-	{ "symbol": "BLN.TO", "name": "Blackline Safety Corp", "industry": "VTOP" },
-	{ "symbol": "GMIN.V", "name": "G Mining Ventures Corp", "industry": "VTOP" },
-	{
-		"symbol": "MON.V",
-		"name": "Montero Mining and Exploration Ltd",
-		"industry": "VTOP"
-	},
-	{ "symbol": "CCO.TO", "name": "Cameco Corp", "industry": "VTOP" },
-	{
-		"symbol": "NPR.V",
-		"name": "North Peak Resources Ltd",
-		"industry": "VTOP"
-	},
-	{ "symbol": "KDA.V", "name": "Kda Group Inc", "industry": "VTOP" },
-	{
-		"symbol": "AZS.V",
-		"name": "Arizona Gold & Silver Inc",
-		"industry": "VTOP"
-	},
-	{
-		"symbol": "GLXY.TO",
-		"name": "Galaxy Digital Holdings Ltd",
-		"industry": "VTOP"
-	},
-	{
-		"symbol": "BDI.TO",
-		"name": "Black Diamond Group Ltd",
-		"industry": "VTOP"
-	},
-	{ "symbol": "QFOR.TO", "name": "Q4 Inc", "industry": "VTOP" },
-	{ "symbol": "COSA.V", "name": "Cosa Resources Corp.", "industry": "VTOP" },
-	{
-		"symbol": "SATO.V",
-		"name": "Canada Computational Unlimited Corp",
-		"industry": "VTOP"
-	},
-	{ "symbol": "CANB.V", "name": "Canadabis Capital Inc", "industry": "VTOP" },
-	{
-		"symbol": "HMM-A.TO",
-		"name": "Hammond Manufacturing Co. Ltd Cl A. Sv",
-		"industry": "VTOP"
-	},
-	{
-		"symbol": "U-UN.TO",
-		"name": "Sprott Physical Uranium Trust",
-		"industry": "VTOP"
-	},
-	{ "symbol": "UBER.NE", "name": "Uber Cdr [Cad Hedged]", "industry": "VTOP" },
-	{ "symbol": "GRZ.V", "name": "Gold Reserve Inc", "industry": "VTOP" },
-	{ "symbol": "KITS.TO", "name": "Kits Eyecare Ltd", "industry": "VTOP" },
-	{ "symbol": "EU.V", "name": "Encore Energy Corp", "industry": "VTOP" },
-	{ "symbol": "MCB.TO", "name": "Mccoy Global Inc", "industry": "VTOP" },
-	{ "symbol": "RGC.V", "name": "Regenx Tech Corp", "industry": "VTOP" },
-	{ "symbol": "NGEX.V", "name": "Ngex Minerals Ltd", "industry": "VTOP" },
-	{ "symbol": "NSE.V", "name": "New Stratus Energy Inc", "industry": "VTOP" },
-	{
-		"symbol": "MBAI.CN",
-		"name": "Medbright Ai Investments Inc",
-		"industry": "VTOP"
-	},
-	{ "symbol": "GBU.V", "name": "Gabriel Res J", "industry": "VTOP" },
-	{
-		"symbol": "CRM.NE",
-		"name": "Salesforce.com Cdr [Cad Hedged]",
-		"industry": "VTOP"
-	},
-	{ "symbol": "IQ.V", "name": "Airiq Inc", "industry": "VTOP" },
-	{
-		"symbol": "HHRS.TO",
-		"name": "Hammerhead Energy Inc.",
-		"industry": "VTOP"
-	},
-	{ "symbol": "TRUE.CN", "name": "Treatment.com Ai Inc", "industry": "VTOP" },
-	{
-		"symbol": "CMG.TO",
-		"name": "Computer Modelling Group Ltd",
-		"industry": "VTOP"
-	},
-	{
-		"symbol": "HBFG.CN",
-		"name": "Happy Belly Food Group Inc.",
-		"industry": "VTOP"
-	},
-	{ "symbol": "AMRQ.V", "name": "Amaroq Minerals Ltd", "industry": "VTOP" },
-	{ "symbol": "MDA.TO", "name": "Mda Ltd", "industry": "VTOP" },
-	{ "symbol": "ELD.TO", "name": "Eldorado Gold", "industry": "VTOP" },
-	{
-		"symbol": "ZNG.V",
-		"name": "Group Eleven Resources Corp",
-		"industry": "VTOP"
-	},
-	{ "symbol": "PBL.TO", "name": "Pollard Banknote Ltd", "industry": "VTOP" },
-	{ "symbol": "MML.CN", "name": "Moonbound Mining Ltd.", "industry": "VTOP" },
-	{ "symbol": "BDT.TO", "name": "Bird Construction Inc", "industry": "VTOP" },
-	{ "symbol": "ATRL.TO", "name": "Snc-Lavalin Group Inc", "industry": "VTOP" },
-	{ "symbol": "DML.TO", "name": "Denison Mines Corp", "industry": "VTOP" },
-	{ "symbol": "SUNN.CN", "name": "Solarbank Corporation", "industry": "VTOP" },
-	{
-		"symbol": "DHT-UN.TO",
-		"name": "Dri Healthcare Trust",
-		"industry": "VTOP"
-	},
-	{ "symbol": "SGD.V", "name": "Snowline Gold Corp", "industry": "VTOP" },
-	{
-		"symbol": "WEB.V",
-		"name": "Westbridge Renewable Energy Corp",
-		"industry": "VTOP"
-	},
-	{ "symbol": "CSO.V", "name": "Corsa Coal Corp", "industry": "VTOP" },
-	{ "symbol": "SJ.TO", "name": "Stella Jones Inc", "industry": "VTOP" },
-	{ "symbol": "WMK.V", "name": "Whitemud Resources Inc", "industry": "VTOP" },
-	{
-		"symbol": "SHOW.CN",
-		"name": "Showcase Minerals Inc.",
-		"industry": "VTOP"
-	},
-	{
-		"symbol": "FFH.TO",
-		"name": "Fairfax Financial Holdings Ltd",
-		"industry": "VTOP"
-	},
-	{ "symbol": "ARTG.V", "name": "Artemis Gold Inc", "industry": "VTOP" },
-	{ "symbol": "MMY.V", "name": "Monument Mining Ltd", "industry": "VTOP" },
-	{ "symbol": "NXE.TO", "name": "Nexgen Energy Ltd", "industry": "VTOP" },
-	{
-		"symbol": "AMD.NE",
-		"name": "Advanced Micro Devices Cdr [Cad Hedged]",
-		"industry": "VTOP"
-	},
-	{ "symbol": "ALLI.NE", "name": "Alpha Lithium Corp", "industry": "VTOP" },
-	{ "symbol": "MUSH.V", "name": "The Good Shroom CO Inc", "industry": "VTOP" },
-	{ "symbol": "MFG.V", "name": "Mayfair Gold Corp", "industry": "VTOP" },
-	{ "symbol": "PKI.TO", "name": "Parkland Fuel Corp", "industry": "VTOP" },
-	{
-		"symbol": "AMZN.NE",
-		"name": "Amazon.com Cdr [Cad Hedged]",
-		"industry": "VTOP"
-	},
-	{
-		"symbol": "TMG.V",
-		"name": "Thermal Energy International Inc",
-		"industry": "VTOP"
-	},
-	{ "symbol": "OSS.V", "name": "Onesoft Solutions Inc", "industry": "VTOP" },
-	{ "symbol": "STN.TO", "name": "Stantec Inc", "industry": "VTOP" },
-	{ "symbol": "DNG.TO", "name": "Dynacor Gold Mines Inc", "industry": "VTOP" },
-	{ "symbol": "AGI.TO", "name": "Alamos Gold Inc Cls A", "industry": "VTOP" },
-	{ "symbol": "WED.V", "name": "The Westaim Corp", "industry": "VTOP" },
-	{
-		"symbol": "CSU.TO",
-		"name": "Constellation Software Inc",
-		"industry": "VTOP"
-	},
-	{
-		"symbol": "BDGI.TO",
-		"name": "Badger Infrastructure Solutions Ltd",
-		"industry": "VTOP"
-	},
-	{ "symbol": "FISH.V", "name": "Sailfish Royalty Corp", "industry": "VTOP" },
-	{ "symbol": "LMN.V", "name": "Lumine Group Inc.", "industry": "VTOP" },
-	{
-		"symbol": "EWK.V",
-		"name": "Earthworks Industries Inc",
-		"industry": "VTOP"
-	},
-	{
 		"symbol": "BNRE.TO",
 		"name": "Brookfield Reinsurance Ltd. Class A",
 		"industry": "VINR"
-	},
-	{ "symbol": "T.TO", "name": "Telus Corp", "industry": "VTTS" },
-	{ "symbol": "BCE.TO", "name": "BCE Inc", "industry": "VTTS" },
-	{
-		"symbol": "CCA.TO",
-		"name": "Cogeco Communications Inc",
-		"industry": "VTTS"
 	},
 	{
 		"symbol": "APR-UN.TO",
@@ -956,195 +650,9 @@ industry_equities = [
 		"name": "Nexus Real Estate Investment Trust",
 		"industry": "VRIN"
 	},
-	{ "symbol": "ELD.TO", "name": "Eldorado Gold", "industry": "VTMT" },
-	{ "symbol": "SJ.TO", "name": "Stella Jones Inc", "industry": "VTMT" },
-	{ "symbol": "AGI.TO", "name": "Alamos Gold Inc Cls A", "industry": "VTMT" },
-	{
-		"symbol": "DPM.TO",
-		"name": "Dundee Precious Metals Inc",
-		"industry": "VTMT"
-	},
-	{ "symbol": "K.TO", "name": "Kinross Gold Corp", "industry": "VTMT" },
-	{ "symbol": "EQX.TO", "name": "Equinox Gold Corp", "industry": "VTMT" },
-	{
-		"symbol": "ASTL.TO",
-		"name": "Algoma Steel Group Inc",
-		"industry": "VTMT"
-	},
-	{
-		"symbol": "WPM.TO",
-		"name": "Wheaton Precious Metals Corp",
-		"industry": "VTMT"
-	},
-	{
-		"symbol": "FVI.TO",
-		"name": "Fortuna Silver Mines Inc",
-		"industry": "VTMT"
-	},
-	{ "symbol": "LUG.TO", "name": "Lundin Gold Inc", "industry": "VTMT" },
-	{
-		"symbol": "OR.TO",
-		"name": "Osisko Gold Royalties Ltd",
-		"industry": "VTMT"
-	},
-	{ "symbol": "CG.TO", "name": "Centerra Gold Inc", "industry": "VTMT" },
-	{ "symbol": "IMG.TO", "name": "Iamgold Corp", "industry": "VTMT" },
-	{ "symbol": "LUN.TO", "name": "Lundin Mining Corp", "industry": "VTMT" },
-	{ "symbol": "CS.TO", "name": "Capstone Mining Corp", "industry": "VTMT" },
-	{ "symbol": "SIL.TO", "name": "Silvercrest Metals Inc", "industry": "VTMT" },
-	{ "symbol": "WDO.TO", "name": "Wesdome Gold Mines Ltd", "industry": "VTMT" },
-	{ "symbol": "AEM.TO", "name": "Agnico Eagle Mines Ltd", "industry": "VTMT" },
-	{ "symbol": "MX.TO", "name": "Methanex Corp", "industry": "VTMT" },
-	{
-		"symbol": "TXG.TO",
-		"name": "Torex Gold Resources Inc",
-		"industry": "VTMT"
-	},
-	{ "symbol": "ABX.TO", "name": "Barrick Gold Corp", "industry": "VTMT" },
-	{ "symbol": "IVN.TO", "name": "Ivanhoe Mines Ltd", "industry": "VTMT" },
-	{ "symbol": "SEA.TO", "name": "Seabridge Gold Inc", "industry": "VTMT" },
-	{ "symbol": "FIL.TO", "name": "Filo Mining Corp", "industry": "VTMT" },
-	{ "symbol": "STLC.TO", "name": "Stelco Holdings Inc", "industry": "VTMT" },
-	{
-		"symbol": "WFG.TO",
-		"name": "West Fraser Timber CO Ltd",
-		"industry": "VTMT"
-	},
-	{
-		"symbol": "LIF.TO",
-		"name": "Labrador Iron Ore Royalty Corp",
-		"industry": "VTMT"
-	},
-	{ "symbol": "BTO.TO", "name": "B2Gold Corp", "industry": "VTMT" },
-	{
-		"symbol": "PAAS.TO",
-		"name": "Pan American Silver Corp",
-		"industry": "VTMT"
-	},
-	{ "symbol": "SSL.TO", "name": "Sandstorm Gold Ltd", "industry": "VTMT" },
-	{ "symbol": "WPK.TO", "name": "Winpak Ltd", "industry": "VTMT" },
-	{ "symbol": "IFP.TO", "name": "Interfor Corp", "industry": "VTMT" },
-	{ "symbol": "OGC.TO", "name": "Oceanagold Corp", "industry": "VTMT" },
-	{ "symbol": "ERO.TO", "name": "Ero Copper Corp", "industry": "VTMT" },
-	{ "symbol": "HBM.TO", "name": "Hudbay Minerals Inc", "industry": "VTMT" },
-	{ "symbol": "OSK.TO", "name": "Osisko Mining Inc", "industry": "VTMT" },
-	{ "symbol": "MAG.TO", "name": "MAG Silver Corp", "industry": "VTMT" },
-	{ "symbol": "KNT.TO", "name": "K92 Mining Inc", "industry": "VTMT" },
-	{
-		"symbol": "FR.TO",
-		"name": "First Majestic Silver Corp Common",
-		"industry": "VTMT"
-	},
-	{ "symbol": "NG.TO", "name": "Novagold Res Inc", "industry": "VTMT" },
-	{ "symbol": "SSRM.TO", "name": "Ssr Mining Inc", "industry": "VTMT" },
-	{ "symbol": "FNV.TO", "name": "Franco-Nevada Corp", "industry": "VTMT" },
-	{ "symbol": "NTR.TO", "name": "Nutrien Ltd", "industry": "VTMT" },
-	{ "symbol": "CFP.TO", "name": "Canfor Corp", "industry": "VTMT" },
-	{
-		"symbol": "TCL-A.TO",
-		"name": "Transcontinental Inc Cl A Sv",
-		"industry": "VTMT"
-	},
-	{ "symbol": "OLA.TO", "name": "Orla Mining Ltd", "industry": "VTMT" },
-	{ "symbol": "EDR.TO", "name": "Endeavour Silver Corp", "industry": "VTMT" },
-	{
-		"symbol": "FM.TO",
-		"name": "First Quantum Minerals Ltd",
-		"industry": "VTMT"
-	},
-	{ "symbol": "LAC.TO", "name": "Lithium Americas Corp", "industry": "VTMT" },
-	{
-		"symbol": "BEI-UN.TO",
-		"name": "Boardwalk Real Estate Investment Trust",
-		"industry": "VTRE"
-	},
-	{ "symbol": "FSV.TO", "name": "Firstservice Corp", "industry": "VTRE" },
-	{
-		"symbol": "CIGI.TO",
-		"name": "Colliers International Group Inc",
-		"industry": "VTRE"
-	},
-	{ "symbol": "CAR-UN.TO", "name": "CDN Apartment Un", "industry": "VTRE" },
-	{
-		"symbol": "KMP-UN.TO",
-		"name": "Killam Apartment REIT",
-		"industry": "VTRE"
-	},
-	{
-		"symbol": "DIR-UN.TO",
-		"name": "Dream Industrial REIT",
-		"industry": "VTRE"
-	},
-	{
-		"symbol": "TCN.TO",
-		"name": "Tricon Capital Group Inc",
-		"industry": "VTRE"
-	},
-	{
-		"symbol": "IIP-UN.TO",
-		"name": "Interrent Real Estate Investment Trust",
-		"industry": "VTRE"
-	},
-	{ "symbol": "PMZ-UN.TO", "name": "Primaris REIT", "industry": "VTRE" },
-	{
-		"symbol": "CHP-UN.TO",
-		"name": "Choice Properties REIT",
-		"industry": "VTRE"
-	},
-	{
-		"symbol": "CRT-UN.TO",
-		"name": "CT Real Estate Investment Trust",
-		"industry": "VTRE"
-	},
-	{
-		"symbol": "GRT-UN.TO",
-		"name": "Granite Real Estate Investment Trust",
-		"industry": "VTRE"
-	},
-	{
-		"symbol": "SRU-UN.TO",
-		"name": "Smartcentres Real Estate Investment Trust",
-		"industry": "VTRE"
-	},
-	{
-		"symbol": "FCR-UN.TO",
-		"name": "First Capital REIT Units",
-		"industry": "VTRE"
-	},
-	{
-		"symbol": "CRR-UN.TO",
-		"name": "Crombie Real Estate Investment Trust",
-		"industry": "VTRE"
-	},
-	{ "symbol": "REI-UN.TO", "name": "Riocan Real Est Un", "industry": "VTRE" },
-	{
-		"symbol": "SVI.TO",
-		"name": "Storagevault Canada Inc",
-		"industry": "VTRE"
-	},
-	{ "symbol": "AIF.TO", "name": "Altus Group Ltd", "industry": "VTRE" },
-	{
-		"symbol": "HR-UN.TO",
-		"name": "H&R Real Estate Inv Trust",
-		"industry": "VTRE"
-	},
-	{
-		"symbol": "AP-UN.TO",
-		"name": "Allied Properties Real Estate Inv Trust",
-		"industry": "VTRE"
-	},
-	{
-		"symbol": "NWH-UN.TO",
-		"name": "Northwest Healthcare Prop REIT",
-		"industry": "VTRE"
-	},
 	{ "symbol": "CHR.TO", "name": "Chorus Aviation Inc", "industry": "VAAS" },
 	{ "symbol": "BIG.V", "name": "Hercules Silver Corp", "industry": "VSIL" },
-	{
-		"symbol": "AYA.TO",
-		"name": "Aya Gold and Silver Inc",
-		"industry": "VSIL"
-	},
+	{ "symbol": "AYA.TO", "name": "Aya Gold and Silver Inc", "industry": "VSIL" },
 	{ "symbol": "DV.V", "name": "Dolly Varden Silver Corp", "industry": "VSIL" },
 	{ "symbol": "SVM.TO", "name": "Silvercorp Metals Inc", "industry": "VSIL" },
 	{ "symbol": "MAG.TO", "name": "MAG Silver Corp", "industry": "VSIL" },
@@ -1166,11 +674,7 @@ industry_equities = [
 		"name": "Guanajuato Silver CO Ltd",
 		"industry": "VSIL"
 	},
-	{
-		"symbol": "SVE.V",
-		"name": "Silver One Resources Inc",
-		"industry": "VSIL"
-	},
+	{ "symbol": "SVE.V", "name": "Silver One Resources Inc", "industry": "VSIL" },
 	{ "symbol": "APGO.V", "name": "Apollo Silver Corp", "industry": "VSIL" },
 	{
 		"symbol": "APM.V",
@@ -1178,11 +682,7 @@ industry_equities = [
 		"industry": "VSIL"
 	},
 	{ "symbol": "IPT.V", "name": "Impact Silver Corp", "industry": "VSIL" },
-	{
-		"symbol": "BNKR.V",
-		"name": "Bunker Hill Mining Corp",
-		"industry": "VSIL"
-	},
+	{ "symbol": "BNKR.V", "name": "Bunker Hill Mining Corp", "industry": "VSIL" },
 	{ "symbol": "KUYA.CN", "name": "Kuya Silver Corp", "industry": "VSIL" },
 	{
 		"symbol": "AGMR.V",
@@ -1224,11 +724,7 @@ industry_equities = [
 	},
 	{ "symbol": "IE.TO", "name": "Ivanhoe Electric Inc", "industry": "VCOP" },
 	{ "symbol": "LA.V", "name": "Los Andes Copper Ltd", "industry": "VCOP" },
-	{
-		"symbol": "ECU.V",
-		"name": "Element 29 Resources Inc",
-		"industry": "VCOP"
-	},
+	{ "symbol": "ECU.V", "name": "Element 29 Resources Inc", "industry": "VCOP" },
 	{ "symbol": "BCU.V", "name": "Bell Copper Corp", "industry": "VCOP" },
 	{ "symbol": "VCU.V", "name": "Vizsla Copper Corp", "industry": "VCOP" },
 	{ "symbol": "TWO.V", "name": "T2 Metals Corp", "industry": "VCOP" },
@@ -1237,59 +733,8 @@ industry_equities = [
 		"name": "First Quantum Minerals Ltd",
 		"industry": "VCOP"
 	},
-	{
-		"symbol": "DCMC.V",
-		"name": "Dore Copper Mining Corp",
-		"industry": "VCOP"
-	},
+	{ "symbol": "DCMC.V", "name": "Dore Copper Mining Corp", "industry": "VCOP" },
 	{ "symbol": "SLMN.V", "name": "Solis Minerals Ltd", "industry": "VCOP" },
-	{ "symbol": "CLS.TO", "name": "Celestica Inc Sv", "industry": "VTTK" },
-	{
-		"symbol": "CMG.TO",
-		"name": "Computer Modelling Group Ltd",
-		"industry": "VTTK"
-	},
-	{
-		"symbol": "CSU.TO",
-		"name": "Constellation Software Inc",
-		"industry": "VTTK"
-	},
-	{ "symbol": "SHOP.TO", "name": "Shopify Inc", "industry": "VTTK" },
-	{ "symbol": "CVO.TO", "name": "Coveo Solutions Inc", "industry": "VTTK" },
-	{ "symbol": "DCBO.TO", "name": "Docebo Inc", "industry": "VTTK" },
-	{ "symbol": "OTEX.TO", "name": "Open Text Corp", "industry": "VTTK" },
-	{ "symbol": "TCS.TO", "name": "Tecsys Inc J", "industry": "VTTK" },
-	{ "symbol": "SYZ.TO", "name": "Sylogist Ltd", "industry": "VTTK" },
-	{ "symbol": "DSG.TO", "name": "Descartes Sys", "industry": "VTTK" },
-	{ "symbol": "QTRH.TO", "name": "Quarterhill Inc", "industry": "VTTK" },
-	{
-		"symbol": "GIB-A.TO",
-		"name": "CGI Group Inc Cl A Sv",
-		"industry": "VTTK"
-	},
-	{
-		"symbol": "CPLF.TO",
-		"name": "Copperleaf Technologies Inc",
-		"industry": "VTTK"
-	},
-	{ "symbol": "ENGH.TO", "name": "Enghouse Systems Ltd", "industry": "VTTK" },
-	{
-		"symbol": "LSPD.TO",
-		"name": "Lightspeed Commerce Inc.",
-		"industry": "VTTK"
-	},
-	{ "symbol": "SFTC.TO", "name": "Softchoice Corp", "industry": "VTTK" },
-	{ "symbol": "HUT.TO", "name": "Hut 8 Mining Corp", "industry": "VTTK" },
-	{ "symbol": "BITF.TO", "name": "Bitfarms Ltd", "industry": "VTTK" },
-	{ "symbol": "KXS.TO", "name": "Kinaxis Inc", "industry": "VTTK" },
-	{
-		"symbol": "CTS.TO",
-		"name": "Converge Technology Solutions Corp",
-		"industry": "VTTK"
-	},
-	{ "symbol": "DND.TO", "name": "Dye & Durham Ltd", "industry": "VTTK" },
-	{ "symbol": "BB.TO", "name": "Blackberry Ltd", "industry": "VTTK" },
-	{ "symbol": "ALYA.TO", "name": "Alithya Group", "industry": "VTTK" },
 	{ "symbol": "KDA.V", "name": "Kda Group Inc", "industry": "VMDC" },
 	{ "symbol": "NPTH.V", "name": "Neupath Health Inc", "industry": "VMDC" },
 	{
@@ -1316,63 +761,6 @@ industry_equities = [
 		"industry": "VMDC"
 	},
 	{ "symbol": "CRRX.TO", "name": "Carerx Corp", "industry": "VMDC" },
-	{ "symbol": "ATRL.TO", "name": "Snc-Lavalin Group Inc", "industry": "VTIN" },
-	{ "symbol": "STN.TO", "name": "Stantec Inc", "industry": "VTIN" },
-	{
-		"symbol": "BDGI.TO",
-		"name": "Badger Infrastructure Solutions Ltd",
-		"industry": "VTIN"
-	},
-	{ "symbol": "RUS.TO", "name": "Russel Metals", "industry": "VTIN" },
-	{
-		"symbol": "BYD.TO",
-		"name": "Boyd Group Services Inc",
-		"industry": "VTIN"
-	},
-	{ "symbol": "TRI.TO", "name": "Thomson Reuters Corp", "industry": "VTIN" },
-	{ "symbol": "TFII.TO", "name": "Tfi International Inc", "industry": "VTIN" },
-	{ "symbol": "RCH.TO", "name": "Richelieu Hardware Ltd", "industry": "VTIN" },
-	{ "symbol": "WSP.TO", "name": "WSP Global Inc", "industry": "VTIN" },
-	{ "symbol": "ATS.TO", "name": "Ats Corp", "industry": "VTIN" },
-	{ "symbol": "TIH.TO", "name": "Toromont Ind", "industry": "VTIN" },
-	{
-		"symbol": "WTE.TO",
-		"name": "Westshore Terminals Investment Corp",
-		"industry": "VTIN"
-	},
-	{ "symbol": "WCN.TO", "name": "Waste Connections Inc", "industry": "VTIN" },
-	{
-		"symbol": "CNR.TO",
-		"name": "Canadian National Railway Co.",
-		"industry": "VTIN"
-	},
-	{ "symbol": "FTT.TO", "name": "Finning Intl", "industry": "VTIN" },
-	{
-		"symbol": "BBU-UN.TO",
-		"name": "Brookfield Business Partners LP",
-		"industry": "VTIN"
-	},
-	{ "symbol": "CAE.TO", "name": "Cae Inc", "industry": "VTIN" },
-	{ "symbol": "GFL.TO", "name": "Gfl Environmental Inc", "industry": "VTIN" },
-	{
-		"symbol": "CP.TO",
-		"name": "Canadian Pacific Railway Ltd",
-		"industry": "VTIN"
-	},
-	{ "symbol": "EIF.TO", "name": "Exchange Income Corp", "industry": "VTIN" },
-	{ "symbol": "MTL.TO", "name": "Mullen Group Ltd", "industry": "VTIN" },
-	{ "symbol": "AC.TO", "name": "Air Canada", "industry": "VTIN" },
-	{ "symbol": "CJT.TO", "name": "Cargojet Inc", "industry": "VTIN" },
-	{
-		"symbol": "BLDP.TO",
-		"name": "Ballard Power Systems Inc",
-		"industry": "VTIN"
-	},
-	{
-		"symbol": "TIXT.TO",
-		"name": "Telus International [Cda] Inc",
-		"industry": "VTIN"
-	},
 	{ "symbol": "PMZ-UN.TO", "name": "Primaris REIT", "industry": "VRRT" },
 	{
 		"symbol": "CHP-UN.TO",
@@ -1449,88 +837,6 @@ industry_equities = [
 		"name": "Hypercharge Networks Corp.",
 		"industry": "VAUP"
 	},
-	{
-		"symbol": "FFH.TO",
-		"name": "Fairfax Financial Holdings Ltd",
-		"industry": "VTFS"
-	},
-	{ "symbol": "ONEX.TO", "name": "Onex Corp", "industry": "VTFS" },
-	{ "symbol": "GWO.TO", "name": "Great-West Lifeco Inc", "industry": "VTFS" },
-	{ "symbol": "EQB.TO", "name": "EQB Inc", "industry": "VTFS" },
-	{
-		"symbol": "BAM.TO",
-		"name": "Brookfield Asset Management Ltd",
-		"industry": "VTFS"
-	},
-	{ "symbol": "CWB.TO", "name": "CDN Western Bank", "industry": "VTFS" },
-	{ "symbol": "GSY.TO", "name": "Goeasy Ltd", "industry": "VTFS" },
-	{
-		"symbol": "EFN.TO",
-		"name": "Element Fleet Management Corp",
-		"industry": "VTFS"
-	},
-	{ "symbol": "IAG.TO", "name": "IA Financial Corp Inc", "industry": "VTFS" },
-	{
-		"symbol": "POW.TO",
-		"name": "Power Corp of Canada Sv",
-		"industry": "VTFS"
-	},
-	{ "symbol": "MFC.TO", "name": "Manulife Fin", "industry": "VTFS" },
-	{ "symbol": "SLF.TO", "name": "Sun Life Financial Inc", "industry": "VTFS" },
-	{ "symbol": "X.TO", "name": "Tmx Group Ltd", "industry": "VTFS" },
-	{ "symbol": "IFC.TO", "name": "Intact Financial Corp", "industry": "VTFS" },
-	{ "symbol": "BN.TO", "name": "Brookfield Corporation", "industry": "VTFS" },
-	{ "symbol": "NVEI.TO", "name": "Nuvei Corp", "industry": "VTFS" },
-	{ "symbol": "NA.TO", "name": "National Bank of Canada", "industry": "VTFS" },
-	{
-		"symbol": "CM.TO",
-		"name": "Canadian Imperial Bank of Commerce",
-		"industry": "VTFS"
-	},
-	{ "symbol": "CIX.TO", "name": "CI Financial Corp", "industry": "VTFS" },
-	{
-		"symbol": "DFY.TO",
-		"name": "Definity Financial Corporation",
-		"industry": "VTFS"
-	},
-	{ "symbol": "SII.TO", "name": "Sprott Inc", "industry": "VTFS" },
-	{ "symbol": "RY.TO", "name": "Royal Bank of Canada", "industry": "VTFS" },
-	{ "symbol": "TD.TO", "name": "Toronto-Dominion Bank", "industry": "VTFS" },
-	{ "symbol": "BNS.TO", "name": "Bank of Nova Scotia", "industry": "VTFS" },
-	{ "symbol": "BMO.TO", "name": "Bank of Montreal", "industry": "VTFS" },
-	{ "symbol": "IGM.TO", "name": "Igm Financial Inc", "industry": "VTFS" },
-	{ "symbol": "TSU.TO", "name": "Trisura Group Ltd", "industry": "VTFS" },
-	{ "symbol": "LB.TO", "name": "Laurentian Bank", "industry": "VTFS" },
-	{ "symbol": "GIL.TO", "name": "Gildan Activewear Inc", "industry": "VTCD" },
-	{ "symbol": "DOL.TO", "name": "Dollarama Inc", "industry": "VTCD" },
-	{
-		"symbol": "QSR.TO",
-		"name": "Restaurant Brands International Inc",
-		"industry": "VTCD"
-	},
-	{
-		"symbol": "ZZZ.TO",
-		"name": "Sleep Country Canada Holdings Inc",
-		"industry": "VTCD"
-	},
-	{ "symbol": "TOY.TO", "name": "Spin Master Corp", "industry": "VTCD" },
-	{ "symbol": "MG.TO", "name": "Magna International Inc", "industry": "VTCD" },
-	{
-		"symbol": "CTC-A.TO",
-		"name": "Canadian Tire Corp Cl A NV",
-		"industry": "VTCD"
-	},
-	{ "symbol": "LNR.TO", "name": "Linamar Corp", "industry": "VTCD" },
-	{ "symbol": "MTY.TO", "name": "Mty Food Group Inc", "industry": "VTCD" },
-	{ "symbol": "DOO.TO", "name": "Brp Inc", "industry": "VTCD" },
-	{ "symbol": "PET.TO", "name": "Pet Valu Holdings Ltd", "industry": "VTCD" },
-	{ "symbol": "PLC.TO", "name": "Park Lawn Corp", "industry": "VTCD" },
-	{
-		"symbol": "GOOS.TO",
-		"name": "Canada Goose Holdings Inc",
-		"industry": "VTCD"
-	},
-	{ "symbol": "ATZ.TO", "name": "Aritzia Inc", "industry": "VTCD" },
 	{ "symbol": "SPB.TO", "name": "Superior Plus Corp", "industry": "VURG" },
 	{
 		"symbol": "EVGN.V",
@@ -1642,11 +948,7 @@ industry_equities = [
 		"industry": "VSIN"
 	},
 	{ "symbol": "CLIP.V", "name": "Clip Money Inc", "industry": "VSIN" },
-	{
-		"symbol": "NBVA.V",
-		"name": "Nubeva Technologies Ltd",
-		"industry": "VSIN"
-	},
+	{ "symbol": "NBVA.V", "name": "Nubeva Technologies Ltd", "industry": "VSIN" },
 	{ "symbol": "FOBI.V", "name": "Fobi Ai Inc", "industry": "VSIN" },
 	{
 		"symbol": "CYBT.CN",
@@ -1704,547 +1006,7 @@ industry_equities = [
 		"name": "Greenfirst Forest Products Inc",
 		"industry": "VLWP"
 	},
-	{
-		"symbol": "KLX.V",
-		"name": "Klimat X Development Inc",
-		"industry": "VLWP"
-	},
-	{ "symbol": "ALA.TO", "name": "Altagas Ltd", "industry": "VTUT" },
-	{ "symbol": "H.TO", "name": "Hydro One Ltd", "industry": "VTUT" },
-	{ "symbol": "SPB.TO", "name": "Superior Plus Corp", "industry": "VTUT" },
-	{ "symbol": "FTS.TO", "name": "Fortis Inc", "industry": "VTUT" },
-	{
-		"symbol": "BEP-UN.TO",
-		"name": "Brookfield Renewable Partners LP",
-		"industry": "VTUT"
-	},
-	{ "symbol": "EMA.TO", "name": "Emera Incorporated", "industry": "VTUT" },
-	{ "symbol": "ACO-X.TO", "name": "Atco Ltd Cl I NV", "industry": "VTUT" },
-	{ "symbol": "TA.TO", "name": "Transalta Corp", "industry": "VTUT" },
-	{
-		"symbol": "CU.TO",
-		"name": "Canadian Utilities Ltd Cl A NV",
-		"industry": "VTUT"
-	},
-	{ "symbol": "BLX.TO", "name": "Boralex Inc", "industry": "VTUT" },
-	{ "symbol": "CPX.TO", "name": "Capital Power Corp", "industry": "VTUT" },
-	{
-		"symbol": "AQN.TO",
-		"name": "Algonquin Power and Utilities Corp",
-		"industry": "VTUT"
-	},
-	{
-		"symbol": "BIP-UN.TO",
-		"name": "Brookfield Infra Partners LP Units",
-		"industry": "VTUT"
-	},
-	{ "symbol": "NPI.TO", "name": "Northland Power Inc", "industry": "VTUT" },
-	{
-		"symbol": "INE.TO",
-		"name": "Innergex Renewable Energy Inc",
-		"industry": "VTUT"
-	},
-	{ "symbol": "CLS.TO", "name": "Celestica Inc Sv", "industry": "VCMP" },
-	{ "symbol": "CCO.TO", "name": "Cameco Corp", "industry": "VCMP" },
-	{ "symbol": "ELD.TO", "name": "Eldorado Gold", "industry": "VCMP" },
-	{ "symbol": "ATRL.TO", "name": "Snc-Lavalin Group Inc", "industry": "VCMP" },
-	{ "symbol": "DML.TO", "name": "Denison Mines Corp", "industry": "VCMP" },
-	{ "symbol": "SJ.TO", "name": "Stella Jones Inc", "industry": "VCMP" },
-	{
-		"symbol": "FFH.TO",
-		"name": "Fairfax Financial Holdings Ltd",
-		"industry": "VCMP"
-	},
-	{ "symbol": "NXE.TO", "name": "Nexgen Energy Ltd", "industry": "VCMP" },
-	{ "symbol": "PKI.TO", "name": "Parkland Fuel Corp", "industry": "VCMP" },
-	{ "symbol": "STN.TO", "name": "Stantec Inc", "industry": "VCMP" },
-	{ "symbol": "AGI.TO", "name": "Alamos Gold Inc Cls A", "industry": "VCMP" },
-	{
-		"symbol": "CSU.TO",
-		"name": "Constellation Software Inc",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "BDGI.TO",
-		"name": "Badger Infrastructure Solutions Ltd",
-		"industry": "VCMP"
-	},
-	{ "symbol": "SHOP.TO", "name": "Shopify Inc", "industry": "VCMP" },
-	{
-		"symbol": "DPM.TO",
-		"name": "Dundee Precious Metals Inc",
-		"industry": "VCMP"
-	},
-	{ "symbol": "K.TO", "name": "Kinross Gold Corp", "industry": "VCMP" },
-	{ "symbol": "ONEX.TO", "name": "Onex Corp", "industry": "VCMP" },
-	{ "symbol": "EQX.TO", "name": "Equinox Gold Corp", "industry": "VCMP" },
-	{ "symbol": "ATH.TO", "name": "Athabasca Oil Corp", "industry": "VCMP" },
-	{
-		"symbol": "CSH-UN.TO",
-		"name": "Chartwell Retirement Residences",
-		"industry": "VCMP"
-	},
-	{ "symbol": "GWO.TO", "name": "Great-West Lifeco Inc", "industry": "VCMP" },
-	{ "symbol": "PXT.TO", "name": "Parex Resources Inc", "industry": "VCMP" },
-	{ "symbol": "GIL.TO", "name": "Gildan Activewear Inc", "industry": "VCMP" },
-	{ "symbol": "OTEX.TO", "name": "Open Text Corp", "industry": "VCMP" },
-	{ "symbol": "EQB.TO", "name": "EQB Inc", "industry": "VCMP" },
-	{
-		"symbol": "ASTL.TO",
-		"name": "Algoma Steel Group Inc",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "BEI-UN.TO",
-		"name": "Boardwalk Real Estate Investment Trust",
-		"industry": "VCMP"
-	},
-	{ "symbol": "RUS.TO", "name": "Russel Metals", "industry": "VCMP" },
-	{ "symbol": "MEG.TO", "name": "Meg Energy Corp", "industry": "VCMP" },
-	{
-		"symbol": "BAM.TO",
-		"name": "Brookfield Asset Management Ltd",
-		"industry": "VCMP"
-	},
-	{ "symbol": "CWB.TO", "name": "CDN Western Bank", "industry": "VCMP" },
-	{
-		"symbol": "ATD.TO",
-		"name": "Alimentation Couche-Tard Inc.",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "WPM.TO",
-		"name": "Wheaton Precious Metals Corp",
-		"industry": "VCMP"
-	},
-	{ "symbol": "GSY.TO", "name": "Goeasy Ltd", "industry": "VCMP" },
-	{ "symbol": "DOL.TO", "name": "Dollarama Inc", "industry": "VCMP" },
-	{ "symbol": "ALA.TO", "name": "Altagas Ltd", "industry": "VCMP" },
-	{ "symbol": "FSV.TO", "name": "Firstservice Corp", "industry": "VCMP" },
-	{
-		"symbol": "BYD.TO",
-		"name": "Boyd Group Services Inc",
-		"industry": "VCMP"
-	},
-	{ "symbol": "TRI.TO", "name": "Thomson Reuters Corp", "industry": "VCMP" },
-	{ "symbol": "ARX.TO", "name": "Arc Resources Ltd", "industry": "VCMP" },
-	{
-		"symbol": "SES.TO",
-		"name": "Secure Energy Services Inc",
-		"industry": "VCMP"
-	},
-	{ "symbol": "EFR.TO", "name": "Energy Fuels Inc", "industry": "VCMP" },
-	{
-		"symbol": "EFN.TO",
-		"name": "Element Fleet Management Corp",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "CNQ.TO",
-		"name": "Canadian Natural Resources Ltd.",
-		"industry": "VCMP"
-	},
-	{ "symbol": "IAG.TO", "name": "IA Financial Corp Inc", "industry": "VCMP" },
-	{ "symbol": "DSG.TO", "name": "Descartes Sys", "industry": "VCMP" },
-	{
-		"symbol": "FVI.TO",
-		"name": "Fortuna Silver Mines Inc",
-		"industry": "VCMP"
-	},
-	{ "symbol": "LUG.TO", "name": "Lundin Gold Inc", "industry": "VCMP" },
-	{
-		"symbol": "OR.TO",
-		"name": "Osisko Gold Royalties Ltd",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "GIB-A.TO",
-		"name": "CGI Group Inc Cl A Sv",
-		"industry": "VCMP"
-	},
-	{ "symbol": "CG.TO", "name": "Centerra Gold Inc", "industry": "VCMP" },
-	{ "symbol": "PSK.TO", "name": "Prairiesky Royalty Ltd", "industry": "VCMP" },
-	{ "symbol": "TFII.TO", "name": "Tfi International Inc", "industry": "VCMP" },
-	{ "symbol": "RCH.TO", "name": "Richelieu Hardware Ltd", "industry": "VCMP" },
-	{ "symbol": "WSP.TO", "name": "WSP Global Inc", "industry": "VCMP" },
-	{ "symbol": "ENGH.TO", "name": "Enghouse Systems Ltd", "industry": "VCMP" },
-	{ "symbol": "ATS.TO", "name": "Ats Corp", "industry": "VCMP" },
-	{ "symbol": "IMG.TO", "name": "Iamgold Corp", "industry": "VCMP" },
-	{
-		"symbol": "POW.TO",
-		"name": "Power Corp of Canada Sv",
-		"industry": "VCMP"
-	},
-	{ "symbol": "LUN.TO", "name": "Lundin Mining Corp", "industry": "VCMP" },
-	{
-		"symbol": "CIGI.TO",
-		"name": "Colliers International Group Inc",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "IPCO.TO",
-		"name": "International Petroleum Corp",
-		"industry": "VCMP"
-	},
-	{ "symbol": "KEY.TO", "name": "Keyera Corp", "industry": "VCMP" },
-	{
-		"symbol": "QSR.TO",
-		"name": "Restaurant Brands International Inc",
-		"industry": "VCMP"
-	},
-	{ "symbol": "CS.TO", "name": "Capstone Mining Corp", "industry": "VCMP" },
-	{ "symbol": "MFC.TO", "name": "Manulife Fin", "industry": "VCMP" },
-	{ "symbol": "SIL.TO", "name": "Silvercrest Metals Inc", "industry": "VCMP" },
-	{
-		"symbol": "HWX.TO",
-		"name": "Headwater Exploration Inc",
-		"industry": "VCMP"
-	},
-	{ "symbol": "WDO.TO", "name": "Wesdome Gold Mines Ltd", "industry": "VCMP" },
-	{ "symbol": "TIH.TO", "name": "Toromont Ind", "industry": "VCMP" },
-	{ "symbol": "AEM.TO", "name": "Agnico Eagle Mines Ltd", "industry": "VCMP" },
-	{ "symbol": "MX.TO", "name": "Methanex Corp", "industry": "VCMP" },
-	{ "symbol": "SLF.TO", "name": "Sun Life Financial Inc", "industry": "VCMP" },
-	{ "symbol": "IMO.TO", "name": "Imperial Oil", "industry": "VCMP" },
-	{ "symbol": "X.TO", "name": "Tmx Group Ltd", "industry": "VCMP" },
-	{ "symbol": "IFC.TO", "name": "Intact Financial Corp", "industry": "VCMP" },
-	{
-		"symbol": "TXG.TO",
-		"name": "Torex Gold Resources Inc",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "LSPD.TO",
-		"name": "Lightspeed Commerce Inc.",
-		"industry": "VCMP"
-	},
-	{ "symbol": "ABX.TO", "name": "Barrick Gold Corp", "industry": "VCMP" },
-	{ "symbol": "IVN.TO", "name": "Ivanhoe Mines Ltd", "industry": "VCMP" },
-	{ "symbol": "BN.TO", "name": "Brookfield Corporation", "industry": "VCMP" },
-	{ "symbol": "CAR-UN.TO", "name": "CDN Apartment Un", "industry": "VCMP" },
-	{ "symbol": "SU.TO", "name": "Suncor Energy Inc", "industry": "VCMP" },
-	{ "symbol": "NVEI.TO", "name": "Nuvei Corp", "industry": "VCMP" },
-	{
-		"symbol": "WTE.TO",
-		"name": "Westshore Terminals Investment Corp",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "ZZZ.TO",
-		"name": "Sleep Country Canada Holdings Inc",
-		"industry": "VCMP"
-	},
-	{ "symbol": "EMP-A.TO", "name": "Empire Company Ltd", "industry": "VCMP" },
-	{
-		"symbol": "KMP-UN.TO",
-		"name": "Killam Apartment REIT",
-		"industry": "VCMP"
-	},
-	{ "symbol": "H.TO", "name": "Hydro One Ltd", "industry": "VCMP" },
-	{ "symbol": "SEA.TO", "name": "Seabridge Gold Inc", "industry": "VCMP" },
-	{ "symbol": "FIL.TO", "name": "Filo Mining Corp", "industry": "VCMP" },
-	{ "symbol": "STLC.TO", "name": "Stelco Holdings Inc", "industry": "VCMP" },
-	{ "symbol": "MATR.TO", "name": "Shawcor Ltd", "industry": "VCMP" },
-	{
-		"symbol": "DIR-UN.TO",
-		"name": "Dream Industrial REIT",
-		"industry": "VCMP"
-	},
-	{ "symbol": "PPL.TO", "name": "Pembina Pipeline Corp", "industry": "VCMP" },
-	{ "symbol": "SPB.TO", "name": "Superior Plus Corp", "industry": "VCMP" },
-	{ "symbol": "FTS.TO", "name": "Fortis Inc", "industry": "VCMP" },
-	{
-		"symbol": "NWC.TO",
-		"name": "The North West Company Inc",
-		"industry": "VCMP"
-	},
-	{ "symbol": "WCN.TO", "name": "Waste Connections Inc", "industry": "VCMP" },
-	{ "symbol": "PSI.TO", "name": "Pason Systems Inc", "industry": "VCMP" },
-	{
-		"symbol": "WFG.TO",
-		"name": "West Fraser Timber CO Ltd",
-		"industry": "VCMP"
-	},
-	{ "symbol": "NA.TO", "name": "National Bank of Canada", "industry": "VCMP" },
-	{
-		"symbol": "CM.TO",
-		"name": "Canadian Imperial Bank of Commerce",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "TCN.TO",
-		"name": "Tricon Capital Group Inc",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "IIP-UN.TO",
-		"name": "Interrent Real Estate Investment Trust",
-		"industry": "VCMP"
-	},
-	{ "symbol": "L.TO", "name": "Loblaw CO", "industry": "VCMP" },
-	{ "symbol": "CIX.TO", "name": "CI Financial Corp", "industry": "VCMP" },
-	{
-		"symbol": "LIF.TO",
-		"name": "Labrador Iron Ore Royalty Corp",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "CNR.TO",
-		"name": "Canadian National Railway Co.",
-		"industry": "VCMP"
-	},
-	{ "symbol": "BTO.TO", "name": "B2Gold Corp", "industry": "VCMP" },
-	{
-		"symbol": "PBH.TO",
-		"name": "Premium Brands Holdings Corp",
-		"industry": "VCMP"
-	},
-	{ "symbol": "FTT.TO", "name": "Finning Intl", "industry": "VCMP" },
-	{
-		"symbol": "DFY.TO",
-		"name": "Definity Financial Corporation",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "BBU-UN.TO",
-		"name": "Brookfield Business Partners LP",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "PAAS.TO",
-		"name": "Pan American Silver Corp",
-		"industry": "VCMP"
-	},
-	{ "symbol": "TOY.TO", "name": "Spin Master Corp", "industry": "VCMP" },
-	{ "symbol": "PMZ-UN.TO", "name": "Primaris REIT", "industry": "VCMP" },
-	{ "symbol": "WN.TO", "name": "George Weston Limited", "industry": "VCMP" },
-	{ "symbol": "KXS.TO", "name": "Kinaxis Inc", "industry": "VCMP" },
-	{ "symbol": "SII.TO", "name": "Sprott Inc", "industry": "VCMP" },
-	{
-		"symbol": "SIA.TO",
-		"name": "Sienna Senior Living Inc",
-		"industry": "VCMP"
-	},
-	{ "symbol": "PRMW.TO", "name": "Primo Water Corp", "industry": "VCMP" },
-	{ "symbol": "MG.TO", "name": "Magna International Inc", "industry": "VCMP" },
-	{ "symbol": "JWEL.TO", "name": "Jamieson Wellness Inc", "industry": "VCMP" },
-	{ "symbol": "SSL.TO", "name": "Sandstorm Gold Ltd", "industry": "VCMP" },
-	{ "symbol": "CAE.TO", "name": "Cae Inc", "industry": "VCMP" },
-	{ "symbol": "MFI.TO", "name": "Maple Leaf Foods", "industry": "VCMP" },
-	{ "symbol": "GFL.TO", "name": "Gfl Environmental Inc", "industry": "VCMP" },
-	{ "symbol": "RY.TO", "name": "Royal Bank of Canada", "industry": "VCMP" },
-	{
-		"symbol": "CHP-UN.TO",
-		"name": "Choice Properties REIT",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "CPG.TO",
-		"name": "Crescent Point Energy Corp",
-		"industry": "VCMP"
-	},
-	{ "symbol": "DND.TO", "name": "Dye & Durham Ltd", "industry": "VCMP" },
-	{ "symbol": "WPK.TO", "name": "Winpak Ltd", "industry": "VCMP" },
-	{
-		"symbol": "CP.TO",
-		"name": "Canadian Pacific Railway Ltd",
-		"industry": "VCMP"
-	},
-	{ "symbol": "ERF.TO", "name": "Enerplus Corp", "industry": "VCMP" },
-	{ "symbol": "EIF.TO", "name": "Exchange Income Corp", "industry": "VCMP" },
-	{
-		"symbol": "PEY.TO",
-		"name": "Peyto Exploration and Dvlpmnt Corp",
-		"industry": "VCMP"
-	},
-	{ "symbol": "TD.TO", "name": "Toronto-Dominion Bank", "industry": "VCMP" },
-	{ "symbol": "IFP.TO", "name": "Interfor Corp", "industry": "VCMP" },
-	{ "symbol": "TRP.TO", "name": "Tc Energy Corp", "industry": "VCMP" },
-	{ "symbol": "CVE.TO", "name": "Cenovus Energy Inc", "industry": "VCMP" },
-	{ "symbol": "T.TO", "name": "Telus Corp", "industry": "VCMP" },
-	{
-		"symbol": "BEP-UN.TO",
-		"name": "Brookfield Renewable Partners LP",
-		"industry": "VCMP"
-	},
-	{ "symbol": "EMA.TO", "name": "Emera Incorporated", "industry": "VCMP" },
-	{ "symbol": "NVA.TO", "name": "Nuvista Energy Ltd", "industry": "VCMP" },
-	{
-		"symbol": "AAV.TO",
-		"name": "Advantage Oil & Gas Ltd",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "CRT-UN.TO",
-		"name": "CT Real Estate Investment Trust",
-		"industry": "VCMP"
-	},
-	{ "symbol": "OGC.TO", "name": "Oceanagold Corp", "industry": "VCMP" },
-	{ "symbol": "TOU.TO", "name": "Tourmaline Oil Corp", "industry": "VCMP" },
-	{ "symbol": "ENB.TO", "name": "Enbridge Inc", "industry": "VCMP" },
-	{
-		"symbol": "GRT-UN.TO",
-		"name": "Granite Real Estate Investment Trust",
-		"industry": "VCMP"
-	},
-	{ "symbol": "BNS.TO", "name": "Bank of Nova Scotia", "industry": "VCMP" },
-	{ "symbol": "ACO-X.TO", "name": "Atco Ltd Cl I NV", "industry": "VCMP" },
-	{ "symbol": "MRU.TO", "name": "Metro Inc", "industry": "VCMP" },
-	{ "symbol": "ERO.TO", "name": "Ero Copper Corp", "industry": "VCMP" },
-	{ "symbol": "GEI.TO", "name": "Gibson Energy Inc", "industry": "VCMP" },
-	{
-		"symbol": "SRU-UN.TO",
-		"name": "Smartcentres Real Estate Investment Trust",
-		"industry": "VCMP"
-	},
-	{ "symbol": "HBM.TO", "name": "Hudbay Minerals Inc", "industry": "VCMP" },
-	{
-		"symbol": "CTC-A.TO",
-		"name": "Canadian Tire Corp Cl A NV",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "FCR-UN.TO",
-		"name": "First Capital REIT Units",
-		"industry": "VCMP"
-	},
-	{ "symbol": "BMO.TO", "name": "Bank of Montreal", "industry": "VCMP" },
-	{ "symbol": "MTL.TO", "name": "Mullen Group Ltd", "industry": "VCMP" },
-	{ "symbol": "FRU.TO", "name": "Freehold Royalties Ltd", "industry": "VCMP" },
-	{ "symbol": "AC.TO", "name": "Air Canada", "industry": "VCMP" },
-	{ "symbol": "BCE.TO", "name": "BCE Inc", "industry": "VCMP" },
-	{ "symbol": "LNR.TO", "name": "Linamar Corp", "industry": "VCMP" },
-	{ "symbol": "AOI.TO", "name": "Africa Oil Corp", "industry": "VCMP" },
-	{
-		"symbol": "POU.TO",
-		"name": "Paramount Resources Ltd",
-		"industry": "VCMP"
-	},
-	{ "symbol": "TPZ.TO", "name": "Topaz Energy Corp", "industry": "VCMP" },
-	{ "symbol": "TA.TO", "name": "Transalta Corp", "industry": "VCMP" },
-	{ "symbol": "WCP.TO", "name": "Whitecap Resources Inc", "industry": "VCMP" },
-	{ "symbol": "IGM.TO", "name": "Igm Financial Inc", "industry": "VCMP" },
-	{ "symbol": "MTY.TO", "name": "Mty Food Group Inc", "industry": "VCMP" },
-	{
-		"symbol": "CRR-UN.TO",
-		"name": "Crombie Real Estate Investment Trust",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "CU.TO",
-		"name": "Canadian Utilities Ltd Cl A NV",
-		"industry": "VCMP"
-	},
-	{ "symbol": "REI-UN.TO", "name": "Riocan Real Est Un", "industry": "VCMP" },
-	{ "symbol": "OSK.TO", "name": "Osisko Mining Inc", "industry": "VCMP" },
-	{ "symbol": "MAG.TO", "name": "MAG Silver Corp", "industry": "VCMP" },
-	{ "symbol": "TSU.TO", "name": "Trisura Group Ltd", "industry": "VCMP" },
-	{ "symbol": "CJT.TO", "name": "Cargojet Inc", "industry": "VCMP" },
-	{ "symbol": "BTE.TO", "name": "Baytex Energy Corp", "industry": "VCMP" },
-	{ "symbol": "BLX.TO", "name": "Boralex Inc", "industry": "VCMP" },
-	{ "symbol": "CPX.TO", "name": "Capital Power Corp", "industry": "VCMP" },
-	{
-		"symbol": "AQN.TO",
-		"name": "Algonquin Power and Utilities Corp",
-		"industry": "VCMP"
-	},
-	{ "symbol": "KNT.TO", "name": "K92 Mining Inc", "industry": "VCMP" },
-	{ "symbol": "PD.TO", "name": "Precision Drilling Corp", "industry": "VCMP" },
-	{
-		"symbol": "TVE.TO",
-		"name": "Tamarack Valley Energy Ltd",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "SVI.TO",
-		"name": "Storagevault Canada Inc",
-		"industry": "VCMP"
-	},
-	{ "symbol": "SAP.TO", "name": "Saputo Inc", "industry": "VCMP" },
-	{
-		"symbol": "FR.TO",
-		"name": "First Majestic Silver Corp Common",
-		"industry": "VCMP"
-	},
-	{ "symbol": "DOO.TO", "name": "Brp Inc", "industry": "VCMP" },
-	{ "symbol": "NG.TO", "name": "Novagold Res Inc", "industry": "VCMP" },
-	{ "symbol": "BB.TO", "name": "Blackberry Ltd", "industry": "VCMP" },
-	{ "symbol": "AIF.TO", "name": "Altus Group Ltd", "industry": "VCMP" },
-	{ "symbol": "FNV.TO", "name": "Franco-Nevada Corp", "industry": "VCMP" },
-	{ "symbol": "SSRM.TO", "name": "Ssr Mining Inc", "industry": "VCMP" },
-	{
-		"symbol": "BHC.TO",
-		"name": "Bausch Health Companies Inc",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "HR-UN.TO",
-		"name": "H&R Real Estate Inv Trust",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "BIP-UN.TO",
-		"name": "Brookfield Infra Partners LP Units",
-		"industry": "VCMP"
-	},
-	{ "symbol": "LB.TO", "name": "Laurentian Bank", "industry": "VCMP" },
-	{ "symbol": "NTR.TO", "name": "Nutrien Ltd", "industry": "VCMP" },
-	{ "symbol": "CFP.TO", "name": "Canfor Corp", "industry": "VCMP" },
-	{
-		"symbol": "AP-UN.TO",
-		"name": "Allied Properties Real Estate Inv Trust",
-		"industry": "VCMP"
-	},
-	{ "symbol": "VET.TO", "name": "Vermilion Energy Inc", "industry": "VCMP" },
-	{
-		"symbol": "TCL-A.TO",
-		"name": "Transcontinental Inc Cl A Sv",
-		"industry": "VCMP"
-	},
-	{ "symbol": "OLA.TO", "name": "Orla Mining Ltd", "industry": "VCMP" },
-	{ "symbol": "PET.TO", "name": "Pet Valu Holdings Ltd", "industry": "VCMP" },
-	{
-		"symbol": "CCA.TO",
-		"name": "Cogeco Communications Inc",
-		"industry": "VCMP"
-	},
-	{ "symbol": "BIR.TO", "name": "Birchcliff Energy Ltd", "industry": "VCMP" },
-	{
-		"symbol": "BLDP.TO",
-		"name": "Ballard Power Systems Inc",
-		"industry": "VCMP"
-	},
-	{ "symbol": "NPI.TO", "name": "Northland Power Inc", "industry": "VCMP" },
-	{ "symbol": "EDR.TO", "name": "Endeavour Silver Corp", "industry": "VCMP" },
-	{ "symbol": "PLC.TO", "name": "Park Lawn Corp", "industry": "VCMP" },
-	{
-		"symbol": "GOOS.TO",
-		"name": "Canada Goose Holdings Inc",
-		"industry": "VCMP"
-	},
-	{ "symbol": "ATZ.TO", "name": "Aritzia Inc", "industry": "VCMP" },
-	{
-		"symbol": "INE.TO",
-		"name": "Innergex Renewable Energy Inc",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "NWH-UN.TO",
-		"name": "Northwest Healthcare Prop REIT",
-		"industry": "VCMP"
-	},
-	{
-		"symbol": "TIXT.TO",
-		"name": "Telus International [Cda] Inc",
-		"industry": "VCMP"
-	},
-	{ "symbol": "TLRY.TO", "name": "Tilray Inc", "industry": "VCMP" },
-	{
-		"symbol": "FM.TO",
-		"name": "First Quantum Minerals Ltd",
-		"industry": "VCMP"
-	},
-	{ "symbol": "LAC.TO", "name": "Lithium Americas Corp", "industry": "VCMP" },
+	{ "symbol": "KLX.V", "name": "Klimat X Development Inc", "industry": "VLWP" },
 	{ "symbol": "BDT.TO", "name": "Bird Construction Inc", "industry": "VEGC" },
 	{ "symbol": "ATRL.TO", "name": "Snc-Lavalin Group Inc", "industry": "VEGC" },
 	{ "symbol": "STN.TO", "name": "Stantec Inc", "industry": "VEGC" },
@@ -2271,11 +1033,7 @@ industry_equities = [
 	},
 	{ "symbol": "MML.CN", "name": "Moonbound Mining Ltd.", "industry": "VIMM" },
 	{ "symbol": "WMK.V", "name": "Whitemud Resources Inc", "industry": "VIMM" },
-	{
-		"symbol": "SHOW.CN",
-		"name": "Showcase Minerals Inc.",
-		"industry": "VIMM"
-	},
+	{ "symbol": "SHOW.CN", "name": "Showcase Minerals Inc.", "industry": "VIMM" },
 	{ "symbol": "ALLI.NE", "name": "Alpha Lithium Corp", "industry": "VIMM" },
 	{ "symbol": "BY.CN", "name": "Beyond Minerals Inc.", "industry": "VIMM" },
 	{
@@ -2290,17 +1048,9 @@ industry_equities = [
 		"name": "Surge Battery Metals Inc",
 		"industry": "VIMM"
 	},
-	{
-		"symbol": "CUR.V",
-		"name": "Consolidated Uranium Inc",
-		"industry": "VIMM"
-	},
+	{ "symbol": "CUR.V", "name": "Consolidated Uranium Inc", "industry": "VIMM" },
 	{ "symbol": "PNPN.V", "name": "Power Nickel Inc", "industry": "VIMM" },
-	{
-		"symbol": "SYH.V",
-		"name": "Skyharbour Resources Ltd",
-		"industry": "VIMM"
-	},
+	{ "symbol": "SYH.V", "name": "Skyharbour Resources Ltd", "industry": "VIMM" },
 	{ "symbol": "M.CN", "name": "Myriad Uranium Corp.", "industry": "VIMM" },
 	{ "symbol": "NIO.V", "name": "Niocan Inc", "industry": "VIMM" },
 	{
@@ -2323,11 +1073,7 @@ industry_equities = [
 		"name": "Juggernaut Exploration Ltd",
 		"industry": "VIMM"
 	},
-	{
-		"symbol": "ALDE.V",
-		"name": "Aldebaran Resources Inc",
-		"industry": "VIMM"
-	},
+	{ "symbol": "ALDE.V", "name": "Aldebaran Resources Inc", "industry": "VIMM" },
 	{ "symbol": "STS.V", "name": "South Star Mining Corp", "industry": "VIMM" },
 	{ "symbol": "INTR.V", "name": "Intrepid Metals Corp", "industry": "VIMM" },
 	{
@@ -2335,11 +1081,7 @@ industry_equities = [
 		"name": "Pacific Booker Minerals Inc",
 		"industry": "VIMM"
 	},
-	{
-		"symbol": "FAR.TO",
-		"name": "Foraco International Sa",
-		"industry": "VIMM"
-	},
+	{ "symbol": "FAR.TO", "name": "Foraco International Sa", "industry": "VIMM" },
 	{ "symbol": "NKG.V", "name": "Nevada King Gold Corp", "industry": "VIMM" },
 	{ "symbol": "OIII.V", "name": "O3 Mining Inc", "industry": "VIMM" },
 	{ "symbol": "FNI.CN", "name": "Fathom Nickel Inc", "industry": "VIMM" },
@@ -2364,17 +1106,9 @@ industry_equities = [
 		"name": "Cantex Mine Development Corp",
 		"industry": "VIMM"
 	},
-	{
-		"symbol": "MMA.V",
-		"name": "Midnight Sun Mining Corp",
-		"industry": "VIMM"
-	},
+	{ "symbol": "MMA.V", "name": "Midnight Sun Mining Corp", "industry": "VIMM" },
 	{ "symbol": "REG.V", "name": "Regulus Resources Inc", "industry": "VIMM" },
-	{
-		"symbol": "FMC.V",
-		"name": "Forum Energy Metals Corp",
-		"industry": "VIMM"
-	},
+	{ "symbol": "FMC.V", "name": "Forum Energy Metals Corp", "industry": "VIMM" },
 	{ "symbol": "VZLA.V", "name": "Vizsla Resources Corp", "industry": "VIMM" },
 	{ "symbol": "NOVR.V", "name": "Nova Royalty Corp", "industry": "VIMM" },
 	{ "symbol": "EMX.V", "name": "Emx Royalty Corp", "industry": "VIMM" },
@@ -2416,11 +1150,7 @@ industry_equities = [
 	{ "symbol": "AAG.V", "name": "Aftermath Silver Ltd", "industry": "VIMM" },
 	{ "symbol": "KLD.V", "name": "Kenorland Minerals Ltd", "industry": "VIMM" },
 	{ "symbol": "ALS.TO", "name": "Altius Minerals Corp", "industry": "VIMM" },
-	{
-		"symbol": "BRO.V",
-		"name": "Barksdale Resources Corp",
-		"industry": "VIMM"
-	},
+	{ "symbol": "BRO.V", "name": "Barksdale Resources Corp", "industry": "VIMM" },
 	{ "symbol": "DBG.V", "name": "Doubleview Gold Corp", "industry": "VIMM" },
 	{
 		"symbol": "VOY.CN",
@@ -2514,11 +1244,7 @@ industry_equities = [
 	{ "symbol": "LITH.V", "name": "Lithium Chile Inc", "industry": "VIMM" },
 	{ "symbol": "AZM.V", "name": "Azimut Exploration Inc", "industry": "VIMM" },
 	{ "symbol": "TWR.V", "name": "Tower Resources Ltd", "industry": "VIMM" },
-	{
-		"symbol": "SVRS.V",
-		"name": "Silver Storm Mining Ltd",
-		"industry": "VIMM"
-	},
+	{ "symbol": "SVRS.V", "name": "Silver Storm Mining Ltd", "industry": "VIMM" },
 	{
 		"symbol": "FLYN.V",
 		"name": "Flying Nickel Mining Corp",
@@ -2600,11 +1326,7 @@ industry_equities = [
 		"name": "Leading Edge Materials Corp",
 		"industry": "VIMM"
 	},
-	{
-		"symbol": "TAU.V",
-		"name": "Thesis Gold Holdings Inc",
-		"industry": "VIMM"
-	},
+	{ "symbol": "TAU.V", "name": "Thesis Gold Holdings Inc", "industry": "VIMM" },
 	{ "symbol": "LR.V", "name": "Luminex Resources Corp", "industry": "VIMM" },
 	{
 		"symbol": "SLV.CN",
@@ -2651,11 +1373,7 @@ industry_equities = [
 		"name": "Western Star Resources Inc.",
 		"industry": "VIMM"
 	},
-	{
-		"symbol": "SRS.CN",
-		"name": "Sorrento Resources Ltd.",
-		"industry": "VIMM"
-	},
+	{ "symbol": "SRS.CN", "name": "Sorrento Resources Ltd.", "industry": "VIMM" },
 	{ "symbol": "WLF.V", "name": "Wolfden Resources Corp", "industry": "VIMM" },
 	{ "symbol": "ADZN.V", "name": "Adventus Mining Corp", "industry": "VIMM" },
 	{ "symbol": "SLI.V", "name": "Standard Lithium Ltd", "industry": "VIMM" },
@@ -2695,11 +1413,7 @@ industry_equities = [
 	{ "symbol": "UUSA.CN", "name": "Kraken Energy Corp", "industry": "VIMM" },
 	{ "symbol": "EDM.V", "name": "Edm Resources Inc", "industry": "VIMM" },
 	{ "symbol": "SALT.V", "name": "Atlas Salt Inc", "industry": "VIMM" },
-	{
-		"symbol": "GGI.V",
-		"name": "Garibaldi Resources Corp",
-		"industry": "VIMM"
-	},
+	{ "symbol": "GGI.V", "name": "Garibaldi Resources Corp", "industry": "VIMM" },
 	{ "symbol": "ELEC.V", "name": "Electric Royalties Ltd", "industry": "VIMM" },
 	{ "symbol": "CC.CN", "name": "Core Assets Corp", "industry": "VIMM" },
 	{ "symbol": "GRAT.V", "name": "Gratomic Inc", "industry": "VIMM" },
@@ -2746,22 +1460,14 @@ industry_equities = [
 	{ "symbol": "TORQ.V", "name": "Torq Resources Inc", "industry": "VIMM" },
 	{ "symbol": "SEAG.CN", "name": "Seahawk Gold Corp", "industry": "VIMM" },
 	{ "symbol": "JZR.V", "name": "Jzr Gold Inc", "industry": "VIMM" },
-	{
-		"symbol": "PGZ.V",
-		"name": "Pan Global Resources Inc",
-		"industry": "VIMM"
-	},
+	{ "symbol": "PGZ.V", "name": "Pan Global Resources Inc", "industry": "VIMM" },
 	{
 		"symbol": "USCM.CN",
 		"name": "US Critical Metals Corp",
 		"industry": "VIMM"
 	},
 	{ "symbol": "LIFT.V", "name": "Li-Ft Power Ltd.", "industry": "VIMM" },
-	{
-		"symbol": "NB.TO",
-		"name": "Niocorp Developments Ltd",
-		"industry": "VIMM"
-	},
+	{ "symbol": "NB.TO", "name": "Niocorp Developments Ltd", "industry": "VIMM" },
 	{
 		"symbol": "TCEC.CN",
 		"name": "Tisdale Clean Energy Corp",
@@ -2841,11 +1547,7 @@ industry_equities = [
 	},
 	{ "symbol": "WEST.CN", "name": "West Mining Corp", "industry": "VIMM" },
 	{ "symbol": "PM.CN", "name": "Pampa Metals Corp", "industry": "VIMM" },
-	{
-		"symbol": "TEX.CN",
-		"name": "Targa Exploration Corp.",
-		"industry": "VIMM"
-	},
+	{ "symbol": "TEX.CN", "name": "Targa Exploration Corp.", "industry": "VIMM" },
 	{ "symbol": "ALCU.CN", "name": "Alpha Copper Corp", "industry": "VIMM" },
 	{ "symbol": "CAS.TO", "name": "Cascades Inc", "industry": "VPKC" },
 	{ "symbol": "WPK.TO", "name": "Winpak Ltd", "industry": "VPKC" },
@@ -2898,11 +1600,7 @@ industry_equities = [
 	{ "symbol": "SEI.V", "name": "Sintana Energy Inc", "industry": "VOGE" },
 	{ "symbol": "TNZ.TO", "name": "Tenaz Energy Corp", "industry": "VOGE" },
 	{ "symbol": "NSE.V", "name": "New Stratus Energy Inc", "industry": "VOGE" },
-	{
-		"symbol": "HHRS.TO",
-		"name": "Hammerhead Energy Inc.",
-		"industry": "VOGE"
-	},
+	{ "symbol": "HHRS.TO", "name": "Hammerhead Energy Inc.", "industry": "VOGE" },
 	{ "symbol": "ATH.TO", "name": "Athabasca Oil Corp", "industry": "VOGE" },
 	{ "symbol": "PXT.TO", "name": "Parex Resources Inc", "industry": "VOGE" },
 	{ "symbol": "MEG.TO", "name": "Meg Energy Corp", "industry": "VOGE" },
@@ -2953,27 +1651,15 @@ industry_equities = [
 	{ "symbol": "PNE.TO", "name": "Pine Cliff Energy Ltd", "industry": "VOGE" },
 	{ "symbol": "KEC.TO", "name": "Kiwetinohk Energy Corp", "industry": "VOGE" },
 	{ "symbol": "NVA.TO", "name": "Nuvista Energy Ltd", "industry": "VOGE" },
-	{
-		"symbol": "AAV.TO",
-		"name": "Advantage Oil & Gas Ltd",
-		"industry": "VOGE"
-	},
+	{ "symbol": "AAV.TO", "name": "Advantage Oil & Gas Ltd", "industry": "VOGE" },
 	{ "symbol": "TOU.TO", "name": "Tourmaline Oil Corp", "industry": "VOGE" },
 	{ "symbol": "OVV.TO", "name": "Ovintiv Inc", "industry": "VOGE" },
 	{ "symbol": "FRU.TO", "name": "Freehold Royalties Ltd", "industry": "VOGE" },
 	{ "symbol": "GTE.TO", "name": "Gran Tierra Energy Inc", "industry": "VOGE" },
-	{
-		"symbol": "SOIL.TO",
-		"name": "Saturn Oil and Gas Inc",
-		"industry": "VOGE"
-	},
+	{ "symbol": "SOIL.TO", "name": "Saturn Oil and Gas Inc", "industry": "VOGE" },
 	{ "symbol": "AOI.TO", "name": "Africa Oil Corp", "industry": "VOGE" },
 	{ "symbol": "CJ.TO", "name": "Cardinal Energy Ltd", "industry": "VOGE" },
-	{
-		"symbol": "POU.TO",
-		"name": "Paramount Resources Ltd",
-		"industry": "VOGE"
-	},
+	{ "symbol": "POU.TO", "name": "Paramount Resources Ltd", "industry": "VOGE" },
 	{ "symbol": "WCP.TO", "name": "Whitecap Resources Inc", "industry": "VOGE" },
 	{ "symbol": "BTE.TO", "name": "Baytex Energy Corp", "industry": "VOGE" },
 	{ "symbol": "LCX.V", "name": "Lycos Energy Inc", "industry": "VOGE" },
@@ -3051,123 +1737,6 @@ industry_equities = [
 		"name": "Trillion Energy International Inc",
 		"industry": "VOGE"
 	},
-	{ "symbol": "CCO.TO", "name": "Cameco Corp", "industry": "VTXS" },
-	{
-		"symbol": "CSU.TO",
-		"name": "Constellation Software Inc",
-		"industry": "VTXS"
-	},
-	{ "symbol": "SHOP.TO", "name": "Shopify Inc", "industry": "VTXS" },
-	{ "symbol": "K.TO", "name": "Kinross Gold Corp", "industry": "VTXS" },
-	{ "symbol": "GIL.TO", "name": "Gildan Activewear Inc", "industry": "VTXS" },
-	{ "symbol": "OTEX.TO", "name": "Open Text Corp", "industry": "VTXS" },
-	{
-		"symbol": "BAM.TO",
-		"name": "Brookfield Asset Management Ltd",
-		"industry": "VTXS"
-	},
-	{
-		"symbol": "ATD.TO",
-		"name": "Alimentation Couche-Tard Inc.",
-		"industry": "VTXS"
-	},
-	{
-		"symbol": "WPM.TO",
-		"name": "Wheaton Precious Metals Corp",
-		"industry": "VTXS"
-	},
-	{ "symbol": "DOL.TO", "name": "Dollarama Inc", "industry": "VTXS" },
-	{ "symbol": "FSV.TO", "name": "Firstservice Corp", "industry": "VTXS" },
-	{ "symbol": "TRI.TO", "name": "Thomson Reuters Corp", "industry": "VTXS" },
-	{
-		"symbol": "CNQ.TO",
-		"name": "Canadian Natural Resources Ltd.",
-		"industry": "VTXS"
-	},
-	{
-		"symbol": "GIB-A.TO",
-		"name": "CGI Group Inc Cl A Sv",
-		"industry": "VTXS"
-	},
-	{ "symbol": "WSP.TO", "name": "WSP Global Inc", "industry": "VTXS" },
-	{
-		"symbol": "POW.TO",
-		"name": "Power Corp of Canada Sv",
-		"industry": "VTXS"
-	},
-	{
-		"symbol": "QSR.TO",
-		"name": "Restaurant Brands International Inc",
-		"industry": "VTXS"
-	},
-	{ "symbol": "MFC.TO", "name": "Manulife Fin", "industry": "VTXS" },
-	{ "symbol": "AEM.TO", "name": "Agnico Eagle Mines Ltd", "industry": "VTXS" },
-	{ "symbol": "SLF.TO", "name": "Sun Life Financial Inc", "industry": "VTXS" },
-	{ "symbol": "IMO.TO", "name": "Imperial Oil", "industry": "VTXS" },
-	{ "symbol": "IFC.TO", "name": "Intact Financial Corp", "industry": "VTXS" },
-	{ "symbol": "ABX.TO", "name": "Barrick Gold Corp", "industry": "VTXS" },
-	{ "symbol": "CAR-UN.TO", "name": "CDN Apartment Un", "industry": "VTXS" },
-	{ "symbol": "BN.TO", "name": "Brookfield Corporation", "industry": "VTXS" },
-	{ "symbol": "SU.TO", "name": "Suncor Energy Inc", "industry": "VTXS" },
-	{ "symbol": "H.TO", "name": "Hydro One Ltd", "industry": "VTXS" },
-	{ "symbol": "PPL.TO", "name": "Pembina Pipeline Corp", "industry": "VTXS" },
-	{ "symbol": "FTS.TO", "name": "Fortis Inc", "industry": "VTXS" },
-	{ "symbol": "WCN.TO", "name": "Waste Connections Inc", "industry": "VTXS" },
-	{ "symbol": "NA.TO", "name": "National Bank of Canada", "industry": "VTXS" },
-	{
-		"symbol": "CM.TO",
-		"name": "Canadian Imperial Bank of Commerce",
-		"industry": "VTXS"
-	},
-	{ "symbol": "L.TO", "name": "Loblaw CO", "industry": "VTXS" },
-	{
-		"symbol": "CNR.TO",
-		"name": "Canadian National Railway Co.",
-		"industry": "VTXS"
-	},
-	{ "symbol": "WN.TO", "name": "George Weston Limited", "industry": "VTXS" },
-	{ "symbol": "MG.TO", "name": "Magna International Inc", "industry": "VTXS" },
-	{ "symbol": "CAE.TO", "name": "Cae Inc", "industry": "VTXS" },
-	{ "symbol": "RY.TO", "name": "Royal Bank of Canada", "industry": "VTXS" },
-	{
-		"symbol": "CP.TO",
-		"name": "Canadian Pacific Railway Ltd",
-		"industry": "VTXS"
-	},
-	{ "symbol": "TD.TO", "name": "Toronto-Dominion Bank", "industry": "VTXS" },
-	{ "symbol": "CVE.TO", "name": "Cenovus Energy Inc", "industry": "VTXS" },
-	{ "symbol": "T.TO", "name": "Telus Corp", "industry": "VTXS" },
-	{ "symbol": "TRP.TO", "name": "Tc Energy Corp", "industry": "VTXS" },
-	{ "symbol": "EMA.TO", "name": "Emera Incorporated", "industry": "VTXS" },
-	{ "symbol": "TOU.TO", "name": "Tourmaline Oil Corp", "industry": "VTXS" },
-	{ "symbol": "ENB.TO", "name": "Enbridge Inc", "industry": "VTXS" },
-	{ "symbol": "BNS.TO", "name": "Bank of Nova Scotia", "industry": "VTXS" },
-	{ "symbol": "MRU.TO", "name": "Metro Inc", "industry": "VTXS" },
-	{
-		"symbol": "CTC-A.TO",
-		"name": "Canadian Tire Corp Cl A NV",
-		"industry": "VTXS"
-	},
-	{ "symbol": "BMO.TO", "name": "Bank of Montreal", "industry": "VTXS" },
-	{ "symbol": "BCE.TO", "name": "BCE Inc", "industry": "VTXS" },
-	{
-		"symbol": "AQN.TO",
-		"name": "Algonquin Power and Utilities Corp",
-		"industry": "VTXS"
-	},
-	{ "symbol": "SAP.TO", "name": "Saputo Inc", "industry": "VTXS" },
-	{ "symbol": "FNV.TO", "name": "Franco-Nevada Corp", "industry": "VTXS" },
-	{
-		"symbol": "BIP-UN.TO",
-		"name": "Brookfield Infra Partners LP Units",
-		"industry": "VTXS"
-	},
-	{ "symbol": "NTR.TO", "name": "Nutrien Ltd", "industry": "VTXS" },
-	{
-		"symbol": "FM.TO",
-		"name": "First Quantum Minerals Ltd",
-		"industry": "VTXS"
-	},
 	{ "symbol": "RSI.TO", "name": "Rogers Sugar Inc", "industry": "VCOF" },
 	{ "symbol": "TYUM.CN", "name": "The Yumy Candy CO Inc", "industry": "VCOF" },
 	{
@@ -3202,11 +1771,7 @@ industry_equities = [
 	},
 	{ "symbol": "VOL.V", "name": "Volatus Aerospace Corp", "industry": "VAAD" },
 	{ "symbol": "DPRO.CN", "name": "Draganfly Inc", "industry": "VAAD" },
-	{
-		"symbol": "KWE.V",
-		"name": "Kwesst Micro Systems Inc",
-		"industry": "VAAD"
-	},
+	{ "symbol": "KWE.V", "name": "Kwesst Micro Systems Inc", "industry": "VAAD" },
 	{
 		"symbol": "QSR.TO",
 		"name": "Restaurant Brands International Inc",
@@ -3362,11 +1927,7 @@ industry_equities = [
 	{ "symbol": "BBB.V", "name": "Brixton Metals Corp", "industry": "VOPM" },
 	{ "symbol": "MRZ.V", "name": "Mirasol Resources Ltd", "industry": "VOPM" },
 	{ "symbol": "MTB.V", "name": "Mtb Metals Corp", "industry": "VOPM" },
-	{
-		"symbol": "SLVR.V",
-		"name": "Silver Tiger Metals Inc",
-		"industry": "VOPM"
-	},
+	{ "symbol": "SLVR.V", "name": "Silver Tiger Metals Inc", "industry": "VOPM" },
 	{ "symbol": "NVRO.CN", "name": "Envirogold Global Ltd", "industry": "VOPM" },
 	{
 		"symbol": "SNAG.V",
@@ -3432,11 +1993,7 @@ industry_equities = [
 	},
 	{ "symbol": "PDO.CN", "name": "Pudo Inc", "industry": "VISL" },
 	{ "symbol": "QBR-A.TO", "name": "Quebecor Inc Cl A Mv", "industry": "VTSE" },
-	{
-		"symbol": "VZ.NE",
-		"name": "Verizon Cdr [Cad Hedged]",
-		"industry": "VTSE"
-	},
+	{ "symbol": "VZ.NE", "name": "Verizon Cdr [Cad Hedged]", "industry": "VTSE" },
 	{
 		"symbol": "RCI-A.TO",
 		"name": "Rogers Communications Inc Cl A Mv",
@@ -3467,11 +2024,7 @@ industry_equities = [
 		"name": "Medbright Ai Investments Inc",
 		"industry": "VDMS"
 	},
-	{
-		"symbol": "DHT-UN.TO",
-		"name": "Dri Healthcare Trust",
-		"industry": "VDMS"
-	},
+	{ "symbol": "DHT-UN.TO", "name": "Dri Healthcare Trust", "industry": "VDMS" },
 	{ "symbol": "EPIC.CN", "name": "1Cm Inc", "industry": "VDMS" },
 	{ "symbol": "MPH.V", "name": "Medicure Inc", "industry": "VDMS" },
 	{
@@ -3491,11 +2044,7 @@ industry_equities = [
 	},
 	{ "symbol": "RX.V", "name": "Biosyent Inc", "industry": "VDMS" },
 	{ "symbol": "FH.NE", "name": "Filament Health Corp", "industry": "VDMS" },
-	{
-		"symbol": "GUD.TO",
-		"name": "Knight Therapeutics Inc",
-		"industry": "VDMS"
-	},
+	{ "symbol": "GUD.TO", "name": "Knight Therapeutics Inc", "industry": "VDMS" },
 	{
 		"symbol": "HUGE.CN",
 		"name": "Fsd Pharma Inc Subordinate Voting Share",
@@ -3557,23 +2106,11 @@ industry_equities = [
 		"name": "Sweet Earth Holdings Corp",
 		"industry": "VDMS"
 	},
-	{
-		"symbol": "PLTH.CN",
-		"name": "Planet 13 Holdings Inc",
-		"industry": "VDMS"
-	},
+	{ "symbol": "PLTH.CN", "name": "Planet 13 Holdings Inc", "industry": "VDMS" },
 	{ "symbol": "MRMD.CN", "name": "Marimed Inc.", "industry": "VDMS" },
-	{
-		"symbol": "TRUL.CN",
-		"name": "Trulieve Cannabis Corp",
-		"industry": "VDMS"
-	},
+	{ "symbol": "TRUL.CN", "name": "Trulieve Cannabis Corp", "industry": "VDMS" },
 	{ "symbol": "RIV.CN", "name": "Canopy Rivers Inc", "industry": "VDMS" },
-	{
-		"symbol": "OGI.TO",
-		"name": "Organigram Holdings Inc",
-		"industry": "VDMS"
-	},
+	{ "symbol": "OGI.TO", "name": "Organigram Holdings Inc", "industry": "VDMS" },
 	{
 		"symbol": "JUSH.CN",
 		"name": "Jushi Holdings Inc Class B Subordinate",
@@ -3632,11 +2169,7 @@ industry_equities = [
 		"industry": "VCSV"
 	},
 	{ "symbol": "ACD.TO", "name": "Accord Financial", "industry": "VCSV" },
-	{
-		"symbol": "AFCC-H.V",
-		"name": "Automotive Finco Corp",
-		"industry": "VCSV"
-	},
+	{ "symbol": "AFCC-H.V", "name": "Automotive Finco Corp", "industry": "VCSV" },
 	{
 		"symbol": "PHX.TO",
 		"name": "Phx Energy Services Corp",
@@ -3708,11 +2241,7 @@ industry_equities = [
 		"name": "Benjamin Hill Mining Corp",
 		"industry": "VGOL"
 	},
-	{
-		"symbol": "NPR.V",
-		"name": "North Peak Resources Ltd",
-		"industry": "VGOL"
-	},
+	{ "symbol": "NPR.V", "name": "North Peak Resources Ltd", "industry": "VGOL" },
 	{ "symbol": "GRZ.V", "name": "Gold Reserve Inc", "industry": "VGOL" },
 	{ "symbol": "RGC.V", "name": "Regenx Tech Corp", "industry": "VGOL" },
 	{ "symbol": "AMRQ.V", "name": "Amaroq Minerals Ltd", "industry": "VGOL" },
@@ -3758,11 +2287,7 @@ industry_equities = [
 		"name": "Wheaton Precious Metals Corp",
 		"industry": "VGOL"
 	},
-	{
-		"symbol": "GPAC.V",
-		"name": "Great Pacific Gold Corp",
-		"industry": "VGOL"
-	},
+	{ "symbol": "GPAC.V", "name": "Great Pacific Gold Corp", "industry": "VGOL" },
 	{ "symbol": "VIO.V", "name": "Vior Inc", "industry": "VGOL" },
 	{ "symbol": "SIG.CN", "name": "Sitka Gold Corp", "industry": "VGOL" },
 	{ "symbol": "MAU.V", "name": "Montage Gold Corp", "industry": "VGOL" },
@@ -3788,11 +2313,7 @@ industry_equities = [
 	{ "symbol": "CG.TO", "name": "Centerra Gold Inc", "industry": "VGOL" },
 	{ "symbol": "VG.V", "name": "Volcanic Gold Mines Inc", "industry": "VGOL" },
 	{ "symbol": "KRR.TO", "name": "Karora Resources Inc", "industry": "VGOL" },
-	{
-		"symbol": "RPX.V",
-		"name": "Red Pine Exploration Inc",
-		"industry": "VGOL"
-	},
+	{ "symbol": "RPX.V", "name": "Red Pine Exploration Inc", "industry": "VGOL" },
 	{ "symbol": "IMG.TO", "name": "Iamgold Corp", "industry": "VGOL" },
 	{ "symbol": "ASE.CN", "name": "Asante Gold Corp", "industry": "VGOL" },
 	{
@@ -3901,11 +2422,7 @@ industry_equities = [
 	{ "symbol": "DEX.V", "name": "Almadex Minerals Ltd", "industry": "VGOL" },
 	{ "symbol": "NCAU.V", "name": "Newcore Gold Ltd", "industry": "VGOL" },
 	{ "symbol": "PALI.V", "name": "Palisades Goldcorp Ltd", "industry": "VGOL" },
-	{
-		"symbol": "MND.TO",
-		"name": "Mandalay Resources Corp",
-		"industry": "VGOL"
-	},
+	{ "symbol": "MND.TO", "name": "Mandalay Resources Corp", "industry": "VGOL" },
 	{
 		"symbol": "ELVT.V",
 		"name": "Elevation Gold Mining Corp.",
@@ -3938,17 +2455,9 @@ industry_equities = [
 		"industry": "VGOL"
 	},
 	{ "symbol": "FNAU.CN", "name": "Four Nines Gold Inc", "industry": "VGOL" },
-	{
-		"symbol": "GSHR.V",
-		"name": "Goldshore Resources Inc",
-		"industry": "VGOL"
-	},
+	{ "symbol": "GSHR.V", "name": "Goldshore Resources Inc", "industry": "VGOL" },
 	{ "symbol": "DCLI.CN", "name": "Discovery Lithium Inc", "industry": "VGOL" },
-	{
-		"symbol": "GLDL.V",
-		"name": "Gold Line Resources Ltd",
-		"industry": "VGOL"
-	},
+	{ "symbol": "GLDL.V", "name": "Gold Line Resources Ltd", "industry": "VGOL" },
 	{ "symbol": "LORD.V", "name": "ST James Gold Corp", "industry": "VGOL" },
 	{ "symbol": "FMAN.V", "name": "Freeman Gold Corp", "industry": "VGOL" },
 	{ "symbol": "RVG.V", "name": "Revival Gold Inc", "industry": "VGOL" },
@@ -4033,16 +2542,8 @@ industry_equities = [
 	{ "symbol": "TRUE.CN", "name": "Treatment.com Ai Inc", "industry": "VHIS" },
 	{ "symbol": "ADK.V", "name": "Diagnos Inc", "industry": "VHIS" },
 	{ "symbol": "KSI.TO", "name": "Kneat.com Inc", "industry": "VHIS" },
-	{
-		"symbol": "AIAI.CN",
-		"name": "Netramark Holdings Inc",
-		"industry": "VHIS"
-	},
-	{
-		"symbol": "HS.CN",
-		"name": "Hs Govtech Solutions Inc",
-		"industry": "VHIS"
-	},
+	{ "symbol": "AIAI.CN", "name": "Netramark Holdings Inc", "industry": "VHIS" },
+	{ "symbol": "HS.CN", "name": "Hs Govtech Solutions Inc", "industry": "VHIS" },
 	{ "symbol": "CDX.V", "name": "Cloud Dx Inc", "industry": "VHIS" },
 	{
 		"symbol": "RHT.V",
@@ -4071,11 +2572,7 @@ industry_equities = [
 	{ "symbol": "DOO.TO", "name": "Brp Inc", "industry": "VRVE" },
 	{ "symbol": "TAIG.TO", "name": "Taiga Motors Corp", "industry": "VRVE" },
 	{ "symbol": "MENE.V", "name": "Mene Inc", "industry": "VLUG" },
-	{
-		"symbol": "BYD.TO",
-		"name": "Boyd Group Services Inc",
-		"industry": "VPSS"
-	},
+	{ "symbol": "BYD.TO", "name": "Boyd Group Services Inc", "industry": "VPSS" },
 	{
 		"symbol": "WOLF.V",
 		"name": "Grey Wolf Animal Health Corp",
@@ -4093,11 +2590,7 @@ industry_equities = [
 		"industry": "VEEP"
 	},
 	{ "symbol": "EXRO.TO", "name": "Exro Technologies Inc", "industry": "VEEP" },
-	{
-		"symbol": "LPS.V",
-		"name": "Legend Power Systems Inc",
-		"industry": "VEEP"
-	},
+	{ "symbol": "LPS.V", "name": "Legend Power Systems Inc", "industry": "VEEP" },
 	{ "symbol": "META.NE", "name": "Meta Cdr [Cad Hedged]", "industry": "VICI" },
 	{
 		"symbol": "BILD.V",
@@ -4166,11 +2659,7 @@ industry_equities = [
 		"name": "The Planting Hope Company Inc",
 		"industry": "VPKF"
 	},
-	{
-		"symbol": "AAPL.NE",
-		"name": "Apple Cdr [Cad Hedged]",
-		"industry": "VCOE"
-	},
+	{ "symbol": "AAPL.NE", "name": "Apple Cdr [Cad Hedged]", "industry": "VCOE" },
 	{ "symbol": "WED.V", "name": "The Westaim Corp", "industry": "VASM" },
 	{ "symbol": "ETHC.NE", "name": "Ether Capital Corp", "industry": "VASM" },
 	{ "symbol": "ONEX.TO", "name": "Onex Corp", "industry": "VASM" },
@@ -4335,11 +2824,7 @@ industry_equities = [
 		"name": "Coloured Ties Capital Inc",
 		"industry": "VASM"
 	},
-	{
-		"symbol": "FTN.TO",
-		"name": "Financial 15 Split Corp",
-		"industry": "VASM"
-	},
+	{ "symbol": "FTN.TO", "name": "Financial 15 Split Corp", "industry": "VASM" },
 	{
 		"symbol": "DF.TO",
 		"name": "Dividend 15 Split Corp II",
@@ -4362,11 +2847,7 @@ industry_equities = [
 		"name": "Sprott Physical Platinum Palladium CAD",
 		"industry": "VASM"
 	},
-	{
-		"symbol": "OSP.TO",
-		"name": "Brompton Oil Split Corp",
-		"industry": "VASM"
-	},
+	{ "symbol": "OSP.TO", "name": "Brompton Oil Split Corp", "industry": "VASM" },
 	{
 		"symbol": "TLP-UN.CN",
 		"name": "Tier One Capital Ltd Partnership",
@@ -4388,11 +2869,7 @@ industry_equities = [
 		"name": "Tdb Split Corp Class A Shares",
 		"industry": "VASM"
 	},
-	{
-		"symbol": "MLC.NE",
-		"name": "Mount Logan Capital Inc",
-		"industry": "VASM"
-	},
+	{ "symbol": "MLC.NE", "name": "Mount Logan Capital Inc", "industry": "VASM" },
 	{ "symbol": "ELC.V", "name": "Elysee Development Corp", "industry": "VASM" },
 	{
 		"symbol": "LITT.V",
@@ -4434,29 +2911,6 @@ industry_equities = [
 	{ "symbol": "GCL.TO", "name": "Colabor Group Inc", "industry": "VFDD" },
 	{ "symbol": "CRP.TO", "name": "Ceres Global Ag Corp", "industry": "VFDD" },
 	{ "symbol": "OGO.V", "name": "Organto Foods Inc", "industry": "VFDD" },
-	{
-		"symbol": "ATD.TO",
-		"name": "Alimentation Couche-Tard Inc.",
-		"industry": "VTCS"
-	},
-	{ "symbol": "EMP-A.TO", "name": "Empire Company Ltd", "industry": "VTCS" },
-	{
-		"symbol": "NWC.TO",
-		"name": "The North West Company Inc",
-		"industry": "VTCS"
-	},
-	{ "symbol": "L.TO", "name": "Loblaw CO", "industry": "VTCS" },
-	{
-		"symbol": "PBH.TO",
-		"name": "Premium Brands Holdings Corp",
-		"industry": "VTCS"
-	},
-	{ "symbol": "WN.TO", "name": "George Weston Limited", "industry": "VTCS" },
-	{ "symbol": "PRMW.TO", "name": "Primo Water Corp", "industry": "VTCS" },
-	{ "symbol": "JWEL.TO", "name": "Jamieson Wellness Inc", "industry": "VTCS" },
-	{ "symbol": "MFI.TO", "name": "Maple Leaf Foods", "industry": "VTCS" },
-	{ "symbol": "MRU.TO", "name": "Metro Inc", "industry": "VTCS" },
-	{ "symbol": "SAP.TO", "name": "Saputo Inc", "industry": "VTCS" },
 	{
 		"symbol": "AMZN.NE",
 		"name": "Amazon.com Cdr [Cad Hedged]",
@@ -4500,11 +2954,7 @@ industry_equities = [
 		"name": "Bridgemarq Real Estate Services Inc",
 		"industry": "VRES"
 	},
-	{
-		"symbol": "SVI.TO",
-		"name": "Storagevault Canada Inc",
-		"industry": "VRES"
-	},
+	{ "symbol": "SVI.TO", "name": "Storagevault Canada Inc", "industry": "VRES" },
 	{ "symbol": "AIF.TO", "name": "Altus Group Ltd", "industry": "VRES" },
 	{ "symbol": "PKT.V", "name": "Parkit Enterprise Inc", "industry": "VRES" },
 	{
@@ -4517,265 +2967,7 @@ industry_equities = [
 		"name": "Tribe Property Technologies Inc",
 		"industry": "VRES"
 	},
-	{ "symbol": "GGG.V", "name": "G6 Materials Corp", "industry": "VBOT" },
-	{ "symbol": "ESK.V", "name": "Eskay Mining Corp", "industry": "VBOT" },
-	{ "symbol": "FL.V", "name": "Frontier Lithium Inc", "industry": "VBOT" },
-	{
-		"symbol": "DCMC.V",
-		"name": "Dore Copper Mining Corp",
-		"industry": "VBOT"
-	},
-	{ "symbol": "TSLV.V", "name": "Tier One Silver Inc", "industry": "VBOT" },
-	{ "symbol": "IVX.V", "name": "Inventronics Ltd", "industry": "VBOT" },
-	{ "symbol": "EMR.V", "name": "Emergent Metals Corp", "industry": "VBOT" },
-	{ "symbol": "TAIG.TO", "name": "Taiga Motors Corp", "industry": "VBOT" },
-	{ "symbol": "PRIZ.CN", "name": "Prismo Metals Inc", "industry": "VBOT" },
-	{
-		"symbol": "EDDY.V",
-		"name": "Edison Battery Metals Corp",
-		"industry": "VBOT"
-	},
-	{ "symbol": "SLMN.V", "name": "Solis Minerals Ltd", "industry": "VBOT" },
-	{ "symbol": "ATY.V", "name": "Atico Mining Corp", "industry": "VBOT" },
-	{
-		"symbol": "WAM.V",
-		"name": "Western Alaska Minerals Corp",
-		"industry": "VBOT"
-	},
-	{
-		"symbol": "KWE.V",
-		"name": "Kwesst Micro Systems Inc",
-		"industry": "VBOT"
-	},
-	{ "symbol": "MONT.V", "name": "Montfort Capital Corp", "industry": "VBOT" },
-	{ "symbol": "SOU.V", "name": "Southern Energy Corp", "industry": "VBOT" },
-	{
-		"symbol": "MEGA.CN",
-		"name": "Megawatt Lithium & Battery Metals Corp",
-		"industry": "VBOT"
-	},
-	{
-		"symbol": "JUSH.CN",
-		"name": "Jushi Holdings Inc Class B Subordinate",
-		"industry": "VBOT"
-	},
-	{ "symbol": "AWM.V", "name": "Angel Wing Metals Inc", "industry": "VBOT" },
-	{ "symbol": "FHYD.V", "name": "First Hydrogen Corp", "industry": "VBOT" },
-	{
-		"symbol": "TNT-UN.TO",
-		"name": "True North Commercial REIT",
-		"industry": "VBOT"
-	},
-	{ "symbol": "OGO.V", "name": "Organto Foods Inc", "industry": "VBOT" },
-	{
-		"symbol": "GOH.CN",
-		"name": "Goldhaven Resources Corp",
-		"industry": "VBOT"
-	},
-	{
-		"symbol": "ASEP.CN",
-		"name": "Asep Medical Holdings Inc.",
-		"industry": "VBOT"
-	},
-	{
-		"symbol": "QBAT.CN",
-		"name": "Quantum Battery Metals Corp",
-		"industry": "VBOT"
-	},
-	{ "symbol": "HLS.TO", "name": "Hls Therapeutics Inc", "industry": "VBOT" },
-	{ "symbol": "RDRS.CN", "name": "Rdars Inc.", "industry": "VBOT" },
-	{ "symbol": "HECO.CN", "name": "Global Helium Corp", "industry": "VBOT" },
-	{ "symbol": "SAGE.V", "name": "Sage Potash Corp", "industry": "VBOT" },
-	{ "symbol": "NDAT.CN", "name": "Ndatalyze Corp", "industry": "VBOT" },
-	{ "symbol": "BZAM.CN", "name": "Bzam Ltd", "industry": "VBOT" },
-	{ "symbol": "WIFI.CN", "name": "American Aires Inc.", "industry": "VBOT" },
-	{
-		"symbol": "IMM.V",
-		"name": "International Metals Mining Corp",
-		"industry": "VBOT"
-	},
-	{
-		"symbol": "RCHR.CN",
-		"name": "Archer Exploration Corp.",
-		"industry": "VBOT"
-	},
-	{
-		"symbol": "SHWZ.NE",
-		"name": "Medicine Man Technologies Inc.",
-		"industry": "VBOT"
-	},
-	{
-		"symbol": "AGMR.V",
-		"name": "Silver Mountain Resources Inc",
-		"industry": "VBOT"
-	},
-	{
-		"symbol": "GAME.V",
-		"name": "Gamesquare Holdings Inc",
-		"industry": "VBOT"
-	},
-	{
-		"symbol": "DRUG.CN",
-		"name": "Bright Minds Biosciences Inc",
-		"industry": "VBOT"
-	},
-	{ "symbol": "AGC.CN", "name": "Avanti Gold Corp.", "industry": "VBOT" },
-	{ "symbol": "LAC.TO", "name": "Lithium Americas Corp", "industry": "VBOT" },
-	{
-		"symbol": "IBAT.CN",
-		"name": "International Battery Metals Ltd",
-		"industry": "VBOT"
-	},
-	{ "symbol": "GTCH.CN", "name": "Getchell Gold Corp", "industry": "VBOT" },
-	{ "symbol": "FARM.V", "name": "Deveron Corp", "industry": "VBOT" },
-	{
-		"symbol": "AMEN.NE",
-		"name": "Amcomri Entertainment Inc.",
-		"industry": "VBOT"
-	},
-	{ "symbol": "SBIO.V", "name": "Sabio Holdings Inc", "industry": "VBOT" },
-	{
-		"symbol": "MYCO.CN",
-		"name": "Mydecine Innovations Group Inc",
-		"industry": "VBOT"
-	},
-	{ "symbol": "PATH.CN", "name": "Newpath Resources Inc", "industry": "VBOT" },
-	{
-		"symbol": "AFCC-H.V",
-		"name": "Automotive Finco Corp",
-		"industry": "VBOT"
-	},
-	{
-		"symbol": "NBVA.V",
-		"name": "Nubeva Technologies Ltd",
-		"industry": "VBOT"
-	},
-	{ "symbol": "ESAU.CN", "name": "Esgold Corp", "industry": "VBOT" },
-	{ "symbol": "FUEL.CN", "name": "Plantfuel Life Inc", "industry": "VBOT" },
-	{
-		"symbol": "PEAS.V",
-		"name": "Global Food and Ingredients Ltd",
-		"industry": "VBOT"
-	},
-	{ "symbol": "FOBI.V", "name": "Fobi Ai Inc", "industry": "VBOT" },
-	{
-		"symbol": "MOVE.NE",
-		"name": "Powertap Hydrogen Capital Corp",
-		"industry": "VBOT"
-	},
-	{ "symbol": "TWOH.CN", "name": "Two Hands Corporation", "industry": "VBOT" },
-	{ "symbol": "GFCO.CN", "name": "The Good Flour Corp.", "industry": "VBOT" },
-	{ "symbol": "LOWL.CN", "name": "Lowell Farms Inc", "industry": "VBOT" },
-	{ "symbol": "POWR.CN", "name": "Powr Lithium Corp", "industry": "VBOT" },
-	{ "symbol": "NUR.CN", "name": "Nuran Wireless Inc", "industry": "VBOT" },
-	{
-		"symbol": "DME.V",
-		"name": "Desert Mountain Energy Corp",
-		"industry": "VBOT"
-	},
-	{
-		"symbol": "CYBT.CN",
-		"name": "Cybeats Technologies Corp.",
-		"industry": "VBOT"
-	},
-	{ "symbol": "HILL.V", "name": "Hill Inc", "industry": "VBOT" },
-	{ "symbol": "TOH.V", "name": "Total Helium Ltd", "industry": "VBOT" },
-	{ "symbol": "FE.CN", "name": "Fe Battery Metals Corp", "industry": "VBOT" },
-	{ "symbol": "OIL.CN", "name": "Permex Petroleum Corp", "industry": "VBOT" },
-	{ "symbol": "PKK.CN", "name": "Peak Fintech Group Inc", "industry": "VBOT" },
-	{ "symbol": "FFNT.CN", "name": "4Front Ventures Corp", "industry": "VBOT" },
-	{ "symbol": "IMCC.CN", "name": "IM Cannabis Corp", "industry": "VBOT" },
-	{
-		"symbol": "ELBM.V",
-		"name": "Electra Battery Metals Corp",
-		"industry": "VBOT"
-	},
-	{ "symbol": "ZAC.V", "name": "Zacatecas Silver Corp", "industry": "VBOT" },
-	{ "symbol": "IZO.CN", "name": "Izotropic Corp", "industry": "VBOT" },
-	{ "symbol": "TH.TO", "name": "Theratechnologies", "industry": "VBOT" },
-	{ "symbol": "NTAR.CN", "name": "Nextech3D.Ai Corp", "industry": "VBOT" },
-	{
-		"symbol": "YORK.V",
-		"name": "York Harbour Metals Inc.",
-		"industry": "VBOT"
-	},
-	{
-		"symbol": "DCSI.CN",
-		"name": "Direct Communication Solutions Inc",
-		"industry": "VBOT"
-	},
-	{ "symbol": "WEST.CN", "name": "West Mining Corp", "industry": "VBOT" },
-	{ "symbol": "ARWY.CN", "name": "Arway Corporation", "industry": "VBOT" },
-	{ "symbol": "TMC.V", "name": "Trench Metals Corp", "industry": "VBOT" },
-	{
-		"symbol": "CMND.CN",
-		"name": "Clearmind Medicine Inc",
-		"industry": "VBOT"
-	},
-	{ "symbol": "APS.TO", "name": "Aptose Biosciences Inc", "industry": "VBOT" },
-	{ "symbol": "KIP.V", "name": "Kiplin Metals Inc", "industry": "VBOT" },
-	{ "symbol": "RAGE.V", "name": "Renegade Gold Inc", "industry": "VBOT" },
-	{ "symbol": "SPTZ.CN", "name": "Spetz Inc", "industry": "VBOT" },
-	{ "symbol": "RZE.V", "name": "Razor Energy Corp", "industry": "VBOT" },
-	{
-		"symbol": "VSBY.CN",
-		"name": "Vsblty Groupe Technologies Corp",
-		"industry": "VBOT"
-	},
-	{ "symbol": "PM.CN", "name": "Pampa Metals Corp", "industry": "VBOT" },
-	{
-		"symbol": "VSOL.NE",
-		"name": "Three Sixty Solar Ltd.",
-		"industry": "VBOT"
-	},
-	{
-		"symbol": "TCF.CN",
-		"name": "Trillion Energy International Inc",
-		"industry": "VBOT"
-	},
-	{
-		"symbol": "AUAG.CN",
-		"name": "Auxico Resources Canada Inc",
-		"industry": "VBOT"
-	},
-	{
-		"symbol": "TEX.CN",
-		"name": "Targa Exploration Corp.",
-		"industry": "VBOT"
-	},
-	{
-		"symbol": "MYLK.V",
-		"name": "The Planting Hope Company Inc",
-		"industry": "VBOT"
-	},
-	{ "symbol": "ALCU.CN", "name": "Alpha Copper Corp", "industry": "VBOT" },
-	{
-		"symbol": "PLRB.V",
-		"name": "Pluribus Technologies Corp",
-		"industry": "VBOT"
-	},
-	{
-		"symbol": "HC.NE",
-		"name": "Hypercharge Networks Corp.",
-		"industry": "VBOT"
-	},
-	{ "symbol": "IWIN.CN", "name": "Irwin Naturals Inc", "industry": "VBOT" },
-	{ "symbol": "ELEM.CN", "name": "Element79 Gold Corp", "industry": "VBOT" },
-	{
-		"symbol": "ACRG-A-U.CN",
-		"name": "Acreage Holdings Inc Fixed S.V.",
-		"industry": "VBOT"
-	},
-	{
-		"symbol": "TAAT.CN",
-		"name": "Taat Global Alternatives Inc",
-		"industry": "VBOT"
-	},
-	{
-		"symbol": "BDI.TO",
-		"name": "Black Diamond Group Ltd",
-		"industry": "VRLS"
-	},
+	{ "symbol": "BDI.TO", "name": "Black Diamond Group Ltd", "industry": "VRLS" },
 	{
 		"symbol": "EFN.TO",
 		"name": "Element Fleet Management Corp",
@@ -4982,11 +3174,7 @@ industry_equities = [
 		"industry": "VINF"
 	},
 	{ "symbol": "ELF.TO", "name": "E-L Financial", "industry": "VINF" },
-	{
-		"symbol": "POW.TO",
-		"name": "Power Corp of Canada Sv",
-		"industry": "VINF"
-	},
+	{ "symbol": "POW.TO", "name": "Power Corp of Canada Sv", "industry": "VINF" },
 	{ "symbol": "MFC.TO", "name": "Manulife Fin", "industry": "VINF" },
 	{
 		"symbol": "SHLE.TO",
@@ -5031,11 +3219,7 @@ industry_equities = [
 	},
 	{ "symbol": "EFX.TO", "name": "Enerflex Ltd", "industry": "VOGS" },
 	{ "symbol": "EQ.V", "name": "Eq Inc", "industry": "VAAA" },
-	{
-		"symbol": "ILLM.TO",
-		"name": "Acuityads Holdings Inc",
-		"industry": "VAAA"
-	},
+	{ "symbol": "ILLM.TO", "name": "Acuityads Holdings Inc", "industry": "VAAA" },
 	{ "symbol": "SUNN.CN", "name": "Solarbank Corporation", "industry": "VUTR" },
 	{
 		"symbol": "WEB.V",
@@ -5121,72 +3305,6 @@ industry_equities = [
 		"name": "Atlas Engineered Products Ltd",
 		"industry": "VBPE"
 	},
-	{ "symbol": "ATH.TO", "name": "Athabasca Oil Corp", "industry": "VTEN" },
-	{ "symbol": "PXT.TO", "name": "Parex Resources Inc", "industry": "VTEN" },
-	{ "symbol": "MEG.TO", "name": "Meg Energy Corp", "industry": "VTEN" },
-	{ "symbol": "ARX.TO", "name": "Arc Resources Ltd", "industry": "VTEN" },
-	{
-		"symbol": "SES.TO",
-		"name": "Secure Energy Services Inc",
-		"industry": "VTEN"
-	},
-	{
-		"symbol": "CNQ.TO",
-		"name": "Canadian Natural Resources Ltd.",
-		"industry": "VTEN"
-	},
-	{ "symbol": "PSK.TO", "name": "Prairiesky Royalty Ltd", "industry": "VTEN" },
-	{
-		"symbol": "IPCO.TO",
-		"name": "International Petroleum Corp",
-		"industry": "VTEN"
-	},
-	{
-		"symbol": "HWX.TO",
-		"name": "Headwater Exploration Inc",
-		"industry": "VTEN"
-	},
-	{ "symbol": "IMO.TO", "name": "Imperial Oil", "industry": "VTEN" },
-	{ "symbol": "SU.TO", "name": "Suncor Energy Inc", "industry": "VTEN" },
-	{ "symbol": "MATR.TO", "name": "Shawcor Ltd", "industry": "VTEN" },
-	{ "symbol": "PSI.TO", "name": "Pason Systems Inc", "industry": "VTEN" },
-	{
-		"symbol": "CPG.TO",
-		"name": "Crescent Point Energy Corp",
-		"industry": "VTEN"
-	},
-	{ "symbol": "ERF.TO", "name": "Enerplus Corp", "industry": "VTEN" },
-	{
-		"symbol": "PEY.TO",
-		"name": "Peyto Exploration and Dvlpmnt Corp",
-		"industry": "VTEN"
-	},
-	{ "symbol": "CVE.TO", "name": "Cenovus Energy Inc", "industry": "VTEN" },
-	{ "symbol": "NVA.TO", "name": "Nuvista Energy Ltd", "industry": "VTEN" },
-	{
-		"symbol": "AAV.TO",
-		"name": "Advantage Oil & Gas Ltd",
-		"industry": "VTEN"
-	},
-	{ "symbol": "TOU.TO", "name": "Tourmaline Oil Corp", "industry": "VTEN" },
-	{ "symbol": "FRU.TO", "name": "Freehold Royalties Ltd", "industry": "VTEN" },
-	{ "symbol": "AOI.TO", "name": "Africa Oil Corp", "industry": "VTEN" },
-	{
-		"symbol": "POU.TO",
-		"name": "Paramount Resources Ltd",
-		"industry": "VTEN"
-	},
-	{ "symbol": "TPZ.TO", "name": "Topaz Energy Corp", "industry": "VTEN" },
-	{ "symbol": "WCP.TO", "name": "Whitecap Resources Inc", "industry": "VTEN" },
-	{ "symbol": "BTE.TO", "name": "Baytex Energy Corp", "industry": "VTEN" },
-	{ "symbol": "PD.TO", "name": "Precision Drilling Corp", "industry": "VTEN" },
-	{
-		"symbol": "TVE.TO",
-		"name": "Tamarack Valley Energy Ltd",
-		"industry": "VTEN"
-	},
-	{ "symbol": "VET.TO", "name": "Vermilion Energy Inc", "industry": "VTEN" },
-	{ "symbol": "BIR.TO", "name": "Birchcliff Energy Ltd", "industry": "VTEN" },
 	{ "symbol": "TSU.TO", "name": "Trisura Group Ltd", "industry": "VISS" },
 	{ "symbol": "OPTI.CN", "name": "Optimi Health Corp", "industry": "VFMP" },
 	{
@@ -5210,11 +3328,7 @@ industry_equities = [
 		"name": "CVS Health Cdr [Cad Hedged]",
 		"industry": "VHCP"
 	},
-	{
-		"symbol": "VSOL.NE",
-		"name": "Three Sixty Solar Ltd.",
-		"industry": "VSOL"
-	},
+	{ "symbol": "VSOL.NE", "name": "Three Sixty Solar Ltd.", "industry": "VSOL" },
 	{ "symbol": "VMD.TO", "name": "Viemed Healthcare Inc", "industry": "VMDD" },
 	{
 		"symbol": "QIPT.TO",
@@ -5295,11 +3409,7 @@ industry_equities = [
 	{ "symbol": "BEW.V", "name": "Bewhere Holdings Inc", "industry": "VCEQ" },
 	{ "symbol": "QTRH.TO", "name": "Quarterhill Inc", "industry": "VCEQ" },
 	{ "symbol": "ET.TO", "name": "Evertz Technologies Ltd", "industry": "VCEQ" },
-	{
-		"symbol": "CSCO.NE",
-		"name": "Cisco Cdr [Cad Hedged]",
-		"industry": "VCEQ"
-	},
+	{ "symbol": "CSCO.NE", "name": "Cisco Cdr [Cad Hedged]", "industry": "VCEQ" },
 	{ "symbol": "TSAT.TO", "name": "Telesat Corp", "industry": "VCEQ" },
 	{ "symbol": "VCM.TO", "name": "Vecima Networks Inc", "industry": "VCEQ" },
 	{
@@ -5361,11 +3471,7 @@ industry_equities = [
 		"name": "Advanced Micro Devices Cdr [Cad Hedged]",
 		"industry": "VSEM"
 	},
-	{
-		"symbol": "INTC.NE",
-		"name": "Intel Cdr [Cad Hedged]",
-		"industry": "VSEM"
-	},
+	{ "symbol": "INTC.NE", "name": "Intel Cdr [Cad Hedged]", "industry": "VSEM" },
 	{ "symbol": "PTK.V", "name": "Poet Technologies Inc", "industry": "VSEM" },
 	{
 		"symbol": "TTI.V",
@@ -5394,11 +3500,7 @@ industry_equities = [
 		"name": "Fennec Pharmaceuticals Inc",
 		"industry": "VBIO"
 	},
-	{
-		"symbol": "MSCL.V",
-		"name": "Satellos Bioscience Inc",
-		"industry": "VBIO"
-	},
+	{ "symbol": "MSCL.V", "name": "Satellos Bioscience Inc", "industry": "VBIO" },
 	{
 		"symbol": "BCT.TO",
 		"name": "Briacell Therapeutics Corp",
@@ -5428,11 +3530,7 @@ industry_equities = [
 		"name": "Awakn Life Sciences Corp",
 		"industry": "VBIO"
 	},
-	{
-		"symbol": "COV.V",
-		"name": "Covalon Technologies Ltd",
-		"industry": "VBIO"
-	},
+	{ "symbol": "COV.V", "name": "Covalon Technologies Ltd", "industry": "VBIO" },
 	{ "symbol": "XRTX.V", "name": "Xortx Therapeutics Inc", "industry": "VBIO" },
 	{ "symbol": "COOL.CN", "name": "Core One Labs Inc", "industry": "VBIO" },
 	{ "symbol": "CZO.V", "name": "Ceapro Inc", "industry": "VBIO" },
@@ -5447,22 +3545,14 @@ industry_equities = [
 		"industry": "VBIO"
 	},
 	{ "symbol": "TH.TO", "name": "Theratechnologies", "industry": "VBIO" },
-	{
-		"symbol": "CMND.CN",
-		"name": "Clearmind Medicine Inc",
-		"industry": "VBIO"
-	},
+	{ "symbol": "CMND.CN", "name": "Clearmind Medicine Inc", "industry": "VBIO" },
 	{ "symbol": "APS.TO", "name": "Aptose Biosciences Inc", "industry": "VBIO" },
 	{
 		"symbol": "ABBV.NE",
 		"name": "Abbvie Cdr [Cad Hedged]",
 		"industry": "VDMM"
 	},
-	{
-		"symbol": "PFE.NE",
-		"name": "Pfizer Cdr [Cad Hedged]",
-		"industry": "VDMM"
-	},
+	{ "symbol": "PFE.NE", "name": "Pfizer Cdr [Cad Hedged]", "industry": "VDMM" },
 	{
 		"symbol": "SEV.V",
 		"name": "Spectra7 Microsystems Inc",
@@ -5512,11 +3602,7 @@ industry_equities = [
 	{ "symbol": "CTH.V", "name": "Cotec Holdings Corp", "industry": "VTCO" },
 	{ "symbol": "SGQ.V", "name": "Southgobi Resources Ltd", "industry": "VTCO" },
 	{ "symbol": "MOX.V", "name": "Morien Resources Corp", "industry": "VTCO" },
-	{
-		"symbol": "BUX.CN",
-		"name": "Biomark Diagnostics Inc",
-		"industry": "VDRE"
-	},
+	{ "symbol": "BUX.CN", "name": "Biomark Diagnostics Inc", "industry": "VDRE" },
 	{ "symbol": "SONA.CN", "name": "Sona Nanotech Inc", "industry": "VDRE" },
 	{ "symbol": "AVCR.V", "name": "Avricore Health Inc", "industry": "VDRE" },
 	{ "symbol": "TELO.V", "name": "Telo Genomics Corp", "industry": "VDRE" },

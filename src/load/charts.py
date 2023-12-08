@@ -2,19 +2,15 @@ import pandas as pd
 from lightweight_charts import Chart
 import io
 
-
 async def plot_chart(data, exchange):
-    # print("data", data)
-    # print('-----------------------------------------')
-    # print("exchange", exchange)
     light_gray = '#353843'
     dark_gray = '#16161E'
     up = light_gray
     down = light_gray
     red = '#D1161E'
 
-    chart = Chart(title=data.name)
-    # chart = Chart(title='Your Chart Title', toolbox=True)
+    # Create a new chart
+    chart = Chart(title='Your Chart Title', toolbox=True)
     
     chart.time_scale(
         right_offset= 0, 
@@ -24,20 +20,20 @@ async def plot_chart(data, exchange):
         seconds_visible= False,
         border_visible= True, 
         border_color=up
-        )
-        
+    )
+    
     chart.layout(
         background_color='#090008',
         text_color=light_gray,
         font_size=16, 
         font_family='Helvetica'
         )
-    
+
     chart.grid(
-    vert_enabled = False,
-    horz_enabled = False,
-    # color = UP,
-    # style = 'solid'
+        vert_enabled = False,
+        horz_enabled = False,
+        # color = UP,
+        # style = 'solid'
     )
 
     chart.crosshair(
@@ -106,13 +102,6 @@ async def plot_chart(data, exchange):
         scale_margin_bottom= 0.0
         )
 
-
-    # https://github.com/louisnw01/lightweight-charts-python/issues/67
-    data.df['color'] = light_gray
-    data.df.loc[(data.df['Close'] > data.df['Close'].shift(1)) & (data.df['High'] > data.df['High'].shift(2)), 'color'] = 'green'
-    # If render_drawings is True, any drawings made using the toolbox will be redrawn with the new data.
-    #  This is designed to be used when switching to a different timeframe of the same symbol.
-
     async def on_search(chart, string):
         print(f'Search Text: "{string}" | Chart/SubChart ID: "{chart.id}"')
         # Assuming 'exchange' is an instance of your Exchange class
@@ -124,8 +113,27 @@ async def plot_chart(data, exchange):
             print(f"No equity found with symbol {string}")
 
     chart.events.search += on_search
-    chart.set(data.df, render_drawings=True)
+
+
+    # Create a function to handle timeframe selection
+    def on_timeframe_selection(chart):
+        selected_interval = chart.topbar['timeframe'].value
+        if selected_interval in data.dfs and data.dfs[selected_interval] is not None:
+            df = data.dfs[selected_interval]
+            df['color'] = light_gray
+            df.loc[(df['Close'] > df['Close'].shift(1)) & (df['High'] > df['High'].shift(2)), 'color'] = 'green'
+            chart.set(df, render_drawings=True)
+
+    # Add a top bar with a switcher for each interval
+    chart.topbar.switcher('timeframe', tuple(data.dfs.keys()), default='1d',
+                        func=on_timeframe_selection)
+
+    # Set the initial data for the chart
+    if '1d' in data.dfs and data.dfs['1d'] is not None:
+        df = data.dfs['1d']
+        df['color'] = light_gray
+        df.loc[(df['Close'] > df['Close'].shift(1)) & (df['High'] > df['High'].shift(2)), 'color'] = 'green'
+        chart.set(df, render_drawings=True)
+
+    # Show the chart
     await chart.show_async(block=True)
-
-
-

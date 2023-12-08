@@ -2,6 +2,12 @@ from transform.exchange import Exchange
 from transform.transform_functions import filter_rows
 
 def transform(sectors, industries, industry_equities):
+    industries = [
+        { "symbol": "VBMT", "name": "TSX Building Materials" },
+        { "symbol": "VAGI", "name": "TSX Agricultural Inputs" },
+        { "symbol": "VECO", "name": "TSX Electronic Components" }
+    ]
+    
     # Filter the sectors, industries, and equities data
     filtered_sectors = filter_rows(sectors)
     filtered_industries = filter_rows(industries)

@@ -115,8 +115,6 @@ async def extract_industries():
     rows = await extract_data(url, context, page)
     return rows if rows else []
 
-
-
 async def extract_industry_equities(industries):
     if isinstance(industries, str):
         industries = [industries]
@@ -140,45 +138,5 @@ async def extract_industry_equities(industries):
 
     return industry_equities
 
-
-
-
-
-# import time
-# import asyncio
-# from playwright.async_api import async_playwright
-
-# async def scrape_symbol(context, symbol):
-#     page = await context.new_page()
-#     try:
-#         await page.goto(f"https://ca.finance.yahoo.com/quote/{symbol}/")
-#         element = await page.query_selector(f"fin-streamer[data-symbol='{symbol}']")
-#         if element is not None:
-#             value = await element.get_attribute("value")
-#             print(f"The value of {symbol} is: {value}")
-#         else:
-#             print(f"No data found for {symbol}")
-#     except Exception as e:
-#         print(f"An error occurred while processing {symbol}: {str(e)}")
-#     finally:
-#         await page.close()
-
-# async def run(playwright, symbols):
-#     browser = await playwright.chromium.launch(headless=True)
-#     context = await browser.new_context()
-#     await asyncio.gather(*(scrape_symbol(context, symbol) for symbol in symbols))
-#     await context.close()
-#     await browser.close()
-
-# async def main():
-#     symbols = ["TLRY.TO", "REI-UN.TO", "GOOG", "TSLA"]  # Add your symbols here
-#     start_time = time.time()
-#     async with async_playwright() as playwright:
-#         await run(playwright, symbols)
-#     end_time = time.time()
-#     print(f"Execution time: {end_time - start_time} seconds")
-
-# # Call the main function
-# asyncio.run(main())
 
 
