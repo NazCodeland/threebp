@@ -79,12 +79,13 @@ class Exchange(Base):
                         print(f"Error creating Equity for symbol {equity_data['symbol']}: {e}")
 
 
-    def download_ohlcv(self):
+    def download_all_ohlcv(self):
+        all_symbols = [equity.symbol for sector in self.sectors for industry in sector.industries for equity in industry.equities]
+        all_data = Data.download_ohlcv(all_symbols)
         for sector in self.sectors:
             for industry in sector.industries:
                 for equity in industry.equities:
-                    self.dfs = equity.download_ohlcv()
-
+                    equity.dfs = all_data[equity.symbol]
 
 
 class Sector(Base):

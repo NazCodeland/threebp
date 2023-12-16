@@ -1,6 +1,9 @@
+import asyncio
+import webbrowser
 import pandas as pd
 from lightweight_charts import Chart
 import io
+from datetime import datetime
 
 async def plot_chart(data, exchange):
     light_gray = '#353843'
@@ -10,8 +13,8 @@ async def plot_chart(data, exchange):
     red = '#D1161E'
 
     # Create a new chart
-    chart = Chart(title='Your Chart Title', toolbox=True)
-    
+    chart = Chart(title='Your Chart Title', toolbox=True, width=1000, inner_width=0.7, inner_height=1)
+
     chart.time_scale(
         right_offset= 0, 
         min_bar_spacing= 0.5,
@@ -120,8 +123,8 @@ async def plot_chart(data, exchange):
         selected_interval = chart.topbar['timeframe'].value
         if selected_interval in data.dfs and data.dfs[selected_interval] is not None:
             df = data.dfs[selected_interval]
-            df['color'] = light_gray
-            df.loc[(df['Close'] > df['Close'].shift(1)) & (df['High'] > df['High'].shift(2)), 'color'] = 'green'
+            # df['color'] = light_gray
+            # df.loc[(df['Close'] > df['Close'].shift(1)) & (df['High'] > df['High'].shift(2)), 'color'] = 'green'
             chart.set(df, render_drawings=True)
 
     # Add a top bar with a switcher for each interval
@@ -131,9 +134,87 @@ async def plot_chart(data, exchange):
     # Set the initial data for the chart
     if '1d' in data.dfs and data.dfs['1d'] is not None:
         df = data.dfs['1d']
-        df['color'] = light_gray
-        df.loc[(df['Close'] > df['Close'].shift(1)) & (df['High'] > df['High'].shift(2)), 'color'] = 'green'
+        # df['color'] = light_gray
+        # df.loc[(df['Close'] > df['Close'].shift(1)) & (df['High'] > df['High'].shift(2)), 'color'] = 'green'
         chart.set(df, render_drawings=True)
 
+    async def update_clock(chart):
+        while chart.is_alive:
+            await asyncio.sleep(1-(datetime.now().microsecond/1_000_000))
+            chart.topbar['clock'].set(datetime.now().strftime('%I:%M:%S %p'))
+
+
+    def on_button_press(chart):
+        new_button_value = 'On' if chart.topbar['my_button'].value == 'Off' else 'Off'
+        chart.topbar['my_button'].set(new_button_value)
+        print(f'Turned something {new_button_value.lower()}.')
+    
+    def on_row_click(row):
+        row['PL'] = round(row['PL']+1, 2)
+        row.background_color('PL', 'green' if row['PL'] > 0 else 'red')
+
+        table.footer[1] = row['Ticker']
+        url = "https://finance.yahoo.com/chart/" + row['Ticker'] 
+        webbrowser.open(url)
+
+
+
+    # subchart = chart.create_subchart(width=0.3, height=0.5)
+    # df = data.dfs['1d']
+    # subchart.set(df)
+
+    table = chart.create_table(
+        width=0.3, height=1,
+        headings=('Ticker', 'Quantity', 'Status', '%', 'PL'),
+        widths=(0.2, 0.1, 0.2, 0.2, 0.3),
+        alignments=('center', 'center', 'right', 'right', 'right'),
+        position='left', func=on_row_click)
+
+    table.format('PL', f'£ {table.VALUE}')
+    table.format('%', f'{table.VALUE} %')
+
+    table.new_row('SPY', 3, 'Submitted', 0, 0)
+    table.new_row('AMD', 1, 'Filled', 25.5, 105.24)
+    table.new_row('NVDA', 2, 'Filled', -0.5, -8.24)
+    table.new_row('NVDA', 2, 'Filled', -0.5, -8.24)
+    table.new_row('NVDA', 2, 'Filled', -0.5, -8.24)
+    table.new_row('NVDA', 2, 'Filled', -0.5, -8.24)
+
+    def on_footer_click(table, box_index):
+        print(f'Box number {box_index+1} was pressed.')
+
+    table.footer(3, func=on_footer_click)
+    table.footer[0] = 'Text Box 1'
+    table.footer[1] = 'Text Box 2'
+    table.footer[2] = 'Text Box 3'
+      
     # Show the chart
-    await chart.show_async(block=True)
+    chart.topbar.textbox('clock')
+    chart.topbar.button("my_button", "Off", func=on_button_press)
+
+    # This line of code runs both chart.show_async(block=True) and update_clock(chart) concurrently
+
+    # -----------------------------------------------------------------------------------------
+    # multiple charts example
+    
+    # chart = Chart(inner_width=0.5, inner_height=0.5)
+    # chart2 = chart.create_subchart(position='right', width=0.5, height=0.5)
+    # chart3 = chart.create_subchart(position='left', width=0.5, height=0.5)
+    # chart4 = chart.create_subchart(position='right', width=0.5, height=0.5)
+
+    # # chart.watermark('5m')
+    # # chart2.watermark('1h')
+    # # chart3.watermark('Daily')
+    # # chart4.watermark('4')
+
+    # chart.set(data.dfs['5m'])
+    # chart2.set(data.dfs['60m'])
+    # chart3.set(data.dfs['1d'])
+    # chart4.set(data.dfs['1mo'])
+    
+    # await chart.show_async(block=True)
+    # -----------------------------------------------------------------------------------------
+
+
+    
+    await asyncio.gather(chart.show_async(block=True), update_clock(chart))

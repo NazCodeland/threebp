@@ -1,6 +1,6 @@
 import yfinance as yf
 
-interval_to_period = {
+intervals = {
         '1m': '7d',  # 7 days of 1-minute data
         '5m': '60d',  # 60 days of 5-minute data
         '60m': '730d',  # 730 days of 1-hour data
@@ -10,8 +10,8 @@ interval_to_period = {
 
 def download_ohlcv(symbol):
     dataframes = {}
-    for interval in interval_to_period.keys():
-        period = interval_to_period[interval]
+    for interval in intervals.keys():
+        period = intervals[interval]
         try:
             print(f"----------------------START---{interval}----------------------")
             df = yf.download(symbol, period=period, interval=interval)

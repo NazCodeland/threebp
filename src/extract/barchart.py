@@ -119,21 +119,14 @@ async def extract_industry_equities(industries):
     if isinstance(industries, str):
         industries = [industries]
 
-
-    industries = [
-        { "symbol": "VBMT", "name": "TSX Building Materials" },
-        { "symbol": "VAGI", "name": "TSX Agricultural Inputs" }
-    ]
-
     industry_equities = []
     for industry_data in industries:
-            industry = industry_data['symbol']
-            industry_name = industry_data['name']
+            industry = industry_data['symbol'].lstrip('-')
             url = f"https://www.barchart.com/stocks/quotes/-{industry}/components?orderBy=weightedAlpha&orderDir=desc&page=all"
             equities = await extract_data(url, context)
             if equities:
                 for equity in equities:
-                    equity['industry'] = industry.lstrip('-')
+                    equity['industry'] = industry
                     industry_equities.append(equity)
 
     return industry_equities
