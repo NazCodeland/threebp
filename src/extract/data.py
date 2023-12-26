@@ -33,8 +33,8 @@ class Data:
 
     # yahoo finance
     @staticmethod
-    def download_ohlcv(symbol):
-        return download_ohlcv(symbol)
+    def download_ohlcv(symbols, intervals, market_hours):
+        return download_ohlcv(symbols, intervals, market_hours)
 
     # neon.tech postgressql database
     @staticmethod

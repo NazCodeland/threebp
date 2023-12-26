@@ -2,55 +2,98 @@ import webbrowser
 import os
 import pandas as pd
 import numpy as np
-
+import datetime
 
 def check_for_buy_conditions(df):
-    # all these variables return either a DataFrame or a Series for the whole df or column(s)
+    # -------------------------------------------------------
+    # TODO: move this somewhere else
+    # turn 'volume' column into dollar denominated values
+    df['volume'] = ((df['volume'] * df['close']) / 1000000).round(2)
 
     # conditions for a bullish 3bp
-    higher_high = df['High'] > df['High'].shift(-2)
-    higher_close = df['Close'] > df['Close'].shift(-1)
+    higher_high = df['high'] > df['high'].shift(-2)
+    higher_close = df['close'] > df['close'].shift(-1)
     bullish_3bp = higher_high & higher_close
+    
+    # # setting up columns for bearish 3bp marks
+    # lower_low = df['low'] < df['low'].shift(-2)
+    # lower_close = df['close'] < df['close'].shift(-1)
 
-    # setting up columns for bearish 3bp marks
-    lower_low = df['Low'] < df['Low'].shift(-2)
-    lower_close = df['Close'] < df['Close'].shift(-1)
+    # # gain or loss from last bars close
+    # gain_or_loss = ((df['close'] - df['close'].shift(-1)) * 100) / df['close'].shift(-1)
 
-    # gain or loss from last bars close
-    gain_or_loss = ((df['Close'] - df['Close'].shift(-1)) * 100) / df['Close'].shift(-1)
+    # # if not in a bullish 3bp, calculate gain needed from current price to form a bullish 3bp
+    # threebp_highmark = np.maximum(df['close'].shift(-1), df['high'].shift(-2))
+    # threebp_gain_needed = -((threebp_highmark - df['close']) * 100) / df['close']
 
 
-    # Add the new columns
-    for col in ['1M', '1W', '1D']:
-        df[col] = np.where(bullish_3bp, df['gain_or_loss'], df['threebp_gain_needed'])
-        
-    # if not in a bullish 3bp, calculate gain needed from current price to form a bullish 3bp
-    threebp_highmark = np.maximum(df['Close'].shift(-1), df['High'].shift(-2))
-    threebp_gain_needed = -((threebp_highmark - df['Close']) * 100) / df['Close']
+    df['3bp'] = bullish_3bp
 
-    # For rows where 'gain_or_loss' is greater than or equal to 0, set the 'gain_or_loss'
-    # column to the corresponding value in 'gain_or_loss'
-    df.loc[gain_or_loss >= 0, 'gain_or_loss'] = gain_or_loss
-    # For rows where 'gain_or_loss' is less than 0, set the 'gain_or_loss' column to NaN
-    df.loc[gain_or_loss < 0, 'gain_or_loss'] = float('nan')
-    # For rows where 'gain_or_loss' is greater than or equal to 0, set the 'threebp_gain_needed'
-    # column to NaN
-    df.loc[gain_or_loss >= 0, 'threebp_gain_needed'] = float('nan')
-    # For rows where 'gain_or_loss' is less than 0, set the 'threebp_gain_needed' column to the
-    # corresponding value in 'threebp_gain_needed'
-    df.loc[gain_or_loss < 0, 'threebp_gain_needed'] = threebp_gain_needed
+    # # if not in a bullish 3bp, calculate gain needed from current price to form a bullish 3bp
+    # threebp_highmark = np.maximum(df['close'].shift(-1), df['high'].shift(-2))
+    # threebp_gain_needed = -((threebp_highmark - df['close']) * 100) / df['close']
 
-    df = df.fillna('')
+    # # For rows where 'gain_or_loss' is greater than or equal to 0, set the 'gain_or_loss'
+    # # column to the corresponding value in 'gain_or_loss'
+    # df.loc[gain_or_loss >= 0, 'gain_or_loss'] = gain_or_loss
+    # # For rows where 'gain_or_loss' is less than 0, set the 'gain_or_loss' column to NaN
+    # df.loc[gain_or_loss < 0, 'gain_or_loss'] = float('nan')
+    # # For rows where 'gain_or_loss' is greater than or equal to 0, set the 'threebp_gain_needed'
+    # # column to NaN
+    # df.loc[gain_or_loss >= 0, 'threebp_gain_needed'] = float('nan')
+    # # For rows where 'gain_or_loss' is less than 0, set the 'threebp_gain_needed' column to the
+    # # corresponding value in 'threebp_gain_needed'
+    # df.loc[gain_or_loss < 0, 'threebp_gain_needed'] = threebp_gain_needed
 
+    # df = df.fillna('')
     return df
 
+
 def save_to_html_and_open(df):
-    with open("data.html", "w") as f:
-        f.write(df.to_html())
-    webbrowser.open('file://' + os.path.realpath("data.html"))
+    # Get the current date and time
+    now = datetime.datetime.now()
+    
+    # Format it as a string with milliseconds and microseconds
+    timestamp = now.strftime("%Y%m%d%H%M%S%f")
+    
+    # Use the timestamp to create a unique filename
+    filename = f"data_{timestamp}.html"
+
+    with open(filename, "w") as f:
+        f.write(df.to_html(escape=False))
+    
+    webbrowser.open('file://' + os.path.realpath(filename))
 
 def threebp_main(df):
-df = check_for_buy_conditions(df)
-save_to_html_and_open(df)
-return df
-# 
+    # Group the DataFrame by 'symbol' and 'interval' columns, and apply the 'check_for_buy_conditions' function to each group.
+    # The 'observed=True' argument means that only the groups that are observed in the data are considered.
+    df = df.groupby(['symbol', 'interval'], observed=True).apply(check_for_buy_conditions)
+
+    # Reset the index of the DataFrame. The 'droplevel' function removes the specified levels from the index.
+    # Here, it's removing 'symbol' and 'interval' levels from the index.
+    df.index = df.index.droplevel(['symbol', 'interval'])
+
+    # Group the DataFrame again by 'symbol' and 'interval' columns, and take the first row from each group.
+    # The 'reset_index' function is used to reset the index of the DataFrame after the grouping.
+    df = df.groupby(['symbol', 'interval'], observed=True).first().reset_index()
+
+    # Modify the 'symbol' column to include the Yahoo Finance URL for each symbol
+
+    df['symbol'] = df['symbol'].apply(lambda x: f'<a href="https://finance.yahoo.com/chart/{x}" target="_blank">{x}</a>')
+
+    # Pivot the DataFrame on '3bp' column
+    df_pivot = df.pivot(index='symbol', columns='interval', values='3bp')
+
+    # Reset the index
+    df_pivot.reset_index(inplace=True)
+
+    # Fill NaN values with False (or any other value you prefer)
+    df_pivot.fillna('', inplace=True)
+
+    # Remove the column name for multi-index columns
+    df_pivot.columns.name = None
+    
+    return df_pivot
+
+
+

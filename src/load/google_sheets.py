@@ -4,17 +4,17 @@ from config import email
 
 def upload_to_gsheets(df):
     # Use your own credentials.json
-    gc = gspread.service_account(filename='./client_secret.json')
+    gc = gspread.service_account(filename='src/load/client_secret.json')
 
     # Try to open the Google Spreadsheet
     try:
-        sh = gc.open("TSX")
+        sh = gc.open("threebp")
     except gspread.SpreadsheetNotFound:
         # If not found, create a new one
-        sh = gc.create("TSX")
+        sh = gc.create("threebp")
 
     # Share the document with your personal Google account
-    # sh.share(email, perm_type='user', role='writer')
+    sh.share(email, perm_type='user', role='writer')
     
     print("New spreadsheet created. URL:", sh.url)
     # Select Spreadsheet's sheet
