@@ -22,15 +22,18 @@ def download_ohlcv(symbols, intervals, market_hours=False):
         period = intervals[interval]
         start_time = time.time()
         try:
-
             if market_hours:
                 start = intervals[interval]['start']
                 end = intervals[interval]['end']
                 df = yf.download(symbols, start=start, end=end, interval=interval, rounding=True, group_by='ticker', ignore_tz=True, keepna=True)
 
             else:
-                df = yf.download(symbols, period=period, interval=interval, rounding=True, group_by='ticker', ignore_tz=True, keepna=True)
+                # df = yf.download(symbols, period=period, interval=interval, rounding=True, group_by='ticker', ignore_tz=True, keepna=True)
+                df = yf.download(symbols, start=intervals[interval]['start'], end=intervals[interval]['end'], interval=interval, rounding=True, group_by='ticker', ignore_tz=True, keepna=True)
                 df = df.tail(3)
+                print('========================------------=============================')
+                print(df)
+                print('========================------------=============================')
                 
             df = df.drop(columns='Adj Close', level=1)  # Remove 'Adj Close' column
             df.columns = df.columns.set_levels(df.columns.levels[1].str.lower(), level=1)  # Make column names lowercase
