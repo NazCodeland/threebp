@@ -2,6 +2,10 @@
 import io
 import pandas as pd
 from typing import List, Dict
+import webbrowser
+import os
+import datetime
+
 
 def sanitize_data(data):
     # Read the string 'data' as a CSV file into a pandas DataFrame
@@ -61,3 +65,21 @@ def filter_rows(rows: List[Dict]) -> List[Dict]:
     # Return both lists
     # return valid_symbols, invalid_symbols
     return valid_symbols
+
+
+
+
+def save_to_html_and_open(df):
+    # Get the current date and time
+    now = datetime.datetime.now()
+    
+    # Format it as a string with milliseconds and microseconds
+    timestamp = now.strftime("%Y%m%d%H%M%S%f")
+    
+    # Use the timestamp to create a unique filename
+    filename = f"data_{timestamp}.html"
+
+    with open(filename, "w") as f:
+        f.write(df.to_html(escape=False))
+    
+    webbrowser.open('file://' + os.path.realpath(filename))

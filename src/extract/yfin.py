@@ -28,12 +28,9 @@ def download_ohlcv(symbols, intervals, market_hours=False):
                 df = yf.download(symbols, start=start, end=end, interval=interval, rounding=True, group_by='ticker', ignore_tz=True, keepna=True)
 
             else:
-                # df = yf.download(symbols, period=period, interval=interval, rounding=True, group_by='ticker', ignore_tz=True, keepna=True)
-                df = yf.download(symbols, start=intervals[interval]['start'], end=intervals[interval]['end'], interval=interval, rounding=True, group_by='ticker', ignore_tz=True, keepna=True)
+                df = yf.download(symbols, period=period, interval=interval, rounding=True, group_by='ticker', ignore_tz=True, keepna=True)
+                # df = yf.download(symbols, start=intervals[interval]['start'], end=intervals[interval]['end'], interval=interval, rounding=True, group_by='ticker', ignore_tz=True, keepna=True)
                 df = df.tail(3)
-                print('========================------------=============================')
-                print(df)
-                print('========================------------=============================')
                 
             df = df.drop(columns='Adj Close', level=1)  # Remove 'Adj Close' column
             df.columns = df.columns.set_levels(df.columns.levels[1].str.lower(), level=1)  # Make column names lowercase
@@ -63,9 +60,9 @@ def process_data(df_all):
     # The reset_index() function is used to reset the index of the DataFrame. 
     # reset_index() is a method to reset index of a Data Frame. reset_index() method sets a list of integer ranging from 0 to length of data as index.
     df_all = df_all.stack(level=0).reset_index()
-    
-    df_all.columns = ['date', 'interval', 'symbol', 'open', 'high', 'low', 'close', 'volume']
 
+    df_all.columns = ['date', 'interval', 'symbol', 'close', 'high', 'low', 'open', 'volume']
+    
     # This line is converting the 'interval' column to a categorical data type with the specified categories and order.
     # The categories are '1m', '5m', '60m', '1d', '1wk', '1mo' and they are ordered. 
     # This means that they can be sorted or compared according to the order specified, which is useful for ordinal data.

@@ -1,8 +1,9 @@
-import webbrowser
-import os
+
 import pandas as pd
 import numpy as np
-import datetime
+
+from transform.transform_functions import save_to_html_and_open
+
 
 def check_for_buy_conditions(df):
     # -------------------------------------------------------
@@ -19,15 +20,19 @@ def check_for_buy_conditions(df):
     # lower_low = df['low'] < df['low'].shift(-2)
     # lower_close = df['close'] < df['close'].shift(-1)
 
-    # # gain or loss from last bars close
+    # gain or loss from last bars close
     # gain_or_loss = ((df['close'] - df['close'].shift(-1)) * 100) / df['close'].shift(-1)
 
     # # if not in a bullish 3bp, calculate gain needed from current price to form a bullish 3bp
-    # threebp_highmark = np.maximum(df['close'].shift(-1), df['high'].shift(-2))
-    # threebp_gain_needed = -((threebp_highmark - df['close']) * 100) / df['close']
+    threebp_highmark = np.maximum(df['close'].shift(-1), df['high'].shift(-2))
+    threebp_gain_needed = -round(((threebp_highmark - df['close']) * 100) / df['close'], 2)
 
 
     df['3bp'] = bullish_3bp
+    df['3bpGainNeeded'] = threebp_gain_needed
+    df['3bpValue'] = np.where(df['3bp'], 'True', df['3bpGainNeeded'])
+
+
 
     # # if not in a bullish 3bp, calculate gain needed from current price to form a bullish 3bp
     # threebp_highmark = np.maximum(df['close'].shift(-1), df['high'].shift(-2))
@@ -49,25 +54,11 @@ def check_for_buy_conditions(df):
     return df
 
 
-def save_to_html_and_open(df):
-    # Get the current date and time
-    now = datetime.datetime.now()
-    
-    # Format it as a string with milliseconds and microseconds
-    timestamp = now.strftime("%Y%m%d%H%M%S%f")
-    
-    # Use the timestamp to create a unique filename
-    filename = f"data_{timestamp}.html"
-
-    with open(filename, "w") as f:
-        f.write(df.to_html(escape=False))
-    
-    webbrowser.open('file://' + os.path.realpath(filename))
 
 def threebp_main(df):
     # Group the DataFrame by 'symbol' and 'interval' columns, and apply the 'check_for_buy_conditions' function to each group.
     # The 'observed=True' argument means that only the groups that are observed in the data are considered.
-    df = df.groupby(['symbol', 'interval'], observed=True).apply(check_for_buy_conditions)
+    df = df.groupby(['symbol', 'interval'], group_keys=True).apply(check_for_buy_conditions)
 
     # Reset the index of the DataFrame. The 'droplevel' function removes the specified levels from the index.
     # Here, it's removing 'symbol' and 'interval' levels from the index.
@@ -75,14 +66,14 @@ def threebp_main(df):
 
     # Group the DataFrame again by 'symbol' and 'interval' columns, and take the first row from each group.
     # The 'reset_index' function is used to reset the index of the DataFrame after the grouping.
-    df = df.groupby(['symbol', 'interval'], observed=True).first().reset_index()
+    df = df.groupby(['symbol', 'interval'], group_keys=True).first().reset_index()
 
     # Modify the 'symbol' column to include the Yahoo Finance URL for each symbol
 
-    df['symbol'] = df['symbol'].apply(lambda x: f'<a href="https://finance.yahoo.com/chart/{x}" target="_blank">{x}</a>')
+    # df['symbol'] = df['symbol'].apply(lambda x: f'<a href="https://finance.yahoo.com/chart/{x}" target="_blank">{x}</a>')
 
     # Pivot the DataFrame on '3bp' column
-    df_pivot = df.pivot(index='symbol', columns='interval', values='3bp')
+    df_pivot = df.pivot(index='symbol', columns='interval', values='3bpValue')
 
     # Reset the index
     df_pivot.reset_index(inplace=True)

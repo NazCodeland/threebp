@@ -1,4 +1,4 @@
-
+import pandas as pd
 
 def convert_to_yearly(df):
     # Convert 'Date' column to datetime and set it as index
@@ -9,7 +9,7 @@ def convert_to_yearly(df):
     df[['symbol', 'timeframe']] = df['symbol'].str.split('_', expand=True)
 
     # Resample to yearly data
-    df_yearly = df.groupby('symbol').resample('Y').agg(
+    df_yearly = df.groupby('symbol', group_keys=True).resample('Y').agg(
         {
             'Open': 'first', 
             'High': 'max', 
