@@ -30,7 +30,7 @@ def download_ohlcv(symbols, intervals, market_hours=False):
             else:
                 df = yf.download(symbols, period=period, interval=interval, rounding=True, group_by='ticker', ignore_tz=True, keepna=True)
                 # df = yf.download(symbols, start=intervals[interval]['start'], end=intervals[interval]['end'], interval=interval, rounding=True, group_by='ticker', ignore_tz=True, keepna=True)
-                df = df.tail(3)
+                # df = df.tail(5)
                 
             df = df.drop(columns='Adj Close', level=1)  # Remove 'Adj Close' column
             df.columns = df.columns.set_levels(df.columns.levels[1].str.lower(), level=1)  # Make column names lowercase
@@ -51,22 +51,12 @@ def download_ohlcv(symbols, intervals, market_hours=False):
     else:
         return df
 
-def process_data(df_all):
+def categorize_interval_and_sort_data(df_all):
 
-    # This line is stacking the DataFrame based on the first level of the index (level=0). 
-    # The stack() function is used to "compress" a level in the DataFrame's columns to produce either:
-    # - Series (if the columns have a single level).
-    # - DataFrame (if the columns have multiple levels).
-    # The reset_index() function is used to reset the index of the DataFrame. 
-    # reset_index() is a method to reset index of a Data Frame. reset_index() method sets a list of integer ranging from 0 to length of data as index.
-    df_all = df_all.stack(level=0).reset_index()
-
-    df_all.columns = ['date', 'interval', 'symbol', 'close', 'high', 'low', 'open', 'volume']
-    
     # This line is converting the 'interval' column to a categorical data type with the specified categories and order.
     # The categories are '1m', '5m', '60m', '1d', '1wk', '1mo' and they are ordered. 
     # This means that they can be sorted or compared according to the order specified, which is useful for ordinal data.
-    df_all['interval'] = pd.Categorical(df_all['interval'], categories=['1mo', '1wk', '1d', '60m', '5m', '1m'], ordered=True)
+    df_all['interval'] = pd.Categorical(df_all['interval'], categories=['1y', '1mo', '1wk', '1d', '60m', '5m', '1m'], ordered=True)
 
     # This will sort the DataFrame in the following way:
     # 1. 'symbol' in ascending order: This means the symbols will be sorted from A to Z.
