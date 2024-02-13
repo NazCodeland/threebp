@@ -54,8 +54,8 @@ async def main():
 		# period : str
 		# Valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
 		intervals_initial = {
-				'1m': '5d',  # For 1-minute timeframe, retrieve 5 days
-				'5m': '5d',  # For 5-minute timeframe, retrieve 5 days
+				# '1m': '5d',  # For 1-minute timeframe, retrieve 5 days
+				# '5m': '5d',  # For 5-minute timeframe, retrieve 5 days
 				'60m': '5d',  # For 1-hour timeframe, retrieve 5 days
 				'1d': '5d',  # For 1-day timeframe, retrieve 5 days
 				'1wk': '3mo',  # For 1-week timeframe, retrieve 1 month
@@ -1545,7 +1545,7 @@ async def main():
 		# 	"CRRX.TO"
 		# ]
 		
-		list1 = ["GWO.TO", "MFC.TO", "SHOP.TO", "TLRY.TO", "BIGG.CN"]
+		list1 = ["ERO.TO", "GWO.TO", "MFC.TO", "SHOP.TO", "TLRY.TO", "BIGG.CN", "PRL.TO"]
 		# list1 = ["BTC-USD", "ETH-USD"]
 
 
@@ -1572,8 +1572,10 @@ async def main():
 		print('=================: 1')
 		dataframes = Data.download_ohlcv(list1, intervals_initial, market_hours=False)
 		print('=================: 2')
-		
-		def collapse_multiindex_to_long_format(df):
+
+		def wide_to_long(df):
+				# this function collapses a MultiIndex from 'wide' format to 'long' format
+
 				# The stack() function is used to "compress" a level in the DataFrame's columns.
 				# This transforms the DataFrame from a wide format to a long format.
 				# The reset_index() function is then used to reset the index of the DataFrame.
@@ -1582,7 +1584,7 @@ async def main():
 				df = df.stack(level=0).reset_index().rename(columns={'level_2': 'symbol'})
 				return df
 
-		def add_yearly_interval(df):
+		def add_year_interval(df):
 				# Set 'date', 'symbol', and 'interval' as indices
 				df.set_index(['date', 'symbol', 'interval'], inplace=True)
 
@@ -1611,12 +1613,13 @@ async def main():
 
 			return df
 
-		dataframes = collapse_multiindex_to_long_format(dataframes)
-		dataframes = add_yearly_interval(dataframes)
+		dataframes = wide_to_long(dataframes)
+		dataframes = add_year_interval(dataframes)
 		dataframes = tail_by_group(dataframes)
 		dataframes = categorize_interval_and_sort_data(dataframes)
 
 
+		save_to_html_and_open(dataframes)
 		threebp_df = threebp_main(dataframes)
 		save_to_html_and_open(threebp_df)
 		# upload_to_gsheets(threebp_df)

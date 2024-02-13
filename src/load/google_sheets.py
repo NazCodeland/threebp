@@ -20,6 +20,7 @@ def upload_to_gsheets(df):
     print('New spreadsheet created. ID:', spreadsheet.get('spreadsheetId'))
 
     # Upload the DataFrame to Google Sheets
+    df = df.fillna("")
     data = []
     data.append(df.columns.tolist())
     data.extend(df.values.tolist())
