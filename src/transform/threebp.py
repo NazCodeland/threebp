@@ -17,6 +17,7 @@ def check_for_buy_conditions(df):
     higher_close = df['close'].shift(-1) >= df['close'].shift(-2)
 
     # Calculate the bnt (when the high of 2 bars ago is not greater than the high of 4 bars ago)
+    # df['high'].shift(-2) <= df['high'].shift(-4) or df['high'].shift(-2) <= df['low'].shift(-3)  
     bnt = (df['high'].shift(-2) <= df['high'].shift(-4)) & higher_high & higher_close
 
     # Calculate the bullish 3 bar play condition
@@ -72,7 +73,7 @@ def threebp_main(df):
 
     # This line groups the DataFrame again by 'symbol' and 'interval' columns and takes the first row & resets the index
     df = df.groupby(['symbol', 'interval'], group_keys=True).first().reset_index()
-    print(df)
+
     # This line is also commented out, but if it were active, it would modify the 'symbol' column to include the Yahoo Finance URL for each symbol.
     # This could be useful if you want to provide a direct link to the Yahoo Finance page for each symbol in your final output.
     # df['symbol'] = df['symbol'].apply(lambda x: f'<a href="https://finance.yahoo.com/chart/{x}" target="_blank">{x}</a>')
@@ -87,7 +88,7 @@ def threebp_main(df):
     # This line creates a new DataFrame for the 'bnt' column. 
     # Checks the `bnt` column value and if it's not False, it takes the corresponding value (which is an interval), 
     # and aggregates those interval values by symbol.    
-    df_bnt = df.groupby('symbol')['bnt'].apply(lambda x: ', '.join([x[i] for i in x.index if x[i] != False]))
+    df_bnt = df.groupby('symbol')['bnt'].apply(lambda x: ', '.join([str(x[i]) for i in x.index if x[i] != False]))
 
     # Merge the 'bnt' DataFrame with the pivoted DataFrame
     df_final = pd.merge(df_bnt, df_pivot, on='symbol', how='left')

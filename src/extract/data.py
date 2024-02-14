@@ -1,18 +1,31 @@
 from extract.yfin import download_ohlcv
-from extract.barchart import start_context, stop_context, extract_sectors, extract_industries, extract_industry_equities
+from extract.barchart import _load_cookies, _login, _save_cookies, _start_context, _stop_context, extract_sectors, extract_industries, extract_industry_equities
 from load.database import download_from_db, upload_to_db
 
 class Data:
+
     # barchart data
     @staticmethod
-    async def start_context():
-        await start_context()
+    async def _start_context():
+        await _start_context()
     
     # barchart data
     @staticmethod
-    async def stop_context():
-        await stop_context()
+    async def _stop_context():
+        await _stop_context()
+
+    @staticmethod
+    async def _login():
+        await _login()
     
+    @staticmethod
+    async def _save_cookies():
+        await _save_cookies()
+        
+    @staticmethod
+    async def _load_cookies():
+        await _load_cookies()
+
     # barchart data
     @staticmethod
     async def download_sectors():

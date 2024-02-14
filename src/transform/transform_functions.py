@@ -23,48 +23,54 @@ def sanitize_data(data):
 
 
 
-# List of substrings to exclude from the 'symbol' 
-# warrants, preferred shares etc...
 
-# warrants, preferred shares, illiquid symbols if it's a "*-A.*" or "*-B.*" etc...
-excluded_symbols = [
-    "-PR", "-WT", "-PF-", "-A", "TTGD", "VTXS", "VTOP", "VBOT", "VCMP", "VTHC", "VTTS", "VTMT", "VTRE", "VTTK", "VTIN", "VTFS", "VTCD", "VTUT", "VTCS", "VTEN",
-    "TECK-A.TO", "TCL-B.TO", "ADW-B.TO", "CSW-B.TO", "RAY-B.TO", "BBD-A.TO", "QBR-A.TO", "RCI-A.TO", "AKT-B.TO"
-    ]
 
-# List of industry codes to exclude
-excluded_industries = ["VTXS", "VTOP", "VBOT", "VCMP", "VTHC", "VTTS", "VTMT", "VTRE", "VTTK", "VTIN", "VTFS", "VTCD", "VTUT", "VTCS", "VTEN"]
+def filter_data(financial_objects: List[Dict]) -> List[Dict]:
+    exclude_sectors = ["TTGD"]
+    exclude_industries = [
+        "VTXS", "VTOP", "VBOT", "VCMP", "VTHC", "VTTS", "VTMT", "VTRE", "VTTK", "VTIN", "VTFS", "VTCD", "VTUT", "VTCS", "VTEN"]
 
-def filter_rows(rows: List[Dict]) -> List[Dict]:
-    # Initialize lists to hold valid and invalid symbols
+    # warrants, preferred shares, indices, top or bottom 100 stocks, etc...
+    exclude_substring_symbols = ["-PR", "-WT", "-PF-"]
+    exclude_symbols = [
+        "TECK-A.TO", "ACRG-B-U.CN", "RET.VN", "GCG-A.TO", "URB.TO", "TCL-B.TO", "ADW-B.TO", "CSW-B.TO",
+        "RAY-B.TO", "BBD-A.TO", "QBR-A.TO", "RCI-A.TO", "AKT-B.TO", "JET-B.NE", "CTC"]
+
     valid_symbols = []
     invalid_symbols = []
 
-    # Iterate over each row
-    for row in rows:
-        # Check if the 'industry' key exists and if it's in the excluded industries list
-        industry_excluded = 'industry' in row and row['industry'] in excluded_industries
+    keys_to_check = ['sector_symbol', 'industry_symbol', 'equity_symbol']
+    for fin_object in financial_objects:
+        excluded = False
 
-        # Check if the symbol contains any excluded substrings
-        symbol_excluded = any(substring in row['symbol'] for substring in excluded_symbols)
-        
-        if industry_excluded or symbol_excluded:
-            # If so, add to the invalid symbols list
-            invalid_symbols.append(row)
+        for key in keys_to_check:
+            if key in fin_object:
+                modified_value = fin_object[key]
+                if modified_value.endswith('.VN'):
+                    modified_value = modified_value.replace('.VN', '.V')
+                if modified_value.startswith('$'):
+                    modified_value = modified_value.replace('$', '')
+                if modified_value.startswith('-'):
+                    modified_value = modified_value.lstrip('-')
+
+                sectors_excluded = modified_value in exclude_sectors
+                industries_excluded = modified_value in exclude_industries
+                symbols_excluded = any(substring in modified_value for substring in exclude_substring_symbols) or modified_value in exclude_symbols
+
+                if sectors_excluded or industries_excluded or symbols_excluded:
+                    excluded = True
+                    break  # if the modified_value is excluded, no need to check other keys for the same fin_object
+                else:
+                    fin_object[key] = modified_value  # update the key in the new fin_object
+
+        if excluded:
+            invalid_symbols.append(fin_object)
         else:
-            # If not, process the symbol and add to the valid symbols list
-            new_symbol = row['symbol']
-            if new_symbol.endswith('.VN'):
-                new_symbol = new_symbol.replace('.VN', '.V')
-            if new_symbol.startswith('$'):
-                new_symbol = new_symbol.replace('$', '')
-            if new_symbol.startswith('-'):
-                new_symbol = new_symbol.lstrip('-')
-            valid_symbols.append(dict(row, symbol=new_symbol))
+            valid_symbols.append(fin_object)
 
-    # Return both lists
-    # return valid_symbols, invalid_symbols
     return valid_symbols
+
+
 
 
 

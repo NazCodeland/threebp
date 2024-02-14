@@ -8,6 +8,9 @@ import time
 def download_ohlcv(symbols, intervals, market_hours=False):
     dfs = []
     for interval in intervals.keys():
+        print('-------------------------------------')
+        print("downloading data for:", interval)
+        print('-------------------------------------')
         period = intervals[interval]
         start_time = time.time()
         try:
