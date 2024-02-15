@@ -92,7 +92,6 @@ def flatten_nested_dict(df):
 
     return nested_data
 
-
 def csv_string_to_dataframe(csv_string):
     """
     Converts a CSV string to a pandas DataFrame.
@@ -105,8 +104,6 @@ def csv_string_to_dataframe(csv_string):
     data = StringIO(csv_string)
     df = pd.read_csv(data)
     return df
-
-
 
 def save_pickle_object(obj, filename):
     path = 'src/prices/'  # Hardcoded path

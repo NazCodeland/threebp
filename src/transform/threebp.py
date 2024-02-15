@@ -16,9 +16,9 @@ def check_for_buy_conditions(df):
     higher_high = df['high'].shift(-1) >= df['high'].shift(-3)
     higher_close = df['close'].shift(-1) >= df['close'].shift(-2)
 
-    # Calculate the bnt (when the high of 2 bars ago is not greater than the high of 4 bars ago)
+    # Calculate the nt (when the high of 2 bars ago is not greater than the high of 4 bars ago)
     # df['high'].shift(-2) <= df['high'].shift(-4) or df['high'].shift(-2) <= df['low'].shift(-3)  
-    bnt = (df['high'].shift(-2) <= df['high'].shift(-4)) & higher_high & higher_close
+    nt = (df['high'].shift(-2) <= df['high'].shift(-4)) & higher_high & higher_close
 
     # Calculate the bullish 3 bar play condition
     # This will be True only when higher_high, higher_close are True
@@ -37,7 +37,7 @@ def check_for_buy_conditions(df):
     threebp_gain_needed = -round(((threebp_highmark - df['close'].shift(-1)) * 100) / df['close'].shift(-1), 2)
 
 
-    df['bnt'] = np.where(bnt, df['interval'], False)
+    df['nt'] = np.where(nt, df['interval'], False)
     df['3bpValue'] = np.where(bullish_3bp, 'True', threebp_gain_needed)
 
     
@@ -62,7 +62,7 @@ def check_for_buy_conditions(df):
     return df
 
 
-def threebp_main(df):
+def threebp(df):
     # Group the DataFrame by 'symbol' and 'interval' columns, and apply the 'check_for_buy_conditions' function to each group.
     df = df.groupby(['symbol', 'interval'], group_keys=True).apply(check_for_buy_conditions)
 
@@ -85,13 +85,13 @@ def threebp_main(df):
     # Reset the index of the pivoted DataFrame. This makes 'symbol' a regular column again, and introduces a default integer index.
     df_pivot.reset_index(inplace=True)
 
-    # This line creates a new DataFrame for the 'bnt' column. 
-    # Checks the `bnt` column value and if it's not False, it takes the corresponding value (which is an interval), 
+    # This line creates a new DataFrame for the 'nt' column. 
+    # Checks the `nt` column value and if it's not False, it takes the corresponding value (which is an interval), 
     # and aggregates those interval values by symbol.    
-    df_bnt = df.groupby('symbol')['bnt'].apply(lambda x: ', '.join([str(x[i]) for i in x.index if x[i] != False]))
+    df_nt = df.groupby('symbol')['nt'].apply(lambda x: ', '.join([str(x[i]) for i in x.index if x[i] != False]))
 
-    # Merge the 'bnt' DataFrame with the pivoted DataFrame
-    df_final = pd.merge(df_bnt, df_pivot, on='symbol', how='left')
+    # Merge the 'nt' DataFrame with the pivoted DataFrame
+    df_final = pd.merge(df_nt, df_pivot, on='symbol', how='left')
 
 
     # This line is commented out, but if it were active, it would fill NaN values with an empty string (or any other value you prefer).

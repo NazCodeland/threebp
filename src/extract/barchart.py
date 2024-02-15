@@ -87,40 +87,42 @@ async def extract_data(page: Page, custom_element: Optional[ElementHandle], url)
                 const grossProfitLastYear = row.querySelector("div._cell._align_right.grossProfitLastYear text-binding");
                 const operatingIncomeLastYear = row.querySelector("div._cell._align_right.operatingIncomeLastYear text-binding");
 
-                const symbol_text = symbol_cell ? symbol_cell.shadowRoot.textContent : null;
+                const equitySym = symbol_cell ? symbol_cell.shadowRoot.textContent : null;
                 const marketCap = marketCapitalization ? marketCapitalization.shadowRoot.textContent : null;
 
                 // Quarter information
                 const revLastQ = revenueLastQuarter ? revenueLastQuarter.shadowRoot.textContent : null;
-                const revGrowthLastQ = revenueGrowthLastQuarter ? revenueGrowthLastQuarter.shadowRoot.textContent : null;
-                const revGrowth1qAgo = revenueGrowth1qAgo ? revenueGrowth1qAgo.shadowRoot.textContent : null;
-                const revGrowth2qAgo = revenueGrowth2qAgo ? revenueGrowth2qAgo.shadowRoot.textContent : null;
-                const grossProfitLastQ = grossProfitLastQuarter ? grossProfitLastQuarter.shadowRoot.textContent : null;
-                const operatingIncomeLastQ = operatingIncomeLastQuarter ? operatingIncomeLastQuarter.shadowRoot.textContent : null;
-                const netIncomeLastQ = netIncomeLastQuarter ? netIncomeLastQuarter.shadowRoot.textContent : null;
+                const revGLastQ = revenueGrowthLastQuarter ? revenueGrowthLastQuarter.shadowRoot.textContent : null;
+                const revG1qAgo = revenueGrowth1qAgo ? revenueGrowth1qAgo.shadowRoot.textContent : null;
+                const revG2qAgo = revenueGrowth2qAgo ? revenueGrowth2qAgo.shadowRoot.textContent : null;
+                const grossPLastQ = grossProfitLastQuarter ? grossProfitLastQuarter.shadowRoot.textContent : null;
+                const opIncLastQ = operatingIncomeLastQuarter ? operatingIncomeLastQuarter.shadowRoot.textContent : null;
+                const netIncLastQ = netIncomeLastQuarter ? netIncomeLastQuarter.shadowRoot.textContent : null;
 
                 // Annual information
                 const revLastY = revenueLastYear ? revenueLastYear.shadowRoot.textContent : null;
-                const revGrowthLastY = revenueGrowthLastYear ? revenueGrowthLastYear.shadowRoot.textContent : null;
-                const revGrowth1yAgo = revenueGrowth1yAgo ? revenueGrowth1yAgo.shadowRoot.textContent : null;
-                const revGrowth2yAgo = revenueGrowth2yAgo ? revenueGrowth2yAgo.shadowRoot.textContent : null;
-                const grossProfitLastY = grossProfitLastYear ? grossProfitLastYear.shadowRoot.textContent : null;
-                const operatingIncomeLastY = operatingIncomeLastYear ? operatingIncomeLastYear.shadowRoot.textContent : null;
+                const revGLastY = revenueGrowthLastYear ? revenueGrowthLastYear.shadowRoot.textContent : null;
+                const revG1yAgo = revenueGrowth1yAgo ? revenueGrowth1yAgo.shadowRoot.textContent : null;
+                const revG2yAgo = revenueGrowth2yAgo ? revenueGrowth2yAgo.shadowRoot.textContent : null;
+                const grossPLastY = grossProfitLastYear ? grossProfitLastYear.shadowRoot.textContent : null;
+                const opIncLastY = operatingIncomeLastYear ? operatingIncomeLastYear.shadowRoot.textContent : null;
 
                 return {
-                    equity_symbol: symbol_text,
-                    revLastQ,revGrowthLastQ,                    
-                    revGrowth1qAgo,                    
-                    revGrowth2qAgo,                    
-                    grossProfitLastQ,                    
-                    operatingIncomeLastQ,                    
-                    netIncomeLastQ,                    
+                    equitySym,
+                    marketCap,
+                    revLastQ,
+                    revGLastQ,                    
+                    revG1qAgo,                    
+                    revG2qAgo,                    
+                    grossPLastQ,                    
+                    opIncLastQ,                    
+                    netIncLastQ,                    
                     revLastY,                    
-                    revGrowthLastY,                    
-                    revGrowth1yAgo,                    
-                    revGrowth2yAgo,                    
-                    grossProfitLastY,                    
-                    operatingIncomeLastY 
+                    revGLastY,                    
+                    revG1yAgo,                    
+                    revG2yAgo,                    
+                    grossPLastY,                    
+                    opIncLastY 
                 };
             });
         }
@@ -213,14 +215,14 @@ async def extract_sectors():
     url = "https://www.barchart.com/search?q=$TT&regions=ca&assets=indices"
     page = await navigate_and_prepare_page(context, url)
     sectors = await extract_data_from_page(page, url)
-    sectors = list(map(lambda d: {'sector_symbol': d['symbol'], 'sector_name': d['symbol_name']}, sectors))
+    sectors = list(map(lambda d: {'sectorSym': d['symbol'], 'sectorName': d['symbol_name']}, sectors))
     return sectors if sectors else []
 
 async def extract_industries():
     url = "https://www.barchart.com/ca/stocks/sectors/industry-performance?orderBy=priceChange&orderDir=desc"
     page = await navigate_and_prepare_page(context, url)
     industries = await extract_data_from_page(page, url)
-    industries = list(map(lambda d: {'industry_symbol': d['symbol'], 'industry_name': d['symbol_name']}, industries))
+    industries = list(map(lambda d: {'industrySym': d['symbol'], 'industryName': d['symbol_name']}, industries))
     return industries if industries else []
 
 async def extract_industry_equities(industries):
@@ -229,14 +231,14 @@ async def extract_industry_equities(industries):
 
     industry_equities = []
     for industry_data in industries:
-        industry = industry_data['industry_symbol'].lstrip('-')
+        industry = industry_data['industrySym'].lstrip('-')
         url = f"https://www.barchart.com/stocks/quotes/-{industry}/components?orderBy=weightedAlpha&orderDir=desc&page=all"
         page = await navigate_and_prepare_page(context, url)
         equities = await extract_data_from_page(page, url)
 
         if equities:
             for equity in equities:
-                equity['industry_symbol'] = industry
+                equity['industrySym'] = industry
                 industry_equities.append(equity)
 
     return industry_equities

@@ -30,7 +30,7 @@ def transform(sectors, industries, industry_equities):
     filtered_sectors = filter_data(sectors)
     filtered_industries = filter_data(industries)
     filtered_industry_equities = filter_data(industry_equities)
-
+    
     save_dataframe(pd.DataFrame(filtered_sectors), 'new_sectors', 'json')
     save_dataframe(pd.DataFrame(filtered_industries), 'new_industries', 'json')
     save_dataframe(pd.DataFrame(filtered_industry_equities), 'new_industry_equities', 'json')

@@ -5,7 +5,27 @@ import time
 
 
 
-def download_ohlcv(symbols, intervals, market_hours=False):
+def download_ohlcv(symbols: list[str], intervals: dict[str, str], market_hours=False) -> pd.DataFrame:
+    """
+    Downloads OHLCV data for the given symbols and intervals.
+
+    Parameters:
+    symbols (list[str]): List of symbols to download data for.
+    intervals (dict[str, str]): Dictionary mapping interval names to periods.
+    market_hours (bool): Whether to only include market hours. Defaults to False.
+
+    Returns:
+    pd.DataFrame: A DataFrame with the following columns for each symbol:
+        - 'open'
+        - 'high'
+        - 'low'
+        - 'close'
+        - 'volume'
+    The DataFrame has a MultiIndex with the following levels:
+        - 'date'
+        - 'interval'
+    """
+    
     dfs = []
     for interval in intervals.keys():
         print('-------------------------------------')
@@ -43,25 +63,6 @@ def download_ohlcv(symbols, intervals, market_hours=False):
     else:
         return df
 
-def categorize_interval_and_sort_data(df_all):
-
-    # This line is converting the 'interval' column to a categorical data type with the specified categories and order.
-    # The categories are '1m', '5m', '60m', '1d', '1wk', '1mo' and they are ordered. 
-    # This means that they can be sorted or compared according to the order specified, which is useful for ordinal data.
-    # df_all['interval'] = pd.Categorical(df_all['interval'], categories=['1y', '1mo', '1wk', '1d', '60m', '5m', '1m'], ordered=True)
-    df_all['interval'] = pd.Categorical(df_all['interval'], categories=['1y', '1mo', '1wk', '1d', '60m'], ordered=True)
-
-    # This will sort the DataFrame in the following way:
-    # 1. 'symbol' in ascending order: This means the symbols will be sorted from A to Z.
-    # 2. For each group of rows with the same symbol, 'interval' will be sorted in ascending order.
-    # 3. For each group of rows with the same symbol and interval, 'date' will be sorted in descending order. 
-    # This means the most recent dates will come first.
-    df_all = df_all.sort_values(by=['symbol', 'interval', 'date'], ascending=[True, True, False])
-
-    # re-order the columns from: ['date', 'interval', 'symbol', 'close', 'high', 'low', 'open', 'volume'] to:
-    df_all = df_all.reindex(columns=['date', 'interval', 'symbol', 'open', 'high', 'low', 'close', 'volume'])
-
-    return df_all
 
 
 def download_financials():
