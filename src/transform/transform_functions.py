@@ -31,7 +31,7 @@ def filter_data(financial_objects: List[Dict]) -> List[Dict]:
     # warrants, preferred shares, indices, top or bottom 100 stocks, etc...
     exclude_substring_symbols = ["-PR", "-WT", "-PF-", ".NE"]
     exclude_symbols = [
-        "CLP-UN.TO", "MNS.TO", "MNT.TO", "TECK-A.TO", "ACRG-B-U.CN", "RET.VN", "GCG-A.TO", "URB.TO", "TCL-B.TO", "ADW-B.TO", "CSW-B.TO",
+        "SPPP.TO", "CLP-UN.TO", "MNS.TO", "MNT.TO", "TECK-A.TO", "ACRG-B-U.CN", "RET.VN", "GCG-A.TO", "URB.TO", "TCL-B.TO", "ADW-B.TO", "CSW-B.TO",
         "RAY-B.TO", "BBD-A.TO", "QBR-A.TO", "RCI-A.TO", "AKT-B.TO", "JET-B.NE", "CTC"]
 
     valid_symbols = []

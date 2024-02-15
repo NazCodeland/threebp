@@ -51,89 +51,94 @@ async def extract_data(page: Page, custom_element: Optional[ElementHandle], url)
             return;
         }
 
-        // the sectors and industries page contain only symbol and sector/industry (symbol_name) information
-        function extract_symbol_and_symbol_name(){
-            return Array.from(shadowRoot.querySelectorAll("set-class.row._grid_columns")).map((row) => {
-                const symbol_cell = row.querySelector("div._cell.symbol text-binding");
-                const symbol_name_cell = row.querySelector("div._cell.symbolName text-binding");
+        return Array.from(shadowRoot.querySelectorAll("set-class.row._grid_columns")).map((row) => {
+            const symbol_cell = row.querySelector("div._cell.symbol text-binding");
+            const symbol_name_cell = row.querySelector("div._cell.symbolName text-binding");
 
-                const symbol_text = symbol_cell ? symbol_cell.shadowRoot.textContent : null;
-                const symbol_name_text = symbol_name_cell ? symbol_name_cell.shadowRoot.textContent : null;
+            const symbol = symbol_cell ? symbol_cell.shadowRoot.textContent : null;
+            const symbol_name = symbol_name_cell ? symbol_name_cell.shadowRoot.textContent : null;
 
-                return { symbol: symbol_text, symbol_name: symbol_name_text }        
-            });
-        }
+            return { symbol, symbol_name}        
+        });
+        
 
+        // ----------------------------------------------------------------------------------------------------
+        // ** NOT USING THIS ANYMORE - KEPT HERE INCASE I NEED IT IN THE FUTURE ** //
+        // ----------------------------------------------------------------------------------------------------
         // the industry equity page contains symbol and all the following information
-        function extract_equity_symbol_and_financials(){
-            return Array.from(shadowRoot.querySelectorAll("set-class.row._grid_columns")).map((row) => {
-                const symbol_cell = row.querySelector("div._cell.symbol text-binding");
-                const marketCapitalization = row.querySelector("div._cell._align_right.marketCap text-binding");
+        // function extract_equity_symbol_and_financials(){
+            // return Array.from(shadowRoot.querySelectorAll("set-class.row._grid_columns")).map((row) => {
+                // const symbol_cell = row.querySelector("div._cell.symbol text-binding");
+                // const marketCapitalization = row.querySelector("div._cell._align_right.marketCap text-binding");
 
                 // Quarter information
-                const revenueLastQuarter = row.querySelector("div._cell._align_right.revenueLastQuarter text-binding");
-                const revenueGrowthLastQuarter = row.querySelector("div._cell._align_right.revenueGrowthLastQuarter text-binding");
-                const revenueGrowth1qAgo = row.querySelector("div._cell._align_right.revenueGrowth1qAgo text-binding");
-                const revenueGrowth2qAgo = row.querySelector("div._cell._align_right.revenueGrowth2qAgo text-binding");
-                const grossProfitLastQuarter = row.querySelector("div._cell._align_right.grossProfitLastQuarter text-binding");
-                const operatingIncomeLastQuarter = row.querySelector("div._cell._align_right.operatingIncomeLastQuarter text-binding");
-                const netIncomeLastQuarter = row.querySelector("div._cell._align_right.netIncomeLastQuarter text-binding");
+                // const revenueLastQuarter = row.querySelector("div._cell._align_right.revenueLastQuarter text-binding");
+                // const revenueGrowthLastQuarter = row.querySelector("div._cell._align_right.revenueGrowthLastQuarter text-binding");
+                // const revenueGrowth1qAgo = row.querySelector("div._cell._align_right.revenueGrowth1qAgo text-binding");
+                // const revenueGrowth2qAgo = row.querySelector("div._cell._align_right.revenueGrowth2qAgo text-binding");
+                // const grossProfitLastQuarter = row.querySelector("div._cell._align_right.grossProfitLastQuarter text-binding");
+                // const operatingIncomeLastQuarter = row.querySelector("div._cell._align_right.operatingIncomeLastQuarter text-binding");
+                // const netIncomeLastQuarter = row.querySelector("div._cell._align_right.netIncomeLastQuarter text-binding");
 
                 // Annual information
-                const revenueLastYear = row.querySelector("div._cell._align_right.revenueLastYear text-binding");
-                const revenueGrowthLastYear = row.querySelector("div._cell._align_right.revenueGrowthLastYear text-binding");
-                const revenueGrowth1yAgo = row.querySelector("div._cell._align_right.revenueGrowth1yAgo text-binding");
-                const revenueGrowth2yAgo = row.querySelector("div._cell._align_right.revenueGrowth2yAgo text-binding");
-                const grossProfitLastYear = row.querySelector("div._cell._align_right.grossProfitLastYear text-binding");
-                const operatingIncomeLastYear = row.querySelector("div._cell._align_right.operatingIncomeLastYear text-binding");
+                // const revenueLastYear = row.querySelector("div._cell._align_right.revenueLastYear text-binding");
+                // const revenueGrowthLastYear = row.querySelector("div._cell._align_right.revenueGrowthLastYear text-binding");
+                // const revenueGrowth1yAgo = row.querySelector("div._cell._align_right.revenueGrowth1yAgo text-binding");
+                // const revenueGrowth2yAgo = row.querySelector("div._cell._align_right.revenueGrowth2yAgo text-binding");
+                // const grossProfitLastYear = row.querySelector("div._cell._align_right.grossProfitLastYear text-binding");
+                // const operatingIncomeLastYear = row.querySelector("div._cell._align_right.operatingIncomeLastYear text-binding");
 
-                const equitySym = symbol_cell ? symbol_cell.shadowRoot.textContent : null;
-                const marketCap = marketCapitalization ? marketCapitalization.shadowRoot.textContent : null;
+                // const equitySym = symbol_cell ? symbol_cell.shadowRoot.textContent : null;
+                // const marketCap = marketCapitalization ? marketCapitalization.shadowRoot.textContent : null;
 
                 // Quarter information
-                const revLastQ = revenueLastQuarter ? revenueLastQuarter.shadowRoot.textContent : null;
-                const revGLastQ = revenueGrowthLastQuarter ? revenueGrowthLastQuarter.shadowRoot.textContent : null;
-                const revG1qAgo = revenueGrowth1qAgo ? revenueGrowth1qAgo.shadowRoot.textContent : null;
-                const revG2qAgo = revenueGrowth2qAgo ? revenueGrowth2qAgo.shadowRoot.textContent : null;
-                const grossPLastQ = grossProfitLastQuarter ? grossProfitLastQuarter.shadowRoot.textContent : null;
-                const opIncLastQ = operatingIncomeLastQuarter ? operatingIncomeLastQuarter.shadowRoot.textContent : null;
-                const netIncLastQ = netIncomeLastQuarter ? netIncomeLastQuarter.shadowRoot.textContent : null;
+                // const revLastQ = revenueLastQuarter ? revenueLastQuarter.shadowRoot.textContent : null;
+                // const revGLastQ = revenueGrowthLastQuarter ? revenueGrowthLastQuarter.shadowRoot.textContent : null;
+                // const revG1qAgo = revenueGrowth1qAgo ? revenueGrowth1qAgo.shadowRoot.textContent : null;
+                // const revG2qAgo = revenueGrowth2qAgo ? revenueGrowth2qAgo.shadowRoot.textContent : null;
+                // const grossPLastQ = grossProfitLastQuarter ? grossProfitLastQuarter.shadowRoot.textContent : null;
+                // const opIncLastQ = operatingIncomeLastQuarter ? operatingIncomeLastQuarter.shadowRoot.textContent : null;
+                // const netIncLastQ = netIncomeLastQuarter ? netIncomeLastQuarter.shadowRoot.textContent : null;
 
                 // Annual information
-                const revLastY = revenueLastYear ? revenueLastYear.shadowRoot.textContent : null;
-                const revGLastY = revenueGrowthLastYear ? revenueGrowthLastYear.shadowRoot.textContent : null;
-                const revG1yAgo = revenueGrowth1yAgo ? revenueGrowth1yAgo.shadowRoot.textContent : null;
-                const revG2yAgo = revenueGrowth2yAgo ? revenueGrowth2yAgo.shadowRoot.textContent : null;
-                const grossPLastY = grossProfitLastYear ? grossProfitLastYear.shadowRoot.textContent : null;
-                const opIncLastY = operatingIncomeLastYear ? operatingIncomeLastYear.shadowRoot.textContent : null;
+                // const revLastY = revenueLastYear ? revenueLastYear.shadowRoot.textContent : null;
+                // const revGLastY = revenueGrowthLastYear ? revenueGrowthLastYear.shadowRoot.textContent : null;
+                // const revG1yAgo = revenueGrowth1yAgo ? revenueGrowth1yAgo.shadowRoot.textContent : null;
+                // const revG2yAgo = revenueGrowth2yAgo ? revenueGrowth2yAgo.shadowRoot.textContent : null;
+                // const grossPLastY = grossProfitLastYear ? grossProfitLastYear.shadowRoot.textContent : null;
+                // const opIncLastY = operatingIncomeLastYear ? operatingIncomeLastYear.shadowRoot.textContent : null;
 
-                return {
-                    equitySym,
-                    marketCap,
-                    revLastQ,
-                    revGLastQ,                    
-                    revG1qAgo,                    
-                    revG2qAgo,                    
-                    grossPLastQ,                    
-                    opIncLastQ,                    
-                    netIncLastQ,                    
-                    revLastY,                    
-                    revGLastY,                    
-                    revG1yAgo,                    
-                    revG2yAgo,                    
-                    grossPLastY,                    
-                    opIncLastY 
-                };
-            });
+                // return {
+                //     equitySym,
+                //     marketCap,
+                //     revLastQ,
+                //     revGLastQ,                    
+                //     revG1qAgo,                    
+                //     revG2qAgo,                    
+                //     grossPLastQ,                    
+                //     opIncLastQ,                    
+                //     netIncLastQ,                    
+                //     revLastY,                    
+                //     revGLastY,                    
+                //     revG1yAgo,                    
+                //     revG2yAgo,                    
+                //     grossPLastY,                    
+                //     opIncLastY 
+                // };
+            // });
         }
+
 
         // sector (indices) and industries
-        if(url.includes('indices') || url.includes('industry')){
-            return extract_symbol_and_symbol_name()
-        }
-        else {
-            return extract_equity_symbol_and_financials()
-        }
+        // if(url.includes('indices') || url.includes('industry')){
+        //     return extract_symbol_and_symbol_name()
+        // }
+        // else {
+        //     return extract_equity_symbol_and_financials()
+        // }
+        // ----------------------------------------------------------------------------------------------------
+
+
     }""", {"custom_element": custom_element, "url":url})
 
 async def _login():

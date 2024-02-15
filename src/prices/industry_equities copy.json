@@ -18252,24 +18252,6 @@
 		"industry_symbol": "VASM"
 	},
 	{
-		"equity_symbol": "SPPP.TO",
-		"marketCap": "122,353",
-		"revLastQ": "704",
-		"revGLastQ": "+104.44%",
-		"revG1qAgo": "+14.93%",
-		"revG2qAgo": "-319.60%",
-		"grossPLastQ": "N/A",
-		"opIncLastQ": "N/A",
-		"netIncLastQ": "550",
-		"revLastY": "-4,761",
-		"revGLastY": "+84.57%",
-		"revG1yAgo": "-227.03%",
-		"revG2yAgo": "-37.45%",
-		"grossPLastY": "N/A",
-		"opIncLastY": "N/A",
-		"industry_symbol": "VASM"
-	},
-	{
 		"equity_symbol": "STCK.TO",
 		"marketCap": "78,146",
 		"revLastQ": "353",

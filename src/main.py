@@ -1,6 +1,8 @@
 
+from extract.main import extract
 from load.google_sheets import upload_to_gsheets
 import asyncio
+from transform.main import transform
 from transform.threebp import threebp
 from transform.transform_functions import add_year_interval, get_file_as_df, merge_threebp_with_financials, save_to_html_and_open, tail_by_group, transform_financial_columns, wide_to_long, categorize_interval_and_sort_data
 from extract.data import Data
@@ -409,11 +411,11 @@ async def main():
 		# industries.json that are not within the 'sector_industry_name_mapping' inside of config.py
 		#--------------------------------------------------------------------------------------------------
 		# equities symbol
-		# equities = get_file_as_df('src/prices/industry_equities.json')
-		# equities_list = equities['equity_symbol'].to_list()
+		equities_list = get_file_as_df('src/prices/industry_equities.json')
+		equities_list = equities_list['equitySym'].to_list()
 		# equities_list = ["ERO.TO", "GWO.TO", "MFC.TO", "SHOP.TO", "TLRY.TO", "BIGG.CN", "PRL.TO"]
 		# equities_list = ["BTC-USD", "ETH-USD"]
-		equities_list = ["AEP.V", "BIGG.CN", "BITF.TO", "BITK.V", "CBIT.V", "CF.TO", "CNO."]
+		# equities_list = ["AEP.V", "BIGG.CN", "BITF.TO", "BITK.V", "CBIT.V", "CF.TO", "CNO."]
 
 
 		print(':========STEP 1=========:')
