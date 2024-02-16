@@ -37,7 +37,7 @@ def filter_data(financial_objects: List[Dict]) -> List[Dict]:
     valid_symbols = []
     invalid_symbols = []
 
-    keys_to_check = ['sectorSym', 'industrySym', 'equitySym']
+    keys_to_check = ['sectorSym', 'industrySym', 'symbol']
     for fin_object in financial_objects:
         excluded = False
 
@@ -50,6 +50,8 @@ def filter_data(financial_objects: List[Dict]) -> List[Dict]:
                     modified_value = modified_value.replace('$', '')
                 if modified_value.startswith('-'):
                     modified_value = modified_value.lstrip('-')
+                if modified_value == 'ACRG-A-U.CN':
+                    modified_value = 'ACRG-AU.CN'
 
                 sectors_excluded = modified_value in exclude_sectors
                 industries_excluded = modified_value in exclude_industries
@@ -151,7 +153,6 @@ def categorize_interval_and_sort_data(df_all):
     return df_all
 
 def merge_threebp_with_financials(threebp_df: pd.DataFrame, financials_df: pd.DataFrame) -> pd.DataFrame:
-    financials_df.rename(columns={'equitySym': 'symbol'}, inplace=True)
     merged_df = pd.merge(threebp_df, financials_df, on='symbol', how='outer')
     return merged_df
 
@@ -177,7 +178,7 @@ def transform_financial_columns(financials_df: pd.DataFrame) -> pd.DataFrame:
     
     # Reorder the columns to maintain the original order
     financials_df = financials_df[[
-        'equitySym', 'marketCap', 'revGLastQ', 'revG1qAgo', 'revG2qAgo', 'grossPGLastQ', 'opIncGLastQ', 
+        'symbol', 'marketCap', 'revGLastQ', 'revG1qAgo', 'revG2qAgo', 'grossPGLastQ', 'opIncGLastQ', 
         'netIncGLastQ', 'revGLastY', 'revG1yAgo', 'revG2yAgo', 'grossPGLastY', 'opIncGLastY', 'industrySym'
         ]]
 

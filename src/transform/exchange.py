@@ -1,11 +1,6 @@
 
-from config import timeframes, sector_industry_symbol_mapping
-import pandas as pd
+from config import sector_industry_symbol_mapping
 from extract.data import Data
-from extract.yfin import download_ohlcv
-from utilities import csv_string_to_dataframe, save_dataframe
-import yfinance as yf
-import os
 
 
 class Base:

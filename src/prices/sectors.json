@@ -1,25 +1,19 @@
 [
-	{ "sector_symbol": "TTFS", "sector_name": "TSX Financials Capped Index" },
-	{ "sector_symbol": "TTMT", "sector_name": "TSX Materials Capped Index" },
-	{ "sector_symbol": "TTEN", "sector_name": "TSX Energy Capped Index" },
-	{ "sector_symbol": "TTIN", "sector_name": "TSX Industrials Capped Index" },
+	{ "sectorSym": "TTEN", "sectorName": "TSX Energy Capped Index" },
+	{ "sectorSym": "TTMT", "sectorName": "TSX Materials Capped Index" },
+	{ "sectorSym": "TTFS", "sectorName": "TSX Financials Capped Index" },
+	{ "sectorSym": "TTTK", "sectorName": "TSX Information Tech Capped Index" },
+	{ "sectorSym": "TTIN", "sectorName": "TSX Industrials Capped Index" },
+	{ "sectorSym": "TTCS", "sectorName": "TSX Consumer Staples Capped Index" },
+	{ "sectorSym": "TTRE", "sectorName": "TSX Real Estate Capped Index" },
+	{ "sectorSym": "TTUT", "sectorName": "TSX Utilities Capped Index" },
 	{
-		"sector_symbol": "TTTK",
-		"sector_name": "TSX Information Tech Capped Index"
+		"sectorSym": "TTCD",
+		"sectorName": "TSX Consumer Discretionary Capped Index"
 	},
 	{
-		"sector_symbol": "TTCS",
-		"sector_name": "TSX Consumer Staples Capped Index"
+		"sectorSym": "TTTS",
+		"sectorName": "TSX Communication Services Capped Index"
 	},
-	{ "sector_symbol": "TTRE", "sector_name": "TSX Real Estate Capped Index" },
-	{ "sector_symbol": "TTUT", "sector_name": "TSX Utilities Capped Index" },
-	{
-		"sector_symbol": "TTTS",
-		"sector_name": "TSX Communication Services Capped Index"
-	},
-	{
-		"sector_symbol": "TTCD",
-		"sector_name": "TSX Consumer Discretionary Capped Index"
-	},
-	{ "sector_symbol": "TTHC", "sector_name": "TSX Health Care Capped Index" }
+	{ "sectorSym": "TTHC", "sectorName": "TSX Health Care Capped Index" }
 ]

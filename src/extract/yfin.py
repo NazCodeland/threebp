@@ -1,9 +1,13 @@
-import datetime
+from typing import Any, Dict, List
 import pandas as pd
 import yfinance as yf
 import time
+import concurrent.futures
 
+from utilities import save_dataframe
 
+# API LINK
+# https://query2.finance.yahoo.com/v8/finance/chart/MNS.TO?1509744000&1668748800&interval=1d&range=1mo&includePrePost=False
 
 def download_ohlcv(symbols: list[str], intervals: dict[str, str], market_hours=False) -> pd.DataFrame:
     """
@@ -64,27 +68,46 @@ def download_ohlcv(symbols: list[str], intervals: dict[str, str], market_hours=F
         return df
 
 
+def download_financials_for_symbol(symbol:str):
+    symbol_data = yf.Ticker(symbol)
+    quarterly_financials = symbol_data.financials
 
-def download_financials():
+    quarterly_financials = quarterly_financials.iloc[::-1]    
+    return quarterly_financials
+
+
+def download_financials(symbols: List[str]) -> List[Dict['str', Dict['str', Any]]]:
+    start_time = time.time()
+    all_financials = []
+
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        future_to_symbol = {executor.submit(download_financials_for_symbol, symbol): symbol for symbol in symbols}
+        for future in concurrent.futures.as_completed(future_to_symbol):
+            symbol = future_to_symbol[future]
+            try:
+                # Get the financials data (yahoo finance provides the data in DataFrame format)
+                financials = future.result()
+
+                # Convert the DataFrame to a dictionary and convert the Timestamp objects to strings
+                financials_dict = financials.to_dict()
+                financials_dict = {str(k): v for k, v in financials_dict.items()}
+
+                # Append the dictionary to the list with the symbol as a key
+                all_financials.append({symbol: financials_dict})
+            except Exception as exc:
+                print(f'{symbol} generated an exception: {exc}')
     
-        # Define the ticker symbol for the company you're interested in
-        ticker_symbol = 'LIRC.TO'
+    save_dataframe(all_financials, 'all_financials')
+    
+    end_time = time.time()
+    print(f"Total execution time: {end_time - start_time} seconds")
 
-        # Get the data for this ticker
-        ticker_data = yf.Ticker(ticker_symbol)
-
-        # Get the quarterly financials
-        quarterly_financials = ticker_data.quarterly_financials
-
-        # Reverse the order of the DataFrame
-        quarterly_financials = quarterly_financials.iloc[::-1]
-
-        # Select the rows for 'Total Revenue', 'Gross Profit' and 'Net Income'
-        selected_financials = quarterly_financials.loc[['Total Revenue', 'Gross Profit', 'Net Income']]
+    return all_financials
 
 
-        # Print the quarterly financials
-        print(selected_financials)
 
-# API LINK
-# https://query2.finance.yahoo.com/v8/finance/chart/MNS.TO?1509744000&1668748800&interval=1d&range=1mo&includePrePost=False
+
+
+
+
+

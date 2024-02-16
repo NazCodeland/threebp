@@ -1,3 +1,4 @@
+from typing import List, Dict
 import asyncio
 import json
 import os
@@ -42,7 +43,7 @@ async def _stop_context():
     await browser.close()
     await p.stop()
 
-async def extract_data(page: Page, custom_element: Optional[ElementHandle], url) -> list:
+async def extract_data(page: Page, custom_element: Optional[ElementHandle], url) -> List[Dict[str, str]]:
     return await page.evaluate("""({custom_element, url}) => {
         
         const shadowRoot = custom_element ? custom_element.shadowRoot : console.log("no element", custom_element);
@@ -88,7 +89,7 @@ async def extract_data(page: Page, custom_element: Optional[ElementHandle], url)
                 // const grossProfitLastYear = row.querySelector("div._cell._align_right.grossProfitLastYear text-binding");
                 // const operatingIncomeLastYear = row.querySelector("div._cell._align_right.operatingIncomeLastYear text-binding");
 
-                // const equitySym = symbol_cell ? symbol_cell.shadowRoot.textContent : null;
+                // const symbol = symbol_cell ? symbol_cell.shadowRoot.textContent : null;
                 // const marketCap = marketCapitalization ? marketCapitalization.shadowRoot.textContent : null;
 
                 // Quarter information
@@ -109,7 +110,7 @@ async def extract_data(page: Page, custom_element: Optional[ElementHandle], url)
                 // const opIncLastY = operatingIncomeLastYear ? operatingIncomeLastYear.shadowRoot.textContent : null;
 
                 // return {
-                //     equitySym,
+                //     symbol,
                 //     marketCap,
                 //     revLastQ,
                 //     revGLastQ,                    
@@ -126,7 +127,7 @@ async def extract_data(page: Page, custom_element: Optional[ElementHandle], url)
                 //     opIncLastY 
                 // };
             // });
-        }
+        // }
 
 
         // sector (indices) and industries
