@@ -1,14 +1,20 @@
 
+import json
+import time
+from typing import List
+import pandas as pd
 from extract.main import extract
+from extract.yfin import download_financials, download_financials_for_symbol
 from load.google_sheets import upload_to_gsheets
 import asyncio
 from transform.main import transform
 from transform.threebp import threebp
-from transform.transform_functions import add_year_interval, get_file_as_df, merge_threebp_with_financials, save_to_html_and_open, tail_by_group, transform_financial_columns, wide_to_long, categorize_interval_and_sort_data
+from transform.transform_functions import add_year_interval, merge_price_with_financials,tail_by_group, transform_financials, wide_to_long, categorize_interval_and_sort_data
 from extract.data import Data
 import pandas_market_calendars as mcal
+import pandas_config
 
-from utilities import save_dataframe
+from utilities import get_file_as_df, save_dataframe, save_to_html_and_open
 
 # --------------------------------------------------------------------
 
@@ -60,37 +66,36 @@ async def main():
 		# industries.json that are not within the 'sector_industry_name_mapping' inside of config.py
 		#--------------------------------------------------------------------------------------------------
 		# equities symbol
-		equities_list = get_file_as_df('src/prices/industry_equities.json')
-		equities_list = equities_list['symbol'].to_list()
-		# equities_list = ["ERO.TO", "GWO.TO", "MFC.TO", "SHOP.TO", "TLRY.TO", "BIGG.CN", "PRL.TO"]
-		# equities_list = ["BTC-USD", "ETH-USD"]
-		# equities_list = ["AEP.V", "BIGG.CN", "BITF.TO", "BITK.V", "CBIT.V", "CF.TO", "CNO."]
+		# symbols = get_file_as_df('src\prices\industry_equities.json')
+		# symbols = symbols['symbol'].to_list()
+		# symbols = ["ERO.TO", "GWO.TO", "MFC.TO", "SHOP.TO", "TLRY.TO", "BIGG.CN", "PRL.TO"]
+		# symbols = ["BTC-USD", "ETH-USD"]
+		symbols = ["PRL.TO", "ERO.TO"]
 
 
-		print(':========STEP 1=========:')
-		data = Data.download_ohlcv(equities_list, intervals_initial, market_hours=False)
-		save_dataframe(data, "symbol_ohlcv", 'json')
+		print('-------------: DOWNLOADING DATA')
+		# price_data = Data.download_price(symbols, intervals_initial, market_hours=False)
+		financial_data = download_financials(symbols, period="quarterly")
+		# save_to_html_and_open(financial_data)
+		# save_dataframe(price_data, "price_data", 'json')
+		# save_dataframe(financial_data, "financials_data", 'json')
 
-		print(':========STEP 2=========:')
-		data = wide_to_long(data)
-		data = add_year_interval(data)
-		data = tail_by_group(data)
-		data = categorize_interval_and_sort_data(data)
-		
-		print(':========STEP 3=========:')            
-		threebp_df = threebp(data)
-		# financials_df = get_file_as_df('src/prices/industry_equities.json')
-		# financials_df = transform_financial_columns(financials_df)
-		# threebp_and_financials = merge_threebp_with_financials(threebp_df, financials_df)
-		save_to_html_and_open(threebp_df)
-		upload_to_gsheets(threebp_df)
+
+		# print('-------------: TRANSFORMING DATA')
+		# price_data = wide_to_long(price_data)
+		# price_data = add_year_interval(price_data)
+		# price_data = tail_by_group(price_data)
+		# price_data = categorize_interval_and_sort_data(price_data)
+		# price_data = threebp(price_data)
+  
+		financial_data = transform_financials(financial_data)
+		# threebp_and_financials = merge_price_with_financials(price_data, financial_data)
+
+		# print('-------------: LOADING DATA')
+		# save_to_html_and_open(threebp_and_financials)
+		# upload_to_gsheets(threebp_and_financials)
+                
 		# call_apps_script()
-
-
-
-
-
-
 
 
 # ------------------------------------------------------------
@@ -139,7 +144,7 @@ async def main():
 
 		# 		# Mon-Fri 9:31AM - 4:01PM
 		# 		if now.weekday() < 5 and ((now.hour == 9 and now.minute >= 31) or (10 <= now.hour < 16) or (now.hour == 16 and now.minute <= 1)):
-		# 				dataframes = Data.download_ohlcv(equities_list, intervals_daily, market_hours=True)
+		# 				dataframes = Data.download_ohlcv(symbols, intervals_daily, market_hours=True)
 		# 				save_to_html_and_open(dataframes)
 
 
@@ -162,12 +167,12 @@ async def main():
 
 		# 		# Mon-Fri 9:31AM - 4:01PM
 		# 		if now.weekday() < 5 and ((now.hour == 9 and now.minute >= 31) or (10 <= now.hour < 16) or (now.hour == 16 and now.minute <= 1)):
-		# 				dataframes = Data.download_ohlcv(equities_list, intervals_daily, market_hours=True)
+		# 				dataframes = Data.download_ohlcv(symbols, intervals_daily, market_hours=True)
 		# 				save_to_html_and_open(dataframes)
 
 # ------------------------------------------------------------
 		# market closed
-		# dataframes = Data.download_ohlcv(equities_list, intervals_initial, market_hours=False)
+		# dataframes = Data.download_ohlcv(symbols, intervals_initial, market_hours=False)
 		# save_to_html_and_open(dataframes)
 		# sunday_data = process_data(dataframes)
 		# threebp_main(sunday_data)
@@ -181,7 +186,7 @@ async def main():
 # ------------------------------------------------------------
 
 		# # 1 min data from Monday-Friday
-		# weekday_data = Data.download_ohlcv(equities_list, intervals_daily)
+		# weekday_data = Data.download_ohlcv(symbols, intervals_daily)
 		# weekday_data = process_data(weekday_data)
 		# # save_to_html_and_open(weekday_data)
 		# # weekday_data = remove_first_row_each_symbol(weekday_data)

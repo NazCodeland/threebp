@@ -2,9 +2,6 @@
 import pandas as pd
 import numpy as np
 
-from transform.transform_functions import save_to_html_and_open
-
-
 def check_for_buy_conditions(df):
     # -------------------------------------------------------
     # TODO: move this somewhere else

@@ -1,4 +1,4 @@
-from load.charts import plot_chart
+from load.tradingview_charts import plot_chart
 
 # load/main.py
 async def load(transformed_data, exchange):

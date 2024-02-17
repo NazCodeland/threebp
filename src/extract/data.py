@@ -1,6 +1,6 @@
 from typing import List, Dict
 import pandas as pd
-from extract.yfin import download_ohlcv
+from extract.yfin import download_price
 from extract.barchart import _load_cookies, _login, _save_cookies, _start_context, _stop_context, extract_sectors, extract_industries, extract_industry_equities
 from load.database import download_from_db, upload_to_db
 
@@ -48,8 +48,8 @@ class Data:
 
     # yahoo finance
     @staticmethod
-    def download_ohlcv(symbols: List[str], intervals: Dict[str, str], market_hours: bool = False) -> pd.DataFrame:
-        return download_ohlcv(symbols, intervals, market_hours)
+    def download_price(symbols: List[str], intervals: Dict[str, str], market_hours: bool = False) -> pd.DataFrame:
+        return download_price(symbols, intervals, market_hours)
 
     # neon.tech postgressql database
     @staticmethod

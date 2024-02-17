@@ -1,15 +1,18 @@
+import math
 from typing import Any, Dict, List
-import pandas as pd
-import yfinance as yf
 import time
 import concurrent.futures
+from utilities import save_dataframe, save_to_html_and_open
+import pandas as pd
 
-from utilities import save_dataframe
+import requests
+import yfinance as yf
+from yfinance.data import YfData
+from yfinance.scrapers.fundamentals import Fundamentals
 
-# API LINK
+# PRICE-DATA API LINK
 # https://query2.finance.yahoo.com/v8/finance/chart/MNS.TO?1509744000&1668748800&interval=1d&range=1mo&includePrePost=False
-
-def download_ohlcv(symbols: list[str], intervals: dict[str, str], market_hours=False) -> pd.DataFrame:
+def download_price(symbols: list[str], intervals: dict[str, str], market_hours=False) -> pd.DataFrame:
     """
     Downloads OHLCV data for the given symbols and intervals.
 
@@ -68,41 +71,152 @@ def download_ohlcv(symbols: list[str], intervals: dict[str, str], market_hours=F
         return df
 
 
-def download_financials_for_symbol(symbol:str):
-    symbol_data = yf.Ticker(symbol)
-    quarterly_financials = symbol_data.financials
+# FUNDAMENTALS API LINK:
+# https://query2.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/ERO.TO?symbol=ERO.TO&type=quarterlyTotalRevenue,quarterlyCostOfRevenue,quarterlyGrossProfit&period1=1451520000&period2=1705564800
+# C:\Users\o0\source\projects\mine\python\threebp\env\Lib\site-packages\yfinance\const.py
 
-    quarterly_financials = quarterly_financials.iloc[::-1]    
-    return quarterly_financials
+# def download_financials_for_symbol(symbol:str):
+#     symbol_data = yf.Ticker(symbol)
+#     quarterly_financials = symbol_data.quarterly_income_stmt
+#     quarterly_financials = quarterly_financials.iloc[::-1]
+#     print(quarterly_financials)
+#     return quarterly_financials
+    
+
+keys = ["TotalRevenue", "CostOfRevenue", "GrossProfit", 
+        "PretaxIncome", "NetIncome", "CreditLossesProvision"]
+keys = [
+	"TaxEffectOfUnusualItems",
+	"TaxRateForCalcs",
+	"NormalizedEBITDA",
+	"NormalizedDilutedEPS",
+	"NormalizedBasicEPS",
+	"TotalUnusualItems",
+	"TotalUnusualItemsExcludingGoodwill",
+	"NetIncomeFromContinuingOperationNetMinorityInterest",
+	"ReconciledDepreciation",
+	"ReconciledCostOfRevenue",
+	"EBITDA",
+	"EBIT",
+	"NetInterestIncome",
+	"InterestExpense",
+	"InterestIncome",
+	"ContinuingAndDiscontinuedDilutedEPS",
+	"ContinuingAndDiscontinuedBasicEPS",
+	"NormalizedIncome",
+	"NetIncomeFromContinuingAndDiscontinuedOperation",
+	"TotalExpenses",
+	"RentExpenseSupplemental",
+	"ReportedNormalizedDilutedEPS",
+	"ReportedNormalizedBasicEPS",
+	"TotalOperatingIncomeAsReported",
+	"DividendPerShare",
+	"DilutedAverageShares",
+	"BasicAverageShares",
+	"DilutedEPS",
+	"DilutedEPSOtherGainsLosses",
+	"TaxLossCarryforwardDilutedEPS",
+	"DilutedAccountingChange",
+	"DilutedExtraordinary",
+	"DilutedDiscontinuousOperations",
+	"DilutedContinuousOperations",
+	"BasicEPS",
+	"BasicEPSOtherGainsLosses",
+	"TaxLossCarryforwardBasicEPS",
+	"BasicAccountingChange",
+	"BasicExtraordinary",
+	"BasicDiscontinuousOperations",
+	"BasicContinuousOperations",
+	"DilutedNIAvailtoComStockholders",
+	"AverageDilutionEarnings",
+	"NetIncomeCommonStockholders",
+	"OtherunderPreferredStockDividend",
+	"PreferredStockDividends",
+	"NetIncome",
+	"MinorityInterests",
+	"NetIncomeIncludingNoncontrollingInterests",
+	"NetIncomeFromTaxLossCarryforward",
+	"NetIncomeExtraordinary",
+	"NetIncomeDiscontinuousOperations",
+	"NetIncomeContinuousOperations",
+	"EarningsFromEquityInterestNetOfTax",
+	"TaxProvision",
+	"PretaxIncome",
+	"OtherIncomeExpense",
+	"OtherNonOperatingIncomeExpenses",
+	"SpecialIncomeCharges",
+	"GainOnSaleOfPPE",
+	"GainOnSaleOfBusiness",
+	"OtherSpecialCharges",
+	"WriteOff",
+	"ImpairmentOfCapitalAssets",
+	"RestructuringAndMergernAcquisition",
+	"SecuritiesAmortization",
+	"EarningsFromEquityInterest",
+	"GainOnSaleOfSecurity",
+	"NetNonOperatingInterestIncomeExpense",
+	"TotalOtherFinanceCost",
+	"InterestExpenseNonOperating",
+	"InterestIncomeNonOperating",
+	"OperatingIncome",
+	"OperatingExpense",
+	"OtherOperatingExpenses",
+	"OtherTaxes",
+	"ProvisionForDoubtfulAccounts",
+	"DepreciationAmortizationDepletionIncomeStatement",
+	"DepletionIncomeStatement",
+	"DepreciationAndAmortizationInIncomeStatement",
+	"Amortization",
+	"AmortizationOfIntangiblesIncomeStatement",
+	"DepreciationIncomeStatement",
+	"ResearchAndDevelopment",
+	"SellingGeneralAndAdministration",
+	"SellingAndMarketingExpense",
+	"GeneralAndAdministrativeExpense",
+	"OtherGandA",
+	"InsuranceAndClaims",
+	"RentAndLandingFees",
+	"SalariesAndWages",
+	"GrossProfit",
+	"CostOfRevenue",
+	"TotalRevenue",
+	"ExciseTaxes",
+	"OperatingRevenue"
+]
+
+def download_financials_for_symbol(symbol:str, period:str):
+    session = requests.Session()
+    
+    fundamentals = Fundamentals(YfData(session), symbol)
+    financials = fundamentals.financials  # Get the Financials object
+    # Fetch the financials time series data for the specified keys
+    financials_data = financials.get_financials_time_series(period, keys)
+    print(financials_data)
+
+    financials_data.index.name = 'line item'
+    financials_data.reset_index(inplace=True)
+    financials_data.insert(0, 'symbol', symbol)
+
+    return financials_data
 
 
-def download_financials(symbols: List[str]) -> List[Dict['str', Dict['str', Any]]]:
-    start_time = time.time()
+def download_financials(symbols: List[str], period:str) -> List[Dict['str', Dict['str', Any]]]:
     all_financials = []
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        future_to_symbol = {executor.submit(download_financials_for_symbol, symbol): symbol for symbol in symbols}
+        future_to_symbol = {executor.submit(download_financials_for_symbol, symbol, period): symbol for symbol in symbols}
+        
         for future in concurrent.futures.as_completed(future_to_symbol):
-            symbol = future_to_symbol[future]
+            symbol = future_to_symbol[future]    
             try:
-                # Get the financials data (yahoo finance provides the data in DataFrame format)
                 financials = future.result()
+                all_financials.append(financials )
 
-                # Convert the DataFrame to a dictionary and convert the Timestamp objects to strings
-                financials_dict = financials.to_dict()
-                financials_dict = {str(k): v for k, v in financials_dict.items()}
-
-                # Append the dictionary to the list with the symbol as a key
-                all_financials.append({symbol: financials_dict})
             except Exception as exc:
                 print(f'{symbol} generated an exception: {exc}')
     
-    save_dataframe(all_financials, 'all_financials')
-    
-    end_time = time.time()
-    print(f"Total execution time: {end_time - start_time} seconds")
-
-    return all_financials
+    all_financials_df = pd.concat(all_financials)
+    return all_financials_df
 
 
 

@@ -10,9 +10,9 @@ def identify_new_entries(filtered_sectors, filtered_industries, filtered_industr
 
     # Load the previous data
     try:
-        old_sectors = pd.read_json('src/prices/old_sectors.json')
-        old_industries = pd.read_json('src/prices/old_industries.json')
-        old_industry_equities = pd.read_json('src/prices/old_industry_equities.json')
+        old_sectors = pd.read_json('src\prices\old_sectors.json')
+        old_industries = pd.read_json('src\prices\old_industries.json')
+        old_industry_equities = pd.read_json('src\prices\old_industry_equities.json')
 
     except FileNotFoundError:
         print("Previous data not found.")
@@ -27,8 +27,8 @@ def identify_new_entries(filtered_sectors, filtered_industries, filtered_industr
     return new_symbols
 
 def replace_file_if_exists(filename):
-    source = 'src/prices/' + filename + '.json'
-    destination = 'src/prices/old_' + filename + '.json'
+    source = 'src\prices\\' + filename + '.json'
+    destination = 'src\prices\old_' + filename + '.json'
     
     if os.path.exists(source):
         os.replace(source, destination)

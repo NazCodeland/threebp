@@ -5,7 +5,7 @@ import pandas as pd
 
 def upload_to_gsheets(df):
     # Use your own credentials.json
-    creds = Credentials.from_service_account_file('src/load/client_secret.json')
+    creds = Credentials.from_service_account_file('src\load\google_client_secret.json')
     service = build('sheets', 'v4', credentials=creds)
 
     # Create a new Google Spreadsheet
@@ -50,7 +50,7 @@ def upload_to_gsheets(df):
 
 
 def call_apps_script():
-    creds = Credentials.from_service_account_file('src/load/google_app_sheet.json')
+    creds = Credentials.from_service_account_file('src\load\google_apps_script.json')
     service = build('script', 'v1', credentials=creds)
 
     request = {

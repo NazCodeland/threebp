@@ -76,7 +76,7 @@ class Exchange(Base):
 
     def download_all_ohlcv(self):
         all_symbols = [equity.symbol for sector in self.sectors for industry in sector.industries for equity in industry.equities]
-        all_data = Data.download_ohlcv(all_symbols)
+        all_data = Data.download_price(all_symbols)
         for sector in self.sectors:
             for industry in sector.industries:
                 for equity in industry.equities:
@@ -123,4 +123,4 @@ class Equity(Base):
         self.dfs = df
 
     def download_ohlcv(self):
-        self.dfs = Data.download_ohlcv(self.symbol)
+        self.dfs = Data.download_price(self.symbol)

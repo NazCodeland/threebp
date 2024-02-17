@@ -1,13 +1,9 @@
 
 import io
-import json
-import numpy as np
 import pandas as pd
-from typing import List, Dict
-import webbrowser
-import os
-import datetime
+from typing import List, Dict, Tuple
 
+from utilities import save_to_html_and_open
 
 def sanitize_data(data):
     # Read the string 'data' as a CSV file into a pandas DataFrame
@@ -70,28 +66,6 @@ def filter_data(financial_objects: List[Dict]) -> List[Dict]:
 
     return valid_symbols
 
-def save_to_html_and_open(df):
-    # Get the current date and time
-    now = datetime.datetime.now()
-    
-    # Format it as a string with milliseconds and microseconds
-    timestamp = now.strftime("%Y%m%d%H%M%S%f")
-    
-    # Use the timestamp to create a unique filename
-    filename = f"data_{timestamp}.html"
-
-    with open(filename, "w") as f:
-        f.write(df.to_html(escape=False))
-    
-    webbrowser.open('file://' + os.path.realpath(filename))
-
-
-def get_file_as_df(file_src) -> pd.DataFrame:
-    with open(file_src, 'r') as f:
-        f = json.load(f)
-        f = pd.DataFrame(f)
-        return f
-
 def wide_to_long(df):
     # this function collapses a MultiIndex from 'wide' format to 'long' format
 
@@ -131,7 +105,6 @@ def tail_by_group(df):
     df = df.groupby(['symbol', 'interval']).apply(lambda x: x.tail(5)).reset_index(drop=True)
     return df
 
-
 def categorize_interval_and_sort_data(df_all):
 
     # This line is converting the 'interval' column to a categorical data type with the specified categories and order.
@@ -152,35 +125,80 @@ def categorize_interval_and_sort_data(df_all):
 
     return df_all
 
-def merge_threebp_with_financials(threebp_df: pd.DataFrame, financials_df: pd.DataFrame) -> pd.DataFrame:
+def merge_price_with_financials(threebp_df: pd.DataFrame, financials_df: pd.DataFrame) -> pd.DataFrame:
     merged_df = pd.merge(threebp_df, financials_df, on='symbol', how='outer')
     return merged_df
 
+def transform_financials(financial_data: pd.DataFrame) -> pd.DataFrame:    
+    def vertical_analysis(financial_data: pd.DataFrame) -> pd.DataFrame:
+        # Reshape the DataFrame to multi-index format
+        financial_data_multi = financial_data.set_index(['symbol', 'line item']).stack()
 
-def transform_financial_columns(financials_df: pd.DataFrame) -> pd.DataFrame:
-    save_to_html_and_open(financials_df)
+        # Convert the financial values to numeric format
+        financial_data_multi = financial_data_multi.apply(pd.to_numeric, errors='coerce')
 
-    # Clean up and convert the following columns to numeric type
-    columns = ['revLastQ', 'grossPLastQ', 'opIncLastQ', 'netIncLastQ', 'revLastY', 'grossPLastY', 'opIncLastY']
-    financials_df = financials_df.replace('0', '')
-    financials_df[columns] = financials_df[columns].replace(',', '', regex=True).apply(pd.to_numeric, errors='coerce')
+        # Calculate the ratios of all line items against the 'TotalRevenue' for each symbol
+        financial_data_ratio = financial_data_multi.div(financial_data_multi.xs('TotalRevenue', level='line item'))
+        print(financial_data_ratio.unstack())
+        return financial_data_ratio.unstack()
+    
+    vertical_analysis(financial_data)
 
-    # Calculate new values for the following columns' and overwrite the original columns
-    # Quarterly
-    financials_df['grossPGLastQ'] = round(financials_df['grossPLastQ'] / financials_df['revLastQ'], 2)
-    financials_df['opIncGLastQ'] = round(financials_df['opIncLastQ'] / financials_df['revLastQ'], 2)
-    financials_df['netIncGLastQ'] = round(financials_df['netIncLastQ'] / financials_df['revLastQ'], 2)
 
-    # Annually
-    financials_df['grossPGLastY'] = round(financials_df['grossPLastY'] / financials_df['revLastY'], 2)
-    financials_df['opIncGLastY'] = round(financials_df['opIncLastY'] / financials_df['revLastY'], 2)
+
+    # # Clean up and convert the following columns to numeric type
+    # columns = ['revLastQ', 'grossPLastQ', 'opIncLastQ', 'netIncLastQ', 'revLastY', 'grossPLastY', 'opIncLastY']
+    # financials_df = financials_df.replace('0', '')
+    # # financials_df[columns] = financials_df[columns].replace(',', '', regex=True).apply(pd.to_numeric, errors='coerce')
+
+    # # Calculate new values for the following columns' and overwrite the original columns
+    # # Quarterly
+    # financials_df['grossPGLastQ'] = round(financials_df['grossPLastQ'] / financials_df['revLastQ'], 2)
+    # financials_df['opIncGLastQ'] = round(financials_df['opIncLastQ'] / financials_df['revLastQ'], 2)
+    # financials_df['netIncGLastQ'] = round(financials_df['netIncLastQ'] / financials_df['revLastQ'], 2)
+
+    # # Annually
+    # financials_df['grossPGLastY'] = round(financials_df['grossPLastY'] / financials_df['revLastY'], 2)
+    # financials_df['opIncGLastY'] = round(financials_df['opIncLastY'] / financials_df['revLastY'], 2)
 
     
-    # Reorder the columns to maintain the original order
-    financials_df = financials_df[[
-        'symbol', 'marketCap', 'revGLastQ', 'revG1qAgo', 'revG2qAgo', 'grossPGLastQ', 'opIncGLastQ', 
-        'netIncGLastQ', 'revGLastY', 'revG1yAgo', 'revG2yAgo', 'grossPGLastY', 'opIncGLastY', 'industrySym'
-        ]]
+    # # Reorder the columns to maintain the original order
+    # financials_df = financials_df[[
+    #     'symbol', 'marketCap', 'revGLastQ', 'revG1qAgo', 'revG2qAgo', 'grossPGLastQ', 'opIncGLastQ', 
+    #     'netIncGLastQ', 'revGLastY', 'revG1yAgo', 'revG2yAgo', 'grossPGLastY', 'opIncGLastY', 'industrySym'
+    #     ]]
 
-    return financials_df.fillna('')
+    # return financial_df
+
+
+
+
+# def transform_financials(financials_data):
+#     data_list = []
+
+#     for financials in financials_data:
+#         for symbol, records in financials.items():
+#             for date, record in records.items():
+#                 # Flatten the data and append it to the list
+#                 for item, value in record.items():
+#                         data_list.append([symbol, date, item, value])
+
+#         # Convert the list into a DataFrame
+#         df = pd.DataFrame(data_list, columns=['symbol', 'date', 'line item', 'value'])
+
+#         # Convert the 'Date' and 'Line Item' columns to a Categorical data type with the original order
+#         df['date'] = pd.Categorical(df['date'], categories=df['date'].unique(), ordered=True)
+#         df['line item'] = pd.Categorical(df['line item'], categories=df['line item'].unique(), ordered=True)
+
+#         # Pivot the DataFrame
+#         pivot_df = df.pivot(index=['symbol', 'line item'], columns='date', values='value')
+
+#         # Reset the index
+#         pivot_df.reset_index(inplace=True)
+
+#         # Save to HTML and open
+#         save_to_html_and_open(pivot_df)
+#         return pivot_df
+    
+
 
